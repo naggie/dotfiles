@@ -73,14 +73,6 @@ alias l='ls'
 alias s='ls'
 
 
-# lol
-alias coffee='yes "coffee"'
-
-# Piping 'yes' in is bad, no accidentally removing packages due to typos
-# It is not difficult to press 'y' yourself
-# 
-# Please don't change my things without telling me.
-# It is not possible to accidently remove things. Notice 'install' 
 alias sagi='yes | sudo apt-get install'
 
 
@@ -108,5 +100,9 @@ extract () {
 
 function cd()
 {
-	builtin cd "$*" && ls
+	if [ -z $*]; then
+		builtin cd ~ && ls
+	else
+		builtin cd "$*" && ls
+	fi
 }
