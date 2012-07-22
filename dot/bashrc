@@ -107,5 +107,5 @@ function cd()
 	fi
 }
 
-EDITOR=vim
-PATH=$PATH:~/bin/
+export EDITOR=vim
+export PATH=$PATH:~/bin/

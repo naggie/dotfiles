@@ -7,6 +7,6 @@ done
 mkdir ~/bin/
 
 # put in shellrc conf
-PATH=$PATH:~/bin/
+export PATH=$PATH:~/bin/
 
 ln bin/*  ~/bin/
