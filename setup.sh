@@ -17,5 +17,7 @@ ls bin/ | while read; do
 	ln "bin/$REPLY" ~/bin/
 done
 
-# make bashrc actually load (does not sometimes in certain corporative networks...)
+chmod +x ~/bin/*
+
+# make bashrc actually load (does not sometimes in certain corporate networks...)
 ln -s .bashrc .bash_login 2> /dev/null
