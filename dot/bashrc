@@ -124,5 +124,7 @@ stty erase ^H
 
 TERM=xterm-256color
 
-# auto tmux
+keychain --quiet  .ssh/did_rsa 2>/dev/null
+
+# auto tmux?
 #test -z $TMUX && (tmux a || tmux)
