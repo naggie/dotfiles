@@ -67,7 +67,8 @@ if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found ]; then
 fi
 
 alias more='less'
-#alias ls='ls --color=auto'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
 alias ll='ls -al'
 alias cd..='cd ..'
 alias ..='cd ..'
