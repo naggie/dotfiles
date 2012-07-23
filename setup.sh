@@ -18,4 +18,4 @@ ls bin/ | while read; do
 done
 
 # make bashrc actually load (does not sometimes in certain corporative networks...)
-ln -s .bashrc .bash_login
+ln -s .bashrc .bash_login 2> /dev/null
