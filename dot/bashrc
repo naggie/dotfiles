@@ -116,3 +116,5 @@ export PATH=$PATH:~/bin/
 # fix backspace on some terminals
 #stty erase ^?
 stty erase ^H
+
+TERM=xterm-256color
