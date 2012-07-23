@@ -1,6 +1,6 @@
 #! /bin/bash
 
-yes | apt-get update
+sudo apt-get update
 
-yes | sudo apt-get install vim git tmux build-essential
+sudo apt-get install vim git tmux build-essential keychain
 

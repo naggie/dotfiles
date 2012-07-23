@@ -15,8 +15,11 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+# Useful title.
+printf "\033]0;$HOSTNAME\007" "$@"
+#printf "\033]0;Aperture Laboratories Inc.\007" "$@"
+
 # MOAR PROMPT
-printf "\033]0;Aperture Laboratories Inc.\007" "$@"
 PS1='\[\e[0;32m\][\u@\h\[\e[m\] \[\e[1;34m\]\w\[\e[m\]\[\e[0;32m\]]\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;37m\]'
 
 # Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
@@ -64,13 +67,19 @@ if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found ]; then
 fi
 
 alias more='less'
-#alias ls='ls --color=auto'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
 alias ll='ls -al'
 alias cd..='cd ..'
 alias ..='cd ..'
 alias sl='ls'
 alias l='ls'
 alias s='ls'
+
+alias gpu='git push'
+alias gpl='git pull'
+alias gs='git status'
+alias ga='git commit -a'
 
 
 alias sagi='yes | sudo apt-get install'
@@ -109,3 +118,17 @@ function cd()
 
 export EDITOR=vim
 export PATH=$PATH:~/bin/
+
+# fix backspace on some terminals
+stty erase ^?
+#stty erase ^H
+
+TERM=xterm-256color
+
+keychain --quiet  .ssh/did_rsa 2>/dev/null
+
+# auto tmux if installed?
+test -z $TMUX && (tmux a || tmux) 2>/dev/null
+
+# git stuff
+git config --global color.ui true 2> /dev/null
