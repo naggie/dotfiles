@@ -24,3 +24,4 @@ ln -s .bashrc .bash_login 2> /dev/null
 
 
 echo "Done. Keychain (automatic ssh-agent) runs via bashrc. Be sure to set up a private key!"
+keychain 2>/dev/null || echo "Please install keychain (new-init.js)"
