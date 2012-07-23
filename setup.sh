@@ -3,7 +3,7 @@
 source dot/bashrc 2>/dev/null >/dev/null
 
 ls dot/ | while read; do
-    rm ~/."$REPLY" 2>dev/null
+    rm ~/."$REPLY" 2>/dev/null
 	ln "dot/$REPLY" ~/."$REPLY"
 done
 
