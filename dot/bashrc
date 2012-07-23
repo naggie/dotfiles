@@ -109,3 +109,6 @@ function cd()
 
 export EDITOR=vim
 export PATH=$PATH:~/bin/
+
+# fix backspace on some terminals
+stty erase ^?

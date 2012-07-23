@@ -1,7 +1,10 @@
 #! /bin/echo source this script
 
+source dot/bashrc 2>/dev/null >/dev/null
+
 ls dot/ | while read; do
-	ln "~/.$REPLY" "dot/$REPLY"
+    rm ~/."$REPLY"
+	ln "dot/$REPLY" ~/."$REPLY"
 done
 
 mkdir ~/bin/
@@ -10,5 +13,6 @@ mkdir ~/bin/
 export PATH=$PATH:~/bin/
 
 ls bin/ | while read; do
-	ln "~/bin/$REPLY" "bin/$REPLY"
+    rm ~/bin/"$REPLY" 2> /dev/null
+	ln "bin/$REPLY" ~/bin/
 done
