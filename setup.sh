@@ -7,7 +7,7 @@ ls dot/ | while read; do
 	ln "dot/$REPLY" ~/."$REPLY"
 done
 
-mkdir ~/bin/
+mkdir ~/bin/ 2>/dev/null
 
 # put in shellrc conf
 export PATH=$PATH:~/bin/
