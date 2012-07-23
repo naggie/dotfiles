@@ -15,8 +15,11 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+# Useful title.
+printf "\033]0;$HOSTNAME\007" "$@"
+#printf "\033]0;Aperture Laboratories Inc.\007" "$@"
+
 # MOAR PROMPT
-printf "\033]0;Aperture Laboratories Inc.\007" "$@"
 PS1='\[\e[0;32m\][\u@\h\[\e[m\] \[\e[1;34m\]\w\[\e[m\]\[\e[0;32m\]]\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;37m\]'
 
 # Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
@@ -111,4 +114,5 @@ export EDITOR=vim
 export PATH=$PATH:~/bin/
 
 # fix backspace on some terminals
-stty erase ^?
+#stty erase ^?
+stty erase ^H
