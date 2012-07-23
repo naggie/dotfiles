@@ -119,12 +119,12 @@ export EDITOR=vim
 export PATH=$PATH:~/bin/
 
 # fix backspace on some terminals
-#stty erase ^?
-stty erase ^H
+stty erase ^?
+#stty erase ^H
 
 TERM=xterm-256color
 
 keychain --quiet  .ssh/did_rsa 2>/dev/null
 
-# auto tmux?
-#test -z $TMUX && (tmux a || tmux)
+# auto tmux if installed?
+test -z $TMUX && (tmux a || tmux) 2>/dev/null
