@@ -128,7 +128,7 @@ TERM=xterm-256color
 keychain --quiet  .ssh/did_rsa 2>/dev/null
 
 # auto tmux if installed?
-test -z $TMUX && (tmux a || tmux) 2>/dev/null
+#test -z $TMUX && (tmux a || tmux)
 
 # git stuff
 git config --global color.ui true 2> /dev/null
