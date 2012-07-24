@@ -3,3 +3,8 @@ syntax on
 set number
 set ic
 set autoindent
+
+
+filetype on
+au BufNewFile,BufRead *.less set filetype=css
+au BufNewFile,BufRead *.json se:
