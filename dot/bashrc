@@ -67,7 +67,6 @@ if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found ]; then
 fi
 
 alias more='less'
-alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias ll='ls -al'
 alias cd..='cd ..'
@@ -80,6 +79,13 @@ alias gpu='git push'
 alias gpl='git pull'
 alias gs='git status'
 alias ga='git commit -a'
+
+PLATFORM=`uname`
+if [[ $PLATFORM == 'Linux' ]]; then
+	alias ls='ls --color=auto'
+elif [[ $PLATFORM == 'Darwin' ]]; then
+	alias ls='ls -G'
+fi
 
 
 alias sagi='yes | sudo apt-get install'
