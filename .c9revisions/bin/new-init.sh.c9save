@@ -1,0 +1,5 @@
+{"ts":1343032237317,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"#! /bin/bash\n\nyes | apt-get update\n\nyes | sudo apt-get install vim git tmux build-essential\n\n"]],"start1":0,"start2":0,"length1":0,"length2":93}]],"length":93}
+{"contributors":[],"silentsave":true,"ts":1343043253527,"patch":[[{"diffs":[[0,"n/bash\n\n"],[-1,"yes |"],[1,"sudo"],[0," apt-get"]],"start1":6,"start2":6,"length1":21,"length2":20}]],"length":92,"saved":false}
+{"ts":1343043255166,"patch":[[{"diffs":[[0,"te\n\n"],[-1,"yes | "],[0,"sudo"]],"start1":31,"start2":31,"length1":14,"length2":8}]],"length":86,"saved":false}
+{"ts":1343043259056,"patch":[[{"diffs":[[0,"ssential"],[1," "],[0,"\n\n"]],"start1":76,"start2":76,"length1":10,"length2":11}]],"length":87,"saved":false}
+{"ts":1343043262188,"patch":[[{"diffs":[[0,"sential "],[1,"keychain"],[0,"\n\n"]],"start1":77,"start2":77,"length1":10,"length2":18}]],"length":95,"saved":false}

@@ -132,3 +132,4 @@ which tmux >/dev/null && test -z $TMUX && (tmux a || tmux)
 
 # git stuff
 git config --global color.ui true 2> /dev/null
+git config --global core.excludesfile ~/.gitignore_global 2>/dev/null
