@@ -38,5 +38,5 @@ ehthumbs.db
 Thumbs.db
 
 # Temporary or backuup files
-
+*.autosave
 .*.swp
