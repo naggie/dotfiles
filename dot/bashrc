@@ -133,7 +133,7 @@ stty erase ^?
 #stty erase ^H
 
 # colour schemes must work, and tmux should not complain when it thinks the term is rubbish
-alias tmux="TERM=screen-256color-bce tmux"
+TERM=screen-256color-bce
 
 keychain --quiet  .ssh/did_rsa 2>/dev/null
 
