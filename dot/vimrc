@@ -14,4 +14,4 @@ set noswapfile
 " Nice command. Probably better as a keybinding
 " :autocmd BufWritePost * !forever restartall
 " map <silent> <f5> :!forever restartall <cr>
-map <silent> <f5> :autocmd BufWritePost * !forever restartall
+map <f5> :autocmd BufWritePost * !forever restartall
