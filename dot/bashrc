@@ -132,7 +132,6 @@ export PATH=$PATH:~/bin/
 stty erase ^?
 #stty erase ^H
 
-# Broken?
 # colour schemes must work, and tmux should not complain when it thinks the term is rubbish
 alias tmux='TERM=screen-256color-bce tmux'
 

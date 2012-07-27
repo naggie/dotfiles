@@ -1,10 +1,15 @@
 set backspace=indent,eol,start
 syntax on
 set number
-set smartcase 
+set smartcase
 set autoindent
 
 
 filetype on
 au BufNewFile,BufRead *.less set filetype=css
 au BufNewFile,BufRead *.json set filetype=js
+
+set noswapfile
+
+" Nice command. Probably better as a keybinding
+" :autocmd BufWritePost * !forever restartall
