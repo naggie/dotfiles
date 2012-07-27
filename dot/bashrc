@@ -132,8 +132,11 @@ export PATH=$PATH:~/bin/
 stty erase ^?
 #stty erase ^H
 
+# Broken?
 # colour schemes must work, and tmux should not complain when it thinks the term is rubbish
-TERM=screen-256color-bce
+#alias tmux='TERM=screen-256color-bce tmux'
+
+TERM=xterm-256color
 
 keychain --quiet  .ssh/did_rsa 2>/dev/null
 
