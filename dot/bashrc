@@ -80,6 +80,9 @@ alias gpl='git pull'
 alias gs='git status'
 alias ga='git commit -a'
 
+# nice coloured man pages if most is installed
+which most >/dev/null && alias man='man -P /usr/bin/most'
+
 PLATFORM=`uname`
 if [[ $PLATFORM == 'Linux' ]]; then
 	alias ls='ls --color=auto'
@@ -133,10 +136,11 @@ TERM=xterm-256color
 
 keychain --quiet  .ssh/did_rsa 2>/dev/null
 
-# git stuff
+# git stuffuuu
 git config --global color.ui true 2> /dev/null
 git config --global core.excludesfile ~/.gitignore_global 2>/dev/null
 source ~/.git-completion.bash
 
 # auto tmux if installed? (I think this must be last)
-which tmux >/dev/null && test -z $TMUX && (tmux a || tmux)
+clound 9 hotkeys
+tmux >/dev/null && test -z $TMUX && (tmux a || tmux)
