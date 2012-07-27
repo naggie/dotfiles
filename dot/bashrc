@@ -142,5 +142,4 @@ git config --global core.excludesfile ~/.gitignore_global 2>/dev/null
 source ~/.git-completion.bash
 
 # auto tmux if installed? (I think this must be last)
-clound 9 hotkeys
 tmux >/dev/null && test -z $TMUX && (tmux a || tmux)
