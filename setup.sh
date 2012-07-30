@@ -2,9 +2,9 @@
 
 source dot/bashrc 2>/dev/null >/dev/null
 
+# copy (and add dots)
 ls dot/ | while read; do
-    rm ~/."$REPLY" 2>/dev/null
-	ln "dot/$REPLY" ~/."$REPLY"
+	cp -r "dot/$REPLY" ~/."$REPLY"
 done
 
 mkdir ~/bin/ 2>/dev/null
@@ -12,10 +12,7 @@ mkdir ~/bin/ 2>/dev/null
 # put in shellrc conf
 export PATH=$PATH:~/bin/
 
-ls bin/ | while read; do
-    rm ~/bin/"$REPLY" 2> /dev/null
-	ln "bin/$REPLY" ~/bin/
-done
+cp -r bin/* ~/bin/
 
 chmod +x ~/bin/*
 
