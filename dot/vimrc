@@ -3,7 +3,13 @@ syntax on
 set number
 set smartcase
 set autoindent
+set incsearch
 
+set hlsearch
+nnoremap <silent> <CR> :noh<CR><CR>  " Clear search highlight by hitting ente
+
+set cursorline " Highlight current line
+set autoread " Reload files that have changed
 
 filetype on
 au BufNewFile,BufRead *.less set filetype=css
