@@ -17,6 +17,10 @@ au BufNewFile,BufRead *.json set filetype=js
 
 set noswapfile
 
+" get rid of the engulfing behavior of highlighting matching brackets
+" when inside parenthesis. It makes the cursor hard to distinguish.
+set noshowmatch
+
 " Nice command. Probably better as a keybinding
 " :autocmd BufWritePost * !forever restartall
 map <silent> <f5> :!forever restartall <cr>
