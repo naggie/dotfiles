@@ -21,3 +21,5 @@ set noswapfile
 " :autocmd BufWritePost * !forever restartall
 map <silent> <f5> :!forever restartall <cr>
 " map <f5> :autocmd BufWritePost * !forever restartall
+
+let g:SuperTabNoCompleteAfter = ['^', '\s', '//', '#']
