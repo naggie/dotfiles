@@ -20,7 +20,12 @@ set noswapfile
 " get rid of the engulfing behavior of highlighting matching brackets
 " when inside parenthesis. It makes the cursor hard to distinguish.
 set noshowmatch
-NoMatchParen
+
+
+" NoMatchParen " this works as a command but not a setting
+" this does work, fooling the matching system into
+let loaded_matchparen = 1
+
 
 " Nice command. Probably better as a keybinding
 " :autocmd BufWritePost * !forever restartall
