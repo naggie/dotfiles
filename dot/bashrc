@@ -137,7 +137,7 @@ alias tmux='TERM=screen-256color-bce tmux'
 
 #TERM=xterm-256color
 
-keychain --quiet  .ssh/did_rsa 2>/dev/null
+eval `keychain --quiet --eval ~/.ssh/id_rsa`
 
 # git stuffuuu
 git config --global color.ui true 2> /dev/null
