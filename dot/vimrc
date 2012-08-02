@@ -29,7 +29,7 @@ let loaded_matchparen = 1
 
 " Nice command. Probably better as a keybinding
 " :autocmd BufWritePost * !forever restartall
-map <silent> <f5> :!forever restartall <cr>
+" map <silent> <f5> :!forever restartall <cr>
 " map <f5> :autocmd BufWritePost * !forever restartall
 
 let g:SuperTabNoCompleteAfter = ['^', '\s', '//', '#']
