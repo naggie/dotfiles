@@ -43,3 +43,10 @@ let g:SuperTabNoCompleteAfter = ['^', '\s', '//', '#']
 " Configure solarised per machine.
 "set background=dark
 "colorscheme solarized
+
+" anti typo
+:command WQ wq
+:command Wq wq
+:command wQ wq
+:command W w
+:command Q q
