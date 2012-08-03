@@ -45,8 +45,8 @@ let g:SuperTabNoCompleteAfter = ['^', '\s', '//', '#']
 "colorscheme solarized
 
 " anti typo
-:command WQ wq
-:command Wq wq
-:command wQ wq
-:command W w
-:command Q q
+:ca WQ wq
+:ca Wq wq
+:ca wQ wq
+:ca W w
+:ca Q q
