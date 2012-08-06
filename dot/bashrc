@@ -125,6 +125,9 @@ function cd()
 	fi
 }
 
+# fix annoying accidental commits and amends
+export HISTIGNORE='git*--amend*:ls:cd:git*-m*:git*-am*'
+
 export EDITOR=vim
 export PATH=$PATH:~/bin/
 
