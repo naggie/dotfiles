@@ -126,7 +126,8 @@ function cd()
 }
 
 # fix annoying accidental commits and amends
-export HISTIGNORE='git*--amend*:ls:cd:git*-m*:git*-am*'
+# and other dangerous commands
+export HISTIGNORE='git*--amend*:ls:cd:git*-m*:git*-am*:git*-f*:rm -rf*'
 export HISTCONTROL=ignoredups
 
 export EDITOR=vim
