@@ -138,6 +138,7 @@ stty erase ^?
 
 # colour schemes must work, and tmux should not complain when it thinks the term is rubbish
 alias tmux='TERM=screen-256color-bce tmux'
+alias tmux='test -z $TMUX && (tmux a || tmux)'
 
 #TERM=xterm-256color
 
@@ -147,6 +148,3 @@ eval `keychain --quiet --eval ~/.ssh/id_rsa`
 git config --global color.ui true 2> /dev/null
 git config --global core.excludesfile ~/.gitignore_global 2>/dev/null
 source ~/.git-completion.bash
-
-# auto tmux if installed? (I think this must be last)
-which tmux >/dev/null && test -z $TMUX && (tmux a || tmux)
