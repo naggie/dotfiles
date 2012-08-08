@@ -139,7 +139,7 @@ stty erase ^?
 
 # colour schemes must work, and tmux should not complain when it thinks the term is rubbish
 alias tmux='TERM=screen-256color-bce tmux'
-alias tmux='test -z $TMUX && (tmux a || tmux)'
+alias tm='test -z $TMUX && (tmux a || tmux)'
 
 #TERM=xterm-256color
 
