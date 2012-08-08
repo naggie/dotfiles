@@ -7,6 +7,10 @@ ls dot/ | while read; do
 	cp -r "dot/$REPLY" ~/."$REPLY"
 done
 
+ls dotdir/ | while read; do
+	cp -r "dotdir/$REPLY/*" ~/."$REPLY"
+done
+
 mkdir ~/bin/ 2>/dev/null
 
 # put in shellrc conf
