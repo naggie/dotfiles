@@ -8,7 +8,8 @@ ls dot/ | while read; do
 done
 
 ls dotdir/ | while read; do
-	cp -r "dotdir/$REPLY/"* ~/."$REPLY"
+    mkdir ~/."$REPLY" 2>dev/null
+	cp -r "dotdir/$REPLY/"* ~/."$REPLY/"
 done
 
 mkdir ~/bin/ 2>/dev/null
