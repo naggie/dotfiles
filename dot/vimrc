@@ -1,7 +1,8 @@
 set backspace=indent,eol,start
 syntax on
 set number
-set smartcase
+" set smartcase
+set ic
 set autoindent
 set incsearch
 
