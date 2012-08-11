@@ -21,5 +21,7 @@ cp -r bin/* ~/bin/
 
 chmod +x ~/bin/*
 
+test -e ~/.ssh/id_rsa || ssh-keygen
+
 echo "Done. Keychain (automatic ssh-agent) runs via bashrc. Be sure to set up a private key!"
 keychain 2>/dev/null || echo "Please install keychain (new-init.js)"
