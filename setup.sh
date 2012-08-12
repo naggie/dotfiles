@@ -21,6 +21,11 @@ cp -r bin/* ~/bin/
 
 chmod +x ~/bin/*
 
+if [ $SHELL != '/bin/bash' ]; then
+	echo 'Changing your shell to bash'
+	chsh -s /bin/bash
+fi
+
 test -e ~/.ssh/id_rsa || ssh-keygen
 
 echo "Done. Keychain (automatic ssh-agent) runs via bashrc. Be sure to set up a private key!"
