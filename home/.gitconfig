@@ -1,0 +1,14 @@
+[github]
+	token = 131134fec82469af7e743c11505987e8
+	user = naggie
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+	ui = true
+[user]
+	name = Callan Bryant
+	email = callan.bryant@gmail.com
+[core]
+	excludesfile = /Users/callanbryant/.gitignore_global

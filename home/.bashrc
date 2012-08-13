@@ -146,7 +146,4 @@ test -e /usr/bin/keychain && eval `keychain --quiet --eval ~/.ssh/id_rsa`
 
 test -e /usr/bin/dircolors && eval $(dircolors ~/.dir_colors)
 
-# git stuff
-git config --global color.ui true 2> /dev/null
-git config --global core.excludesfile ~/.gitignore_global 2>/dev/null
 source ~/.git-completion.bash
