@@ -144,7 +144,7 @@ alias tm='test -z $TMUX && (tmux a || tmux)'
 
 test -e /usr/bin/keychain && eval `keychain --quiet --eval ~/.ssh/id_rsa`
 
-test -e /usr/bin/dircolors/ && eval $(dircolors ~/.dir_colors)
+test -e /usr/bin/dircolors && eval $(dircolors ~/.dir_colors)
 
 # git stuff
 git config --global color.ui true 2> /dev/null
