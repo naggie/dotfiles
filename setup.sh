@@ -1,24 +1,11 @@
-#! /bin/echo source this script
+#! /bin/bash
 
-source dot/bashrc 2>/dev/null >/dev/null
+cd $(dirname $0)
 
-# copy (and add dots)
-ls dot/ | while read; do
-	cp -r "dot/$REPLY" ~/."$REPLY"
-done
+sudo apt-get update && \
+	sudo apt-get install vim git tmux build-essential keychain most mcabber
 
-ls dotdir/ | while read; do
-    mkdir ~/."$REPLY" 2>/dev/null
-	cp -r "dotdir/$REPLY/"* ~/."$REPLY/"
-done
-
-mkdir ~/bin/ 2>/dev/null
-
-# put in shellrc conf
-export PATH=$PATH:~/bin/
-
-cp -r bin/* ~/bin/
-
+cp -r home/* ~
 chmod +x ~/bin/*
 
 if [ $SHELL != '/bin/bash' ]; then
@@ -28,5 +15,4 @@ fi
 
 test -e ~/.ssh/id_rsa || ssh-keygen
 
-echo "Done. Keychain (automatic ssh-agent) runs via bashrc. Be sure to set up a private key!"
-test -x /usr/bin/keychain && echo "Please install keychain (new-init.js)"
+test -x /usr/bin/keychain && echo "Please install keychain (new-init.sh)"
