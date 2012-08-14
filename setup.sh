@@ -2,7 +2,7 @@
 
 cd $(dirname $0)
 
-sudo apt-get update && \
+test -x /usr/bin/apt-get && sudo apt-get update && \
 	sudo apt-get install vim git tmux build-essential keychain most mcabber
 
 cp -r home/* ~
