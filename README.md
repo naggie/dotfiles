@@ -5,9 +5,10 @@ curl <some url> | bash
 ```
 
 
-Clone or download this repo then run 
-
+To grab and install all
 ```
+git clone --recursive git://github.com/naggie/dotfiles.git
+cd dotfiles/
 bash setup.sh
 ```
 
