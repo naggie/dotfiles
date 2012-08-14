@@ -4,3 +4,5 @@
 git clone --recursive git://github.com/naggie/dotfiles.git
 cd dotfiles/
 bash setup.sh
+cd ..
+rm -rf dotfiles/
