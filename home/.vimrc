@@ -38,12 +38,12 @@ let g:SuperTabNoCompleteAfter = ['^', '\s', '//', '#']
 
 " 16-color terminal with solarised theme is preferable.
 " failing this, the following option can be set to use a degraded 256 color pallette
-"let g:solarized_termcolors=256
+let g:solarized_termcolors=256
 
 
 " Configure solarised per machine.
-"set background=dark
-"colorscheme solarized
+set background=dark
+colorscheme solarized
 
 " anti typo
 :ca WQ wq
