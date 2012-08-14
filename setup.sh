@@ -15,4 +15,4 @@ fi
 
 test -e ~/.ssh/id_rsa || ssh-keygen
 
-test -x /usr/bin/keychain && echo "Please install keychain (new-init.sh)"
+test -x /usr/bin/keychain || echo "Please install keychain (new-init.sh)"
