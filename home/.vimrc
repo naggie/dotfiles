@@ -18,7 +18,6 @@ set cursorline " Highlight current line
 set autoread " Reload files that have changed
 
 filetype on
-au BufNewFile,BufRead *.less set filetype=css
 au BufNewFile,BufRead *.json set filetype=js
 
 set noswapfile
