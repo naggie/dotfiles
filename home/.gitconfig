@@ -12,5 +12,7 @@
 	email = callan.bryant@gmail.com
 [core]
 	excludesfile = /Users/callanbryant/.gitignore_global
+[help]
+	autocorrect = 1
 [include]
 	path = .gitconfig.local
