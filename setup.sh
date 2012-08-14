@@ -6,6 +6,8 @@ test -x /usr/bin/apt-get && sudo apt-get update && \
 	sudo apt-get install vim git tmux build-essential keychain most mcabber
 
 cp -r home/* ~
+# copy dotfiles separately , normal glob does not match
+cp -r home/.??* ~
 chmod +x ~/bin/*
 
 if [ $SHELL != '/bin/bash' ]; then
