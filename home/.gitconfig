@@ -7,9 +7,6 @@
 	interactive = auto
 	status = auto
 	ui = true
-[user]
-	name = Callan Bryant
-	email = callan.bryant@gmail.com
 [core]
 	excludesfile = /Users/callanbryant/.gitignore_global
 [help]
