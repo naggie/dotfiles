@@ -1,3 +1,8 @@
+call pathogen#infect()
+set laststatus=2
+
+"let g:Powerline_symbols = 'fancy'
+
 set backspace=indent,eol,start
 syntax on
 set number
