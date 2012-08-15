@@ -1,0 +1,23 @@
+#!/bin/bash
+# Message notifications for tmux
+# put the following in ~/.mcabberrc for this to work
+#     set event_log_files = 1
+#     set events_command = ~/bin/mcabber-msg-tmux
+
+tmux set-option -g display-time 2000
+tmux set-option display-time 0
+
+
+JID="$3"
+TYPE="$1"
+MSGFILE="$4"
+MSG="$(cat $MSGFILE)"
+
+
+test $TYPE = MSG || exit 0
+
+tmux display-message "$JID: $MSG"
+
+# as specified in the documentation, the temporary message file must
+# be removed
+rm $MSGFILE
