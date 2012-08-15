@@ -3,7 +3,7 @@
 cd $(dirname $0)
 
 test -x /usr/bin/apt-get && yes | sudo apt-get update && \
-	yes | sudo apt-get install vim git tmux build-essential keychain most mcabber htop
+	yes | sudo apt-get install vim git tmux build-essential keychain most mcabber htop irssi
 
 cp -r home/* ~
 # copy dotfiles separately , normal glob does not match
