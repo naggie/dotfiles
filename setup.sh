@@ -2,8 +2,8 @@
 
 cd $(dirname $0)
 
-test -x /usr/bin/apt-get && sudo apt-get update && \
-	sudo apt-get install vim git tmux build-essential keychain most mcabber htop
+test -x /usr/bin/apt-get && yes | sudo apt-get update && \
+	yes | sudo apt-get install vim git tmux build-essential keychain most mcabber htop
 
 cp -r home/* ~
 # copy dotfiles separately , normal glob does not match
