@@ -24,7 +24,7 @@ if [ $USER = 'naggie' ] || [ $USER = 'callanbryant' ]; then
 	git config --global user.email 'callan.bryant@gmail.com'
 fi
 
-if [ $USER = 'cbryant' ] || [ $(dnshostname) = 'cam.broadcom.com' ]; then
+if [ $USER = 'cbryant' ] || [ "$(dnshostname)" = 'cam.broadcom.com' ]; then
 	git config --global user.name 'Callan Bryant'
 	git config --global user.email 'cbryant@broadcom.com'
 fi
