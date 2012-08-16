@@ -13,3 +13,12 @@
 [submodule "home/.vim/bundle/less"]
 	path = home/.vim/bundle/less
 	url = git://github.com/KohPoll/vim-less.git
+[submodule "home/.vim/bundle/closetag"]
+	path = home/.vim/bundle/closetag
+	url = git://github.com/docunext/closetag.vim.git
+[submodule "home/.vim/bundle/vim-css-color"]
+	path = home/.vim/bundle/vim-css-color
+	url = git://github.com/skammer/vim-css-color.git
+[submodule "home/.vim/bundle/delimitMate"]
+	path = home/.vim/bundle/delimitMate
+	url = git://github.com/Raimondi/delimitMate.git
