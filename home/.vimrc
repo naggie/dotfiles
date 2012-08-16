@@ -18,7 +18,7 @@ set cursorline " Highlight current line
 set autoread " Reload files that have changed
 
 filetype on
-au BufNewFile,BufRead *.json set filetype=js
+au BufNewFile,BufRead *.json set filetype=javascript
 
 set noswapfile
 
