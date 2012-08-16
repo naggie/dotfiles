@@ -1,9 +1,6 @@
 [submodule "home/.vim/bundle/powerline"]
 	path = home/.vim/bundle/powerline
 	url = git://github.com/Lokaltog/vim-powerline.git
-[submodule "home/.vim/bundle/commentary"]
-	path = home/.vim/bundle/commentary
-	url = git://github.com/tpope/vim-commentary.git
 [submodule "home/.vim/bundle/solarized"]
 	path = home/.vim/bundle/solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
