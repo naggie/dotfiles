@@ -50,10 +50,10 @@ set background=dark
 colorscheme solarized
 
 " anti typo
-:ca WQ wq
-:ca Wq wq
-:ca wQ wq
-:ca W w
-:ca Q q
+ca WQ wq
+ca Wq wq
+ca wQ wq
+ca W w
+ca Q q
 
 set mouse=a
