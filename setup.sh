@@ -28,3 +28,6 @@ if [ $USER = 'cbryant' ] || [ "$(hostname -d)" = 'cam.broadcom.com' ]; then
 	git config --global user.name 'Callan Bryant'
 	git config --global user.email 'cbryant@broadcom.com'
 fi
+
+# generate docs for vim plugins
+vim -c :Helptags -c :q
