@@ -55,3 +55,5 @@ colorscheme solarized
 :ca wQ wq
 :ca W w
 :ca Q q
+
+set mouse=a
