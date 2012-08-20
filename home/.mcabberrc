@@ -1,0 +1,37 @@
+set event_log_files = 1
+set events_command = ~/bin/mcabber-msg-tmux
+set autoaway = 600
+
+set ssl_ignore_checks = 1
+
+color roster * * white
+color roster of * green
+color roster a_ * red
+color roster d * yellow
+
+color muc * on
+
+set event_log_files = 1
+set events_command = ~/bin/mcabber-msg-tmux
+
+set beep_on_message = 1 
+
+# solarized from https://github.com/seebi/mcabber-colors-solarized/
+# dark solarized color theme
+# more infos: http://ethanschoonover.com/solarized
+
+set color_background   = 234 
+set color_general      = 244
+set color_info         = 240
+set color_msgin        = 166
+set color_msgout       = 64
+set color_msghl        = 136
+set color_bgstatus     = 235
+set color_status       = 166
+set color_roster       = 240
+set color_bgrostersel  = 235
+set color_rostersel    = 166
+set color_rosterselmsg = 136
+set color_rosternewmsg = 136
+
+# vim:set ft=conf:
