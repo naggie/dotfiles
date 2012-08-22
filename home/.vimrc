@@ -19,6 +19,7 @@ set autoread " Reload files that have changed
 
 filetype on
 au BufNewFile,BufRead *.json set filetype=javascript
+au BufNewFile,BufRead *.less set filetype=css
 
 set noswapfile
 
