@@ -36,3 +36,5 @@ set color_rosterselmsg = 136
 set color_rosternewmsg = 136
 
 # vim:set ft=conf:
+
+alias rs = roster search
