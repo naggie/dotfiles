@@ -6,6 +6,7 @@ cd $TMPDIR
 
 git clone --depth 1 --recursive git://github.com/naggie/dotfiles.git
 cd dotfiles/
+bash install-dependencies.sh
 bash setup.sh
 cd ..
 rm -rf dotfiles/

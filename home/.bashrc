@@ -80,9 +80,6 @@ alias gpl='git pull'
 alias gs='git status'
 alias ga='git commit -a'
 
-# nice coloured man pages if most is installed
-test -e /usr/bin/most && alias man='man -P /usr/bin/most'
-
 PLATFORM=`uname`
 if [[ $PLATFORM == 'Linux' ]]; then
 	alias ls='ls --color=auto'
