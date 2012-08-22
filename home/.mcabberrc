@@ -21,7 +21,7 @@ set delete_on_reject = 1
 # dark solarized color theme
 # more infos: http://ethanschoonover.com/solarized
 
-set color_background   = 234 
+#set color_background   = 234 
 set color_general      = 244
 set color_info         = 240
 set color_msgin        = 166
