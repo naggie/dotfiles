@@ -15,6 +15,7 @@ set event_log_files = 1
 set events_command = ~/bin/mcabber-msg-tmux
 
 set beep_on_message = 1 
+set delete_on_reject = 1
 
 # solarized from https://github.com/seebi/mcabber-colors-solarized/
 # dark solarized color theme
