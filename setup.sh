@@ -2,13 +2,13 @@
 
 cd $(dirname $0)
 
+# clobber vim!
+test -d ~/.vim/ && rm -rf ~/.vim/
+
 cp -r home/* ~
 # copy dotfiles separately , normal glob does not match
 cp -r home/.??* ~
 chmod +x ~/bin/*
-
-# clobber vim!
-test -d ~/.vim/ && rm -rf ~/.vim/
 
 if [ $SHELL != '/bin/bash' ]; then
 	echo 'Changing your shell to bash'
