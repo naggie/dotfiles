@@ -13,4 +13,5 @@ Normal installation with local repository:
 To update:
 
 	git pull
+	git submodule update
 	./setup.sh
