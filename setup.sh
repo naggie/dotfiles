@@ -8,7 +8,7 @@ cp -r home/.??* ~
 chmod +x ~/bin/*
 
 # clobber vim!
-rm -rf ~/.vim/
+test -d ~/.vim/ && rm -rf ~/.vim/
 
 if [ $SHELL != '/bin/bash' ]; then
 	echo 'Changing your shell to bash'
