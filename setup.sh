@@ -7,6 +7,9 @@ cp -r home/* ~
 cp -r home/.??* ~
 chmod +x ~/bin/*
 
+# clobber vim!
+rm -rf ~/.vim/
+
 if [ $SHELL != '/bin/bash' ]; then
 	echo 'Changing your shell to bash'
 	chsh -s /bin/bash
@@ -20,9 +23,7 @@ if [ $USER = 'naggie' ] || [ $USER = 'callanbryant' ]; then
 	git config --global user.name 'Callan Bryant'
 	git config --global user.email 'callan.bryant@gmail.com'
 	echo 'set jid = naggie@blackmesa.so' >> ~/.mcabberrc
-fi
-
-if [ $USER = 'cbryant' ] || [ "$(hostname -d)" = 'cam.broadcom.com' ]; then
+elif [ $USER = 'cbryant' ] || [ "$(hostname -d)" = 'cam.broadcom.com' ]; then
 	git config --global user.name 'Callan Bryant'
 	git config --global user.email 'cbryant@broadcom.com'
 	echo 'set jid = cbryant@spark.eu.broadcom.com' >> ~/.mcabberrc
