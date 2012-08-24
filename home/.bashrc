@@ -1,8 +1,3 @@
-# System-wide .bashrc file for interactive bash(1) shells.
-
-# To enable the settings / commands in this file for login shells as well,
-# this file has to be sourced in /etc/profile.
-
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -15,39 +10,15 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# Useful title.
+# Useful title for ssh
 printf "\033]0;$HOSTNAME\007" "$@"
-#printf "\033]0;Aperture Laboratories Inc.\007" "$@"
 
 # MOAR PROMPT
 PS1='\n\[\e[0;32m\][\u@\h\[\e[m\] \[\e[1;34m\]\w\[\e[m\]\[\e[0;32m\]]\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
 
-# Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
-# If this is an xterm set the title to user@host:dir
-#case "$TERM" in
-#xterm*|rxvt*)
-#    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
-#    ;;
-#*)
-#    ;;
-#esac
-
 # enable bash completion in interactive shells
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
-fi
-
-# sudo hint
-if [ ! -e "$HOME/.sudo_as_admin_successful" ] && [ ! -e "$HOME/.hushlogin" ] ; then
-    case " $(groups) " in *\ admin\ *)
-    if [ -x /usr/bin/sudo ]; then
-	cat <<-EOF
-	To run a command as administrator (user "root"), use "sudo <command>".
-	See "man sudo_root" for details.
-
-	EOF
-    fi
-    esac
 fi
 
 # if the command-not-found package is installed, use it
@@ -67,6 +38,7 @@ if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found ]; then
 fi
 
 alias more='less'
+alias sagi='yes | sudo apt-get install'
 alias grep='grep --color=auto'
 alias ll='ls -al'
 alias cd..='cd ..'
@@ -83,31 +55,6 @@ if [[ $PLATFORM == 'Linux' ]]; then
 elif [[ $PLATFORM == 'Darwin' ]]; then
 	alias ls='ls -G'
 fi
-
-alias sagi='yes | sudo apt-get install'
-
-
-# Tar can now do this by itself with -xf
-extract () {
-   if [ -f $1 ] ; then
-       case $1 in
-           *.tar.bz2)   tar xvjf $1    ;;
-           *.tar.gz)    tar xvzf $1    ;;
-           *.bz2)       bunzip2 $1     ;;
-           *.rar)       unrar x $1       ;;
-           *.gz)        gunzip $1      ;;
-           *.tar)       tar xvf $1     ;;
-           *.tbz2)      tar xvjf $1    ;;
-           *.tgz)       tar xvzf $1    ;;
-           *.zip)       unzip $1       ;;
-           *.Z)         uncompress $1  ;;
-           *.7z)        7z x $1        ;;
-           *)           echo "don't know how to extract '$1'..." ;;
-       esac
-   else
-       echo "'$1' is not a valid file!"
-   fi
-}
 
 function cd()
 {
@@ -134,10 +81,8 @@ stty erase ^?
 alias tmux='TERM=screen-256color-bce tmux'
 alias tm='test -z $TMUX && (tmux a || tmux)'
 
-#TERM=xterm-256color
+test -x /usr/bin/keychain && eval `keychain --quiet --eval ~/.ssh/id_rsa`
 
-test -e /usr/bin/keychain && eval `keychain --quiet --eval ~/.ssh/id_rsa`
-
-test -e /usr/bin/dircolors && eval $(dircolors ~/.dir_colors)
+test -x /usr/bin/dircolors && eval $(dircolors ~/.dir_colors)
 
 source ~/.git-completion.bash
