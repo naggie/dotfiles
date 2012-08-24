@@ -14,7 +14,7 @@ fi
 printf "\033]0;$HOSTNAME\007" "$@"
 
 # MOAR PROMPT
-PS1='\n\[\e[0;32m\][\u@\h\[\e[m\] \[\e[1;34m\]\w\[\e[m\]\[\e[0;32m\]]\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
+PS1='\n\[\e[0;32m\][\u@\h\[\e[m\] \[\e[1;34m\]\w\[\e[m\]\[\e[0;32m\]]\[\e[m\] \[\e[32m\]\n\$\[\e[m\] '
 
 # enable bash completion in interactive shells
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
