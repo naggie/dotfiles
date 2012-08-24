@@ -75,10 +75,7 @@ alias sl='ls'
 alias l='ls'
 alias s='ls'
 
-alias gpu='git push'
-alias gpl='git pull'
-alias gs='git status'
-alias ga='git commit -a'
+alias contains='find | xargs grep -iEl '
 
 PLATFORM=`uname`
 if [[ $PLATFORM == 'Linux' ]]; then
