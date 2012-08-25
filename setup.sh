@@ -15,6 +15,9 @@ if [ $SHELL != '/bin/bash' ]; then
 	chsh -s /bin/bash
 fi
 
+# installing stuff from source? best keep it.
+mkdir -p ~/src/
+
 test -e ~/.ssh/id_rsa || ssh-keygen
 
 test -x /usr/bin/keychain || echo "Please install keychain (new-init.sh)"
