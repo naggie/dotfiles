@@ -1,6 +1,9 @@
 #! /bin/bash
+# todo: from source?
 
 # suggested later: irssi weechat
+# already included with os: bc
+
 if [ -x /usr/bin/apt-get ]; then
 	# debian/ubuntu
 	yes | sudo apt-get update
