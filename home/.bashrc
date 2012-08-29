@@ -61,7 +61,7 @@ function cd()
 	if [ -z $* ]; then
 		builtin cd ~ && ls
 	else
-		builtin cd "$*" && ls
+		builtin cd "$@" && ls
 	fi
 }
 
