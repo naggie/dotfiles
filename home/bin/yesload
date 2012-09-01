@@ -1,6 +1,5 @@
 #!/bin/bash
 
-trap 'kill $(jobs -p)' SIGTERM
 
 yes > /dev/null&
 yes > /dev/null&
@@ -35,4 +34,6 @@ yes > /dev/null&
 yes > /dev/null&
 yes > /dev/null&
 
+trap 'kill $(jobs -p)' SIGINT
+#trap 'killall yes' SIGINT
 wait
