@@ -1,4 +1,4 @@
-Hit and run install, leaves no repository:
+Hit and run install, leaves no repository, non-interactive:
 
 	curl https://raw.github.com/naggie/dotfiles/master/magic.sh | bash
 
