@@ -45,6 +45,9 @@ let g:SuperTabNoCompleteAfter = ['^', '\s', '//', '#']
 " failing this, the following option can be set to use a degraded 256 color pallette
 let g:solarized_termcolors=256
 
+" good on crap laptop monitors
+let g:solarized_contrast="high"
+
 
 " Configure solarised per machine.
 set background=dark
