@@ -1,14 +1,8 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# update the values of LINES and COLUMNS. Automatically
 shopt -s checkwinsize
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
 
 # Useful title for ssh
 printf "\033]0;$HOSTNAME\007" "$@"
@@ -18,23 +12,8 @@ PS1='\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w \[\e[0;32m\]\n\$\[\e[m\] '
 
 # enable bash completion in interactive shells
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
-
-# if the command-not-found package is installed, use it
-if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found ]; then
-	function command_not_found_handle {
-	        # check because c-n-f could've been removed in the meantime
-                if [ -x /usr/lib/command-not-found ]; then
-		   /usr/bin/python /usr/lib/command-not-found -- "$1"
-                   return $?
-                elif [ -x /usr/share/command-not-found ]; then
-		   /usr/bin/python /usr/share/command-not-found -- "$1"
-                   return $?
-		else
-		   return 127
-		fi
-	}
+	. /etc/bash_completion
+	source ~/.git-completion.bash
 fi
 
 alias more='less'
@@ -84,5 +63,3 @@ alias tm='test -z $TMUX && (tmux a || tmux)'
 test -x /usr/bin/keychain && eval `keychain --quiet --eval ~/.ssh/id_rsa`
 
 test -x /usr/bin/dircolors && eval $(dircolors ~/.dir_colors)
-
-source ~/.git-completion.bash
