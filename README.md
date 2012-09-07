@@ -4,6 +4,7 @@ Dependencies:
   * vim 7.3+
   * git (obviously)
   * keychain
+  * Black-background xterm-256color compatible terminal (mouse enabled)
 
 
 Recommended:
