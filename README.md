@@ -1,3 +1,19 @@
+Dependencies:
+
+  * tmux 1.6+
+  * vim 7.3+
+  * git (obviously)
+  * keychain
+
+
+Recommended:
+
+  * bc
+  * mcabber
+  * irssi
+  * python
+  * nodejs
+
 Hit and run install, leaves no repository, non-interactive:
 
 	curl https://raw.github.com/naggie/dotfiles/master/magic.sh | bash
@@ -15,3 +31,7 @@ To update:
 	git pull
 	git submodule update
 	./setup.sh
+
+To manually update, put something like this in your crontab (via crontab -e):
+
+	53 17 * * * ~/dotfiles/update.sh |&:
