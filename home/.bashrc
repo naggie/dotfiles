@@ -8,7 +8,7 @@ shopt -s checkwinsize
 printf "\033]0;$HOSTNAME\007" "$@"
 
 # MOAR PROMPT
-PS1='\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w \[\e[0;32m\]\n\$\[\e[m\] '
+PS1='\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[m\]\n\$ '
 
 # enable bash completion in interactive shells
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
