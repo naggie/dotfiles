@@ -60,4 +60,7 @@ ca wQ wq
 ca W w
 ca Q q
 
+" Ex mode? WTF VIM?
+map Q <Nop>
+
 set mouse=a
