@@ -16,3 +16,6 @@
 [submodule "home/.vim/bundle/delimitMate"]
 	path = home/.vim/bundle/delimitMate
 	url = git://github.com/Raimondi/delimitMate.git
+[submodule "home/.vim/bundle/trailing-whitespace"]
+	path = home/.vim/bundle/trailing-whitespace
+	url = git://github.com/vim-scripts/trailing-whitespace.git
