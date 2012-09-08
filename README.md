@@ -10,7 +10,7 @@ Dependencies:
 Recommended:
 
   * bc
-  * mcabber
+  * mcabber 0.10.1+
   * irssi
   * python
   * nodejs
