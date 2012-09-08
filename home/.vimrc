@@ -1,3 +1,4 @@
+" vim 7.3+
 call pathogen#infect()
 set laststatus=2
 
