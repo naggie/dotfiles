@@ -25,6 +25,7 @@ alias ..='cd ..'
 alias sl='ls'
 alias l='ls'
 alias s='ls'
+alias gi=git
 
 alias contains='find | xargs grep -iEl '
 
