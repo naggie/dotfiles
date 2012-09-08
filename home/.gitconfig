@@ -8,7 +8,7 @@
 	status = auto
 	ui = true
 [core]
-	excludesfile = /Users/callanbryant/.gitignore_global
+	excludesfile = .gitignore
 [help]
 	autocorrect = 1
 [include]

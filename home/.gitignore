@@ -36,8 +36,10 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+.AppleDouble
 
 # Temporary or backuup files
+
 *.autosave
 .*.swp
 *~
