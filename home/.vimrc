@@ -7,8 +7,8 @@ set laststatus=2
 set backspace=indent,eol,start
 syntax on
 set number
-" set smartcase
 set ic
+set smartcase
 set autoindent
 set incsearch
 
