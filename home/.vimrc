@@ -65,3 +65,6 @@ ca Q q
 map Q <Nop>
 
 set mouse=a
+
+" abbreviations
+ab teh the
