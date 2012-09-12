@@ -7,6 +7,9 @@ shopt -s checkwinsize
 # vim mode <3
 set -o vi
 
+# stop -bash: !": event not found
+set +o histexpand
+
 # Useful title for ssh
 printf "\033]0;$HOSTNAME\007" "$@"
 
