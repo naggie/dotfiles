@@ -4,6 +4,9 @@
 # update the values of LINES and COLUMNS. Automatically
 shopt -s checkwinsize
 
+# vim mode <3
+set -o vi
+
 # Useful title for ssh
 printf "\033]0;$HOSTNAME\007" "$@"
 
