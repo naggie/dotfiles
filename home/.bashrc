@@ -22,15 +22,15 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	source ~/.git-completion.bash
 fi
 
-alias more='less'
+alias more=less
 alias sagi='yes | sudo apt-get install'
 alias grep='grep --color=auto'
 alias ll='ls -al'
 alias cd..='cd ..'
 alias ..='cd ..'
-alias sl='ls'
-alias l='ls'
-alias s='ls'
+alias sl=ls
+alias l=ls
+alias s=ls
 alias gi=git
 
 alias contains='find | xargs grep -iEl '
@@ -53,7 +53,6 @@ function cd()
 }
 
 # cheap coloured man pages. Yay!
-
 man() {
 	env \
 	LESS_TERMCAP_mb=$(printf "\e[1;31m") \
@@ -83,5 +82,4 @@ alias tmux='TERM=screen-256color-bce tmux'
 alias tm='test -z $TMUX && (tmux a || tmux)'
 
 test -x /usr/bin/keychain && eval `keychain --quiet --eval ~/.ssh/id_rsa`
-
 test -x /usr/bin/dircolors && eval $(dircolors ~/.dir_colors)
