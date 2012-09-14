@@ -5,6 +5,8 @@ set laststatus=2
 "let g:Powerline_symbols = 'fancy'
 
 set backspace=indent,eol,start
+" make arrow keys wrap lines and whitespace properly
+set whichwrap=b,s,<,>,[,]
 syntax on
 set number
 set ic
