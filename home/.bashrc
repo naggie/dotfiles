@@ -4,9 +4,6 @@
 # update the values of LINES and COLUMNS. Automatically
 shopt -s checkwinsize
 
-# vim mode <3
-set -o vi
-
 # stop -bash: !": event not found
 set +o histexpand
 
