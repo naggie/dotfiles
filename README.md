@@ -1,3 +1,5 @@
+# Installation
+
 Dependencies:
 
   * tmux 1.6+
@@ -41,3 +43,4 @@ To manually update, put something like this in your crontab (via crontab -e):
 
   * A dark xterm-256color terminal is required. Fbterm can be used but TERM=fbterm has to be set to enable the right escape codes.
   * The solarised dark 16-colour palette is recommended to make 16-colour applications look nice.
+
