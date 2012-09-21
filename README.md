@@ -37,7 +37,9 @@ To update:
 
 To manually update, put something like this in your crontab (via crontab -e):
 
-	53 17 * * * USER=naggie ~/dotfiles/update.sh
+	53 17 * * * ~/dotfiles/update.sh
+
+I think this is currently broken. whoami apparently does not work.
 
 # Environment
 
