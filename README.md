@@ -16,6 +16,7 @@ Recommended:
   * irssi
   * python
   * nodejs
+  * aiksaurus
 
 Hit and run install, leaves no repository, non-interactive:
 
