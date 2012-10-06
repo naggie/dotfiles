@@ -45,5 +45,5 @@ I think this is currently broken. whoami apparently does not work.
 # Environment
 
   * A dark xterm-256color terminal is required. Fbterm can be used but TERM=fbterm has to be set to enable the right escape codes.
-  * The solarised dark 16-colour palette is recommended to make 16-colour applications look nice.
+  * The solarised dark 16-colour palette (works alongside the 256 solarisez settings too) is recommended to make 16-colour applications look nice.
 
