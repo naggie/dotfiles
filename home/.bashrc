@@ -33,6 +33,9 @@ alias gi=git
 
 alias contains='find | xargs grep -iEl '
 
+# hardcoded ssh completions (known_hosts is encrypted mostly)
+complete -W 'blackmesa.darksky.io aperture.darksky.io deja.darksky.io snowstorm.darksky.io navcom.darksky.io deadknightsociety.org' ssh
+
 PLATFORM=`uname`
 if [[ $PLATFORM == 'Linux' ]]; then
 	alias ls='ls --color=auto'
