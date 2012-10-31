@@ -70,3 +70,4 @@ set mouse=a
 
 " abbreviations
 ab teh the
+ab THe The
