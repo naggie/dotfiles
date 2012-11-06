@@ -1,5 +1,7 @@
 # Installation
 
+**WARNING, THIS WILL CLOBBER YOUR EXISTING CONFIGURATION BY DESIGN**
+
 Dependencies:
 
   * tmux 1.6+
