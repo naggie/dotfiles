@@ -36,7 +36,7 @@ alias gi=git
 alias contains='find | xargs grep -iEl '
 
 # hardcoded ssh completions (known_hosts is encrypted mostly)
-complete -W 'nodehost.darksky.io squirtle.darksky.io hailstorm.darksky.io blackmesa.darksky.io aperture.darksky.io chell.darksky.io snowstorm.darksky.io navcom.darksky.io deadknightsociety.org' ssh scp
+complete -W 'nodehost.darksky.io squirtle.darksky.io hailstorm.darksky.io blackmesa.darksky.io aperture.darksky.io chell.darksky.io snowstorm.darksky.io navcom.darksky.io deadknightsociety.org' ssh scp ping
 
 PLATFORM=`uname`
 if [[ $PLATFORM == 'Linux' ]]; then
