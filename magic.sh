@@ -1,7 +1,8 @@
 #!/bin/bash
 # run curl https://raw.github.com/naggie/dotfiles/master/magic.sh | bash to install everything
 
-TMPDIR=$(mktemp -d)
+TMPDIR=/tmp/banana$$/
+mkdir $TMPDIR
 cd $TMPDIR
 
 git clone --depth 1 --recursive git://github.com/naggie/dotfiles.git
@@ -11,4 +12,4 @@ bash setup.sh
 cd ..
 rm -rf dotfiles/
 
-rmdir $TMPDIR
+rm -r $TMPDIR
