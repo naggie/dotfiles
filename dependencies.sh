@@ -12,6 +12,7 @@ elif [ -x /usr/local/bin/brew ]; then
 	# mac os x (vim comes out-of-the-box, yay!)
 	brew update || exit 2
 	brew install git tmux keychain mcabber htop-osx nodejs
+	exit 0 # don't retorn the last exit status
 else
 	echo 'Could not find a supported package manager. Install from source.'
 	echo "If you're using Arch, please add pacman support to this script"
