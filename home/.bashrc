@@ -68,11 +68,6 @@ man() {
 	man "$@"
 }
 
-# clone something from my github account via ssh
-github() {
-	git clone --recursive git@github.com:naggie/$1.git 
-}
-
 # fix annoying accidental commits and amends
 # and other dangerous commands
 export HISTIGNORE='git*--amend*:ls:cd:git*-m*:git*-am*:git*-f*:rm -rf*'
