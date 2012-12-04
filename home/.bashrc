@@ -38,6 +38,9 @@ alias contains='find | xargs grep -iEl '
 # hardcoded ssh completions (known_hosts is encrypted mostly)
 complete -W 'nodehost.darksky.io squirtle.darksky.io hailstorm.darksky.io blackmesa.darksky.io aperture.darksky.io chell.darksky.io snowstorm.darksky.io navcom.darksky.io deadknightsociety.org' ssh scp ping
 
+# Homebrew completions
+test -x /usr/local/bin/brew && source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
+
 PLATFORM=`uname`
 if [[ $PLATFORM == 'Linux' ]]; then
 	alias ls='ls --color=auto'
