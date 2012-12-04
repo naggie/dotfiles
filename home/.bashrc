@@ -13,11 +13,7 @@ printf "\033]0;$HOSTNAME\007" "$@"
 # MOAR PROMPT
 PS1='\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[m\]\n\$ '
 
-# enable bash completion in interactive shells
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-	. /etc/bash_completion
-	source ~/.git-completion.bash
-fi
+source /etc/bash_completion
 
 alias more=less
 alias sagi='yes | sudo apt-get install'
