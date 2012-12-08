@@ -14,6 +14,7 @@ Dependencies:
 Recommended:
 
   * bc
+  * http://inotool.org/
   * mcabber 0.10.1+
   * irssi
   * python
