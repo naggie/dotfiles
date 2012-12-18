@@ -23,7 +23,7 @@ Recommended:
 
 Hit and run install, leaves no repository, non-interactive:
 
-	curl https://raw.github.com/naggie/dotfiles/master/magic.sh | bash
+	curl https://raw.github.com/naggie/dotfiles/master/etc/magic.sh | bash
 
 
 Normal installation with local repository:
