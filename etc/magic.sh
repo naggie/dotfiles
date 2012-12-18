@@ -12,7 +12,7 @@ bash dependencies.sh || exit 1
 git clone --depth 1 --recursive git://github.com/naggie/dotfiles.git
 cd dotfiles/
 
-bash setup.sh
+bash install.sh
 
 cd ..
 rm -rf dotfiles/

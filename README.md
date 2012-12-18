@@ -30,14 +30,14 @@ Normal installation with local repository:
 
 	git clone --recursive git://github.com/naggie/dotfiles.git
 	cd dotfiles/
-	./install-dependencies.sh # only run this once
-	./setup.sh
+	./dependencies.sh # only run this once
+	./install.sh
 
 To update:
 
 	git pull
 	git submodule update
-	./setup.sh
+	./install.sh
 
 To manually update, put something like this in your crontab (via crontab -e):
 
