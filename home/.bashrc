@@ -13,7 +13,7 @@ printf "\033]0;$HOSTNAME\007" "$@"
 # MOAR PROMPT
 PS1='\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[m\]\n\$ '
 
-source /etc/bash_completion
+[ -a /etc/bash_completion ] && source /etc/bash_completion
 
 alias more=less
 alias sagi='yes | sudo apt-get install'
