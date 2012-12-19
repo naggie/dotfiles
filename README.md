@@ -8,7 +8,7 @@ Dependencies:
   * vim 7.3+
   * git (obviously)
   * keychain
-  * Black-background xterm-256color compatible terminal (mouse enabled)
+  * Dark xterm-256color compatible terminal, mouse enabled, solarised 16-color palette (on top of the 256 colours)
 
 
 Recommended:
