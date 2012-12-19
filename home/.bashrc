@@ -13,7 +13,12 @@ printf "\033]0;$HOSTNAME\007" "$@"
 # MOAR PROMPT
 PS1='\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[m\]\n\$ '
 
-[ -a /etc/bash_completion ] && source /etc/bash_completion
+
+# git completion (maybe other completion too)
+[ -f /etc/bash_completion ] && source /etc/bash_completion
+
+# OS X via homebrew git completion via package bash-completion
+[ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
 
 alias more=less
 alias sagi='yes | sudo apt-get install'
