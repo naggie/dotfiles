@@ -1,0 +1,42 @@
+#!/bin/bash
+# Forked from http://richardkmiller.com/925/script-to-enabledisable-socks-proxy-on-mac-os-x
+# require autossh from homebrew
+
+# Alternatively use http://chetansurpur.com/projects/sidestep/ which may be easier!
+
+HOST=darksky.io
+INTERFACE=Wi-Fi
+
+# no need to change this
+SOCKS_PORT=9999
+MONITOR_PORT=9929
+
+enable_proxy() {
+	sudo networksetup -setsocksfirewallproxy $INTERFACE 127.0.0.1 $SOCKS_PORT
+	sudo networksetup -setsocksfirewallproxystate $INTERFACE on
+	echo "SOCKS proxy enabled on port $SOCKS_PORT"
+}
+
+disable_proxy() {
+	sudo networksetup -setsocksfirewallproxystate $INTERFACE off
+	echo "SOCKS proxy disabled"
+}
+
+tunnel() {
+	echo "Tunneling..."
+	autossh -M $MONITOR_PORT -ND $SOCKS_PORT $HOST
+}
+
+
+trap disable_proxy INT
+
+echo OLD IP: $(curl --silent icanhazip.com)
+
+tunnel &
+enable_proxy
+
+sleep 4
+echo NEW IP: $(curl --silent --socks5 localhost:$SOCKS_PORT icanhazip.com)
+
+wait
+disable_proxy
