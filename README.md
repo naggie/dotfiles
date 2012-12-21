@@ -21,7 +21,7 @@ Recommended:
   * nodejs
   * aiksaurus
 
-Hit and run install, leaves no repository, non-interactive:
+Hit and run install -- including dependencies, leaves no repository, non-interactive:
 
 	curl https://raw.github.com/naggie/dotfiles/master/etc/magic.sh | bash
 
