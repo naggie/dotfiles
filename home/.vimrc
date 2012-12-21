@@ -39,6 +39,11 @@ set noshowmatch
 let loaded_matchparen = 1
 
 
+" Reselect visual block after indent/outdent
+vnoremap < <gv
+vnoremap > >gv
+
+
 " Nice command. Probably better as a keybinding
 " :autocmd BufWritePost * !forever restartall
 " map <silent> <f5> :!forever restartall <cr>
@@ -74,3 +79,8 @@ set mouse=a
 " abbreviations
 ab teh the
 ab THe The
+
+" Hide toolbar by default
+if has("gui_running")
+	set guioptions=egmrt
+endif
