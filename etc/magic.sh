@@ -17,4 +17,4 @@ bash install.sh
 cd ..
 rm -rf dotfiles/
 
-rm -r $TMPDIR
+rm -rf $TMPDIR
