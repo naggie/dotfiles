@@ -17,6 +17,9 @@ set incsearch
 set hlsearch
 nnoremap <silent> <CR> :noh<CR>  " Clear search highlight by hitting ente
 
+" trial spell checking
+set spell
+
 set cursorline " Highlight current line
 set autoread " Reload files that have changed
 
