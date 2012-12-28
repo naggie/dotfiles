@@ -20,8 +20,6 @@ mkdir -p ~/src/
 
 test -e ~/.ssh/id_rsa || ssh-keygen
 
-test -x /usr/bin/keychain || echo "Please install keychain (possibly via dependencies.sh)"
-
 if [ $USER = 'naggie' ] || [ $USER = 'callanbryant' ]; then
 	git config --global user.name 'Callan Bryant'
 	git config --global user.email 'callan.bryant@gmail.com'

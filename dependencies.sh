@@ -7,7 +7,7 @@
 if [ -x /usr/bin/apt-get ]; then
 	# debian/ubuntu
 	yes | sudo apt-get update || exit 2
-	yes | sudo apt-get install picocom vim git tmux build-essential bash-completion keychain mcabber htop autossh || exit 2
+	yes | sudo apt-get install picocom vim git ssh tmux build-essential bash-completion keychain mcabber htop autossh || exit 2
 elif [ -x /usr/local/bin/brew ]; then
 	# mac os x (vim comes out-of-the-box, yay!)
 	brew update || exit 2
