@@ -52,11 +52,7 @@ fi
 # cd then ls
 function cd()
 {
-	if [ -z $* ]; then
-		builtin cd ~ && ls
-	else
-		builtin cd "$@" && ls
-	fi
+	builtin cd "$@" && ls
 }
 
 # cheap coloured man pages. Yay!
