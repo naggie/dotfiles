@@ -1,5 +1,9 @@
 #!/bin/sh
+
+# clear terminal
 printf "\033c"
 echo
+
+# moar ascii art!
 figlet $(hostname -s)
 echo "     .$(hostname -d)"
