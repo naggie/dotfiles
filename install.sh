@@ -64,4 +64,4 @@ elif [ $USER = 'cbryant' ] || [ "$(hostname -d)" = 'cam.broadcom.com' ]; then
 fi
 
 # generate docs for vim plugins
-vim -c :Helptags -c :q
+vim -e -S -c :Helptags -c :q
