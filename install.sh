@@ -1,5 +1,38 @@
 #! /bin/bash
 
+
+DEPENDENCIES=(ssh vim git tmux)
+
+# check if the listed commands are installed. Returns those that are not.
+function check {
+	declare -a missing
+
+	for i in $*; do
+		# does the command run? If so, append it to the array
+		command -v $i >/dev/null 2>&1 || missing=("${missing[@]}" $i)
+	done
+
+	echo ${missing[@]}
+
+	# number of elements as exit status
+	exit ${#missing[@]}
+}
+
+MISSING=(`check ${DEPENDENCIES[@]}`)
+
+if [ $? -ne 0 ]; then
+	echo
+	echo The following required packages are missing:
+	echo
+	for i in ${MISSING[@]}; do
+		echo "  * $i"
+	done
+
+	exit
+fi
+
+exit
+
 cd $(dirname $0)
 
 # clobber vim!
