@@ -1,0 +1,5 @@
+#!/bin/sh
+printf "\033c"
+echo
+figlet $(hostname -s)
+echo "     .$(hostname -d)"

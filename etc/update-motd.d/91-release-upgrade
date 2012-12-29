@@ -1,0 +1,5 @@
+#!/bin/sh
+
+if [ -x /usr/lib/ubuntu-release-upgrader/release-upgrade-motd ]; then
+    exec /usr/lib/ubuntu-release-upgrader/release-upgrade-motd
+fi
