@@ -89,6 +89,6 @@ test -x /usr/bin/dircolors && eval $(dircolors ~/.dir_colors)
 
 # ls is the first thing I normally do when I log in. Let's hope it's not annoying
 echo
-echo "> Welcome to $HOSTNAME, $USER. Files in $PWD are:"
+echo -e "\033[37m > Welcome to $HOSTNAME, $USER. Files in $PWD are: \033[0m"
 echo
 ls
