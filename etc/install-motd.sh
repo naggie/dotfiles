@@ -1,5 +1,9 @@
 #! /bin/bash
 
+# contents of /etc/update-motd.d/ are run by run-parts
+# and output is placed into /var/run/motd which is linked to /etc/motd
+
+
 cd "$(dirname $0)"
 
 if [ ! -d /etc/update-motd.d/ ]; then
