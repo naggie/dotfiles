@@ -31,8 +31,6 @@ if [ $? -ne 0 ]; then
 	exit
 fi
 
-exit
-
 cd $(dirname $0)
 
 # clobber vim!
