@@ -1,9 +1,16 @@
 #!/bin/sh
 
-# clear terminal
-printf "\033c"
-echo
+# clear screen
+echo -e  "\033c"
 
-# moar ascii art!
-figlet $(hostname -s)
+# red
+echo -e "\033[31m"
+
+# ascii art hostname
+figlet " $(hostname -s) "
+
+# domain name
 echo "     .$(hostname -d)"
+
+# reset
+echo -e "\033[0m"
