@@ -23,3 +23,7 @@ sudo cp 00-header /etc/update-motd.d/
 # remove sysinfo part. MLDASH does this.
 sudo chmod -x /etc/update-motd.d/*-landscape-sysinfo 2>/dev/null
 sudo chmod -x /etc/update-motd.d/*-motd 2>/dev/null
+
+# test
+echo PREVIEW:
+sudo run-parts /etc/update-motd.d/
