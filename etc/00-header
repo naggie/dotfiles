@@ -1,16 +1,20 @@
 #!/bin/sh
 
 # clear screen
-echo -e  "\033c"
+echo -ne  "\033c"
 
 # red
-echo -e "\033[31m"
+echo -ne "\033[31m"
 
 # ascii art hostname
 figlet " $(hostname -s) "
 
+# white
+echo -ne "\033[37m"
+
 # domain name
 echo "     .$(hostname -d)"
+echo
 
 # reset
-echo -e "\033[0m"
+echo -ne "\033[0m"
