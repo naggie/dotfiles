@@ -6,7 +6,7 @@ mkdir $TMPDIR
 cd $TMPDIR
 
 # catch 22...
-curl https://raw.github.com/naggie/dotfiles/master/dependencies.sh > dependencies.sh
+curl https://raw.github.com/naggie/dotfiles/master/etc/dependencies.sh > dependencies.sh
 bash dependencies.sh || exit 1
 
 git clone --depth 1 --recursive git://github.com/naggie/dotfiles.git

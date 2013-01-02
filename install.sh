@@ -28,6 +28,10 @@ if [ $? -ne 0 ]; then
 		echo "  * $i"
 	done
 
+	echo
+	echo You may install them with etc/dependencies.sh
+	echo
+
 	exit
 fi
 
