@@ -7,13 +7,14 @@ echo -ne  "\033c"
 echo -ne "\033[31m"
 
 # ascii art hostname
-figlet " $(hostname -s) "
+hostname -s | tr a-z A-Z | figlet
 
 # white
 echo -ne "\033[37m"
 
 # domain name
-echo "     .$(hostname -d)"
+echo -n "     ."
+hostname -d | tr a-z A-Z
 echo
 
 # reset
