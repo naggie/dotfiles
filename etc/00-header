@@ -9,13 +9,17 @@ echo -ne "\033[31m"
 # ascii art hostname
 hostname -s | tr a-z A-Z | figlet
 
+# reset colours
+echo -ne "\033[0m"
+
+echo -n " ...powered by "
+
 # white
 echo -ne "\033[37m"
 
 # domain name
-echo -n "     ."
 hostname -d | tr a-z A-Z
 echo
 
-# reset
+# reset colours
 echo -ne "\033[0m"
