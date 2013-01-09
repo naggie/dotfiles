@@ -4,7 +4,7 @@
 echo -ne  "\033c"
 
 # red
-echo -ne "\033[31m"
+echo -ne "\033[37m"
 
 # ascii art hostname
 hostname -s | tr a-z A-Z | figlet
