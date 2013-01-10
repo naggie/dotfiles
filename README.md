@@ -21,7 +21,8 @@ Recommended:
   * nodejs
   * aiksaurus
 
-Hit and run install -- including dependencies, leaves no repository, non-interactive:
+To set up an entire new box (requires sudo, installs MOTD and dependencies, into /etc/skel):
+
 
 	curl https://raw.github.com/naggie/dotfiles/master/etc/magic.sh | bash
 

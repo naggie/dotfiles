@@ -12,7 +12,8 @@ bash dependencies.sh || exit 1
 git clone --depth 1 --recursive git://github.com/naggie/dotfiles.git
 cd dotfiles/
 
-bash install.sh
+./etc/install-motd.sh
+sudo ./install.sh
 
 cd ..
 rm -rf dotfiles/
