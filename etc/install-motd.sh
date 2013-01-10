@@ -13,6 +13,7 @@ fi
 
 if [ ! -x /usr/bin/figlet ]; then
 	echo "Install figlet first"
+	exit 1
 fi
 
 
