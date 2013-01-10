@@ -12,7 +12,7 @@ hostname -s | tr a-z A-Z | figlet
 # reset colours
 echo -ne "\033[0m"
 
-echo -n "Serving "
+echo -n "     ."
 
 # white
 echo -ne "\033[37m"
@@ -29,3 +29,5 @@ if [ -r /etc/quotes ]; then
 	echo
 fi
 
+
+echo ---
