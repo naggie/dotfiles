@@ -12,7 +12,14 @@ hostname -s | tr a-z A-Z | figlet
 # reset colours
 echo -ne "\033[0m"
 
-echo -n " ...powered by "
+if [ -r /etc/quotes ]; then
+	echo -n '...'
+	cat /etc/quotes | sort -R | tail -n 1 | tr a-z A-Z
+	echo
+fi
+
+
+echo -n "Powered by "
 
 # white
 echo -ne "\033[37m"

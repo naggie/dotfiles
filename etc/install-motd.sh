@@ -19,10 +19,14 @@ fi
 # copy replacement header
 sudo cp 00-header /etc/update-motd.d/
 
+sudo cp quotes /etc/quotes
+sudo chmod 0444 /etc/quotes
 
 # remove sysinfo part. MLDASH does this.
 sudo chmod -x /etc/update-motd.d/*-landscape-sysinfo 2>/dev/null
 sudo chmod -x /etc/update-motd.d/*-motd 2>/dev/null
+sudo chmod -x /etc/update-motd.d/*-help-text 2>/dev/null
+sudo chmod -x /etc/update-motd.d/*-ovh-informations 2>/dev/null
 
 # test
 echo PREVIEW:
