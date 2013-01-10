@@ -3,7 +3,7 @@
 # clear screen
 echo -ne  "\033c"
 
-# red
+# white
 echo -ne "\033[37m"
 
 # ascii art hostname
@@ -12,14 +12,7 @@ hostname -s | tr a-z A-Z | figlet
 # reset colours
 echo -ne "\033[0m"
 
-if [ -r /etc/quotes ]; then
-	echo -n '...'
-	cat /etc/quotes | sort -R | tail -n 1 | tr a-z A-Z
-	echo
-fi
-
-
-echo -n "Powered by "
+echo -n "Serving "
 
 # white
 echo -ne "\033[37m"
@@ -30,3 +23,9 @@ echo
 
 # reset colours
 echo -ne "\033[0m"
+
+if [ -r /etc/quotes ]; then
+	cat /etc/quotes | sort -R | tail -n 1
+	echo
+fi
+
