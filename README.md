@@ -45,6 +45,8 @@ To manually update, put something like this in your crontab (via crontab -e):
 
 I think this is currently broken. whoami apparently does not work.
 
+To install to `/etc/skel` so that new users get dotfiles, run `sudo ./install.sh`
+
 # Environment
 
   * A dark xterm-256color terminal is required. Fbterm can be used but TERM=fbterm has to be set to enable the right escape codes.

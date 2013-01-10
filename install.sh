@@ -1,5 +1,13 @@
 #! /bin/bash
 
+# RUN AS ROOT TO INSTALL TO /etc/skel/ so new users have these dotfiles
+# or sudo -u <user> ./install.sh to install as any other user
+
+
+if [ `whoami` == root ]; then
+	HOME=/etc/skel
+fi
+
 
 DEPENDENCIES=(ssh vim git tmux)
 
@@ -53,7 +61,7 @@ fi
 # installing stuff from source? best keep it.
 mkdir -p ~/src/
 
-test -e ~/.ssh/id_rsa || ssh-keygen
+#test -e ~/.ssh/id_rsa || ssh-keygen
 
 if [ $USER = 'naggie' ] || [ $USER = 'callanbryant' ]; then
 	git config --global user.name 'Callan Bryant'
