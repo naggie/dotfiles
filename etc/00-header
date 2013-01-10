@@ -12,10 +12,10 @@ hostname -s | tr a-z A-Z | figlet
 # reset colours
 echo -ne "\033[0m"
 
-echo -n "     ."
-
 # white
 echo -ne "\033[37m"
+
+echo -n "     ."
 
 # domain name
 hostname -d | tr a-z A-Z
