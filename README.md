@@ -32,7 +32,7 @@ To update:
 
 To manually update, put something like this in your crontab (via crontab -e):
 
-	53 17 * * * cd ~/dotfiles/ && git pull && ./install.sh
+	53 17 * * * cd /home/naggie/dotfiles/ && git pull && ./install.sh
 
 I think this is currently broken. whoami apparently does not work.
 
