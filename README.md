@@ -2,51 +2,41 @@
 
 **WARNING, THIS WILL CLOBBER YOUR EXISTING CONFIGURATION BY DESIGN**
 
-Dependencies:
+For:
 
   * tmux 1.6+
   * vim 7.3+
   * git (obviously)
   * keychain
   * Dark xterm-256color compatible terminal, mouse enabled, solarised 16-color palette (on top of the 256 colours)
-
-
-Recommended:
-
-  * bc
-  * http://inotool.org/
   * mcabber 0.10.1+
-  * irssi
-  * python
-  * nodejs
-  * aiksaurus
+  * inotool
 
-To set up an entire new box (requires sudo, installs MOTD and dependencies, into /etc/skel):
 
+To (globally) set up an entire new box (requires sudo, installs MOTD and dependencies, into /etc/skel):
 
 	curl https://raw.github.com/naggie/dotfiles/master/etc/magic.sh | bash
 
 
-Normal installation with local repository:
+Normal (user) installation with local repository:
 
 	git clone --recursive git://github.com/naggie/dotfiles.git
 	cd dotfiles/
-	./dependencies.sh # only run this once
-	./install.sh
+	./etc/dependencies.sh # only run this once
+	./install.sh # does submodules, even if you didn't run --recureive earlier
 
 To update:
 
 	git pull
-	git submodule update
-	./install.sh
+	./install.sh # does submodule updates automatially
 
 To manually update, put something like this in your crontab (via crontab -e):
 
-	53 17 * * * ~/dotfiles/update.sh
+	53 17 * * * cd ~/dotfiles/ && git pull && ./install.sh
 
 I think this is currently broken. whoami apparently does not work.
 
-To install to `/etc/skel` so that new users get dotfiles, run `sudo ./install.sh`
+To globally install to `/etc/skel` so that new users get dotfiles, run `sudo ./install.sh`
 
 # Environment
 

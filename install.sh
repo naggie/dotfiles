@@ -10,6 +10,10 @@ fi
 
 cd $(dirname $0)
 
+# make sure the submodules are fetched
+git submodule --quiet init
+git submodule --quiet update
+
 # clobber vim!
 test -d ~/.vim/ && rm -rf ~/.vim/
 
@@ -28,11 +32,11 @@ mkdir -p ~/src/
 
 #test -e ~/.ssh/id_rsa || ssh-keygen
 
-if [ $USER = 'naggie' ] || [ $USER = 'callanbryant' ]; then
+if [ `whoami` = 'naggie' ] || [ `whoami` = 'callanbryant' ]; then
 	git config --global user.name 'Callan Bryant'
 	git config --global user.email 'callan.bryant@gmail.com'
 	echo 'set jid = naggie@blackmesa.so' >> ~/.mcabberrc
-elif [ $USER = 'cbryant' ] || [ "$(hostname -d)" = 'cam.broadcom.com' ]; then
+elif [ `whoami` = 'cbryant' ] || [ "$(hostname -d)" = 'cam.broadcom.com' ]; then
 	git config --global user.name 'Callan Bryant'
 	git config --global user.email 'cbryant@broadcom.com'
 	echo 'set jid = cbryant@spark.eu.broadcom.com' >> ~/.mcabberrc
