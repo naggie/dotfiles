@@ -1,4 +1,5 @@
-# Installation
+Installation
+============
 
 **WARNING, THIS WILL CLOBBER YOUR EXISTING CONFIGURATION BY DESIGN**
 
@@ -13,11 +14,6 @@ For:
   * inotool
 
 
-To (globally) set up an entire new box (requires sudo, installs MOTD and dependencies, into /etc/skel):
-
-	curl https://raw.github.com/naggie/dotfiles/master/etc/magic.sh | bash
-
-
 Normal (user) installation with local repository:
 
 	git clone --recursive git://github.com/naggie/dotfiles.git
@@ -30,15 +26,24 @@ To update:
 	git pull
 	./install.sh # does submodule updates automatially
 
-To manually update, put something like this in your crontab (via crontab -e):
 
-	53 17 * * * cd /home/naggie/dotfiles/ && git pull && ./install.sh
+
+To (globally) set up an entire new box (requires sudo, installs MOTD and dependencies, into /etc/skel):
+
+	curl https://raw.github.com/naggie/dotfiles/master/etc/magic.sh | bash
+
+
+To automatically  update, put something like this in your crontab (via crontab -e):
+
+	53 17 * * * cd /home/naggie/dotfiles/ && git pull origin master && ./install.sh
+
 
 I think this is currently broken. whoami apparently does not work.
 
 To globally install to `/etc/skel` so that new users get dotfiles, run `sudo ./install.sh`
 
-# Environment
+Environment
+===========
 
   * A dark xterm-256color terminal is required. Fbterm can be used but TERM=fbterm has to be set to enable the right escape codes.
   * The solarised dark 16-colour palette (works alongside the 256 solarisez settings too) is recommended to make 16-colour applications look nice.
