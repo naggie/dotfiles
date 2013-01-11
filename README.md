@@ -38,8 +38,6 @@ To automatically  update, put something like this in your crontab (via crontab -
 	53 17 * * * cd /home/naggie/dotfiles/ && git pull origin master && ./install.sh
 
 
-I think this is currently broken. whoami apparently does not work.
-
 To globally install to `/etc/skel` so that new users get dotfiles, run `sudo ./install.sh`
 
 Environment
