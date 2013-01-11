@@ -23,11 +23,6 @@ cp -r home/* ~
 cp -r home/.??* ~
 chmod +x ~/bin/*
 
-if [ $SHELL != '/bin/bash' ]; then
-	echo 'Changing your shell to bash'
-	chsh -s /bin/bash
-fi
-
 # installing stuff from source? best keep it.
 mkdir -p ~/src/
 
