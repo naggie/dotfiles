@@ -38,9 +38,35 @@ ehthumbs.db
 Thumbs.db
 .AppleDouble
 
-# Temporary or backuup files
+# Temporary or backup files
 
 *.autosave
 .*.swp
 *~
 ~$*
+
+# LaTeX Build crap
+
+*.aux
+*.glo
+*.idx
+*.log
+*.toc
+*.ist
+*.acn
+*.acr
+*.alg
+*.bbl
+*.blg
+*.dvi
+*.glg
+*.gls
+*.ilg
+*.ind
+*.lof
+*.lot
+*.maf
+*.mtc
+*.mtc1
+*.out
+*.synctex.gz
