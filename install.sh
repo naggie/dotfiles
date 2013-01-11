@@ -3,6 +3,7 @@
 # RUN AS ROOT TO INSTALL TO /etc/skel/ so new users have these dotfiles
 # or sudo -u <user> ./install.sh to install as any other user
 
+date
 
 if [ `whoami` == root ]; then
 	HOME=/etc/skel
