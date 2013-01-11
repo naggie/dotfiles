@@ -70,3 +70,6 @@ Thumbs.db
 *.mtc1
 *.out
 *.synctex.gz
+
+# ino build stuff
+.build/
