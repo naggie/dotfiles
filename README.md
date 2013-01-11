@@ -36,6 +36,8 @@ To (globally) set up an entire new box (requires sudo, installs MOTD and depende
 To automatically  update, put something like this in your crontab (via crontab -e):
 
 	53 17 * * * cd /home/naggie/dotfiles/ && git pull origin master && ./install.sh
+	
+Append `&> /home/naggie/dotfiles.log` or add `MAILTO=<email_addr>` into the crontab.
 
 
 To globally install to `/etc/skel` so that new users get dotfiles, run `sudo ./install.sh`
