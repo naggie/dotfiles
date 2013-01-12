@@ -9,7 +9,7 @@ echo -ne "\033[37m"
 # ascii art hostname
 hostname -s | tr a-z A-Z | figlet
 
-echo -n "     ."
+echo -n " ."
 
 # domain name
 hostname -d | tr a-z A-Z
@@ -17,6 +17,7 @@ echo
 
 
 if [ -r /etc/quotes ]; then
+	echo -n " "
 	cat /etc/quotes | sort -R | tail -n 1
 	echo
 fi
