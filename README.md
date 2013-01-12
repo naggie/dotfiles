@@ -49,9 +49,9 @@ Automated personal updates
 
 To automatically  update, put something like this in your crontab (via crontab -e):
 
-	53 17 * * * cd /home/naggie/dotfiles/ && git pull origin master && ./install.sh
+	53 17 * * * cd dotfiles/ && git pull origin master && ./install.sh
 
-Append `&> /home/naggie/dotfiles.log` or add `MAILTO-<email_addr>` into the crontab.
+Append `&> ../dotfiles.log` or add `MAILTO-<email_addr>` into the crontab.
 Redirect STDOUT into `/dev/null` to only receive errors.
 
 
