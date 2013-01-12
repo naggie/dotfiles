@@ -11,7 +11,8 @@ if [ -x /usr/bin/apt-get ]; then
 elif [ -x /usr/local/bin/brew ]; then
 	# mac os x (vim comes out-of-the-box, yay!)
 	brew update || exit 2
-	brew install git tmux keychain picocom mcabber htop-osx nodejs autossh bash-completion gnu-sed
+	brew install git tmux keychain picocom mcabber htop-osx nodejs autossh bash-completion gnu-sed coreutils
+	# coreutils by default are outdated
 	exit 0 # don't retorn the last exit status
 else
 	echo 'Could not find a supported package manager. Install from source.'
