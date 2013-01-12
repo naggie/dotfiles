@@ -8,8 +8,8 @@
 	status = auto
 	ui = true
 [core]
-	excludesfile = .gitignore
+	excludesfile = ~/.gitignore_global
 [help]
 	autocorrect = 1
 [include]
-	path = .gitconfig.local
+	path = ~/.gitconfig.local
