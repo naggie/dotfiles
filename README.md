@@ -22,12 +22,9 @@ Installation
 	git clone --recursive git://github.com/naggie/dotfiles.git
 	cd dotfiles/
 	./etc/dependencies.sh # only run this once
-	./install.sh # does submodules, even if you didn't run --recureive earlier
+	./install.sh # does submodules, even if you didn't run --recursive earlier
 
-To update, run:
-
-	git pull
-	./install.sh # does submodule updates automatially
+To update, run `git pull && ./install.sh` which will also take care of submodules.
 
 
 **Global** installation: set up an entire new box (requires sudo, installs MOTD
