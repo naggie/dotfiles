@@ -17,7 +17,7 @@ set incsearch
 set hlsearch
 nnoremap <silent> <CR> :noh<CR>  " Clear search highlight by hitting ente
 
-" trial spell checking
+" Spell checking. Does not offer suggestions :-)
 set spell
 
 set cursorline " Highlight current line
