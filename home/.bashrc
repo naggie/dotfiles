@@ -7,6 +7,9 @@ shopt -s checkwinsize
 # stop -bash: !": event not found
 set +o histexpand
 
+# correct minor spelling errors in cd
+shopt -s cdspell
+
 # Useful title for ssh
 printf "\033]0;$HOSTNAME\007" "$@"
 
