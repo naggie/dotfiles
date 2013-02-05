@@ -37,6 +37,7 @@ alias l=ls
 alias s=ls
 alias gi=git
 alias g=git
+alias v=vim
 
 alias contains='find | xargs grep -iEl '
 
