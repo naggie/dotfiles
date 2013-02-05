@@ -36,6 +36,7 @@ alias sl=ls
 alias l=ls
 alias s=ls
 alias gi=git
+alias g=git
 
 alias contains='find | xargs grep -iEl '
 
