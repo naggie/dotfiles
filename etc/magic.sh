@@ -1,5 +1,5 @@
 #!/bin/bash
-# run curl https://raw.github.com/naggie/dotfiles/master/magic.sh | bash to install everything
+# run curl https://raw.github.com/naggie/dotfiles/master/etc/magic.sh | bash to install everything
 
 TMPDIR=/tmp/banana$$/
 mkdir $TMPDIR
