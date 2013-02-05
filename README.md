@@ -17,7 +17,7 @@ And a few more things, such as dependencies and MOTD.
 Installation
 ------------
 
-**Personal** installation with local repository:
+**Personal** Installation with local repository:
 
 	git clone --recursive git://github.com/naggie/dotfiles.git
 	cd dotfiles/
@@ -27,19 +27,11 @@ Installation
 To update, run `git pull && ./install.sh` which will also take care of submodules.
 
 
-**Global** installation: set up an entire new box (requires sudo, installs MOTD
-and dependencies, into `/etc/skel`):
-
-	curl https://raw.github.com/naggie/dotfiles/master/etc/magic.sh | bash
+To install **globally** run `sudo ./install.sh`. You can also install a MOTD
+via a script in `etc/motd/`
 
 This way *new* users will automatically get a personal copy of dotfiles. They
 are then free to delete or modify them.
-
-For existing users, tell them to do a personal install if they like using
-`/etc/motd.tail` or something. Make sure they know that this will clobber any
-of their existing config. If you're in disagreement with any of this, fork
-away!
-
 
 Automated personal updates
 --------------------------
