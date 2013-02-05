@@ -15,4 +15,4 @@ fi
 sudo cp quotes /etc/quotes
 sudo chmod 0444 /etc/quotes
 
-./00-header > sudo tee /etc/motd
+./00-header | sudo tee /etc/motd
