@@ -1,4 +1,3 @@
-
 **WARNING, THIS WILL CLOBBER YOUR EXISTING CONFIGURATION BY DESIGN**
 
 For:
@@ -19,19 +18,20 @@ Installation
 
 **Personal** Installation with local repository:
 
-	git clone --recursive git://github.com/naggie/dotfiles.git
-	cd dotfiles/
-	./etc/dependencies.sh # only run this once
-	./install.sh # does submodules, even if you didn't run --recursive earlier
+  1. Clone or unzip this repo
+  2. Install dependencies and recommended packages using a script from `etc/deps/`
+  3. `./install.sh`
 
 To update, run `git pull && ./install.sh` which will also take care of submodules.
-
 
 To install **globally** run `sudo ./install.sh`. You can also install a MOTD
 via a script in `etc/motd/`
 
 This way *new* users will automatically get a personal copy of dotfiles. They
 are then free to delete or modify them.
+
+Some user-sepcific things are installed if your username matches. For example,
+git user/email and SSH authorised keys.
 
 Automated personal updates
 --------------------------
