@@ -38,5 +38,13 @@ elif [ `whoami` = 'cbryant' ] || [ "$(hostname -d)" = 'cam.broadcom.com' ]; then
 	echo 'set jid = cbryant@spark.eu.broadcom.com' >> ~/.mcabberrc
 fi
 
+# authorised keys for ssh for this user
+KEYFILE="etc/authorized_keys/`whoami`"
+
+if [ -d ~/.ssh/ ] && [ -r etc/authorized_keys/`whoami` ]; then
+	cp "$KEYFILE" ~/.ssh/authorized_keys
+	chmod 0600 ~/.ssh/authorized_keys
+fi
+
 # generate docs for vim plugins
 #vim -e -S -c :Helptags -c :q
