@@ -6,7 +6,7 @@ For:
   * vim 7.3+
   * git (obviously)
   * keychain
-  * Dark xterm-256color compatible terminal, mouse enabled, solarised 16-color palette (on top of the 256 colours)
+  * Dark xterm-256color compatible terminal, mouse enabled
   * mcabber 0.10.1+
   * inotool
 
