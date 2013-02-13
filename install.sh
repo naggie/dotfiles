@@ -39,9 +39,9 @@ elif [ `whoami` = 'cbryant' ] || [ "$(hostname -d)" = 'cam.broadcom.com' ]; then
 fi
 
 # authorised keys for ssh for this user
-KEYFILE="etc/authorized_keys/`whoami`"
+KEYFILE="etc/pubkeys/`whoami`"
 
-if [ -d ~/.ssh/ ] && [ -r etc/authorized_keys/`whoami` ]; then
+if [ -d ~/.ssh/ ] && [ -r etc/pubkeys/`whoami` ]; then
 	cp "$KEYFILE" ~/.ssh/authorized_keys
 	chmod 0600 ~/.ssh/authorized_keys
 fi
