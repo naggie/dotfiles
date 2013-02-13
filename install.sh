@@ -31,7 +31,7 @@ mkdir -p ~/src/
 if [ `whoami` = 'naggie' ] || [ `whoami` = 'callanbryant' ]; then
 	git config --global user.name 'Callan Bryant'
 	git config --global user.email 'callan.bryant@gmail.com'
-	echo 'set jid = naggie@blackmesa.so' >> ~/.mcabberrc
+	echo 'set jid = naggie@darksky.io' >> ~/.mcabberrc
 elif [ `whoami` = 'cbryant' ] || [ "$(hostname -d)" = 'cam.broadcom.com' ]; then
 	git config --global user.name 'Callan Bryant'
 	git config --global user.email 'cbryant@broadcom.com'
@@ -39,9 +39,9 @@ elif [ `whoami` = 'cbryant' ] || [ "$(hostname -d)" = 'cam.broadcom.com' ]; then
 fi
 
 # authorised keys for ssh for this user
-KEYFILE="etc/authorized_keys/`whoami`"
+KEYFILE="etc/pubkeys/`whoami`"
 
-if [ -d ~/.ssh/ ] && [ -r etc/authorized_keys/`whoami` ]; then
+if [ -d ~/.ssh/ ] && [ -r etc/pubkeys/`whoami` ]; then
 	cp "$KEYFILE" ~/.ssh/authorized_keys
 	chmod 0600 ~/.ssh/authorized_keys
 fi
