@@ -44,6 +44,7 @@ Thumbs.db
 .*.swp
 *~
 ~$*
+*.bak
 
 # LaTeX Build crap
 
