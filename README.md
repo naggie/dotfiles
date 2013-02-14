@@ -24,8 +24,7 @@ Installation
 
 To update, run `git pull && ./install.sh` which will also take care of submodules.
 
-To install **globally** run `sudo ./install.sh`. You can also install a MOTD
-via a script in `etc/motd/`
+To install **globally** run `sudo ./install.sh`.
 
 This way *new* users will automatically get a personal copy of dotfiles. They
 are then free to delete or modify them.
