@@ -1,4 +1,5 @@
 " vim 7.3+
+set nocompatible
 call pathogen#infect()
 set laststatus=2
 
