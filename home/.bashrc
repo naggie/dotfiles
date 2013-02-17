@@ -39,6 +39,9 @@ alias gi=git
 alias g=git
 alias v=vim
 
+# map completion for aliases
+complete -o default -o nospace -F _git g
+
 alias contains='find | xargs grep -iEl '
 
 # hardcoded ssh completions (known_hosts is encrypted mostly)
