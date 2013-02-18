@@ -45,7 +45,7 @@ complete -o default -o nospace -F _git g
 alias contains='find | xargs grep -iEl '
 
 # hardcoded ssh completions (known_hosts is encrypted mostly)
-complete -o default -W 'nodehost.darksky.io squirtle.darksky.io hailstorm.darksky.io blackmesa.darksky.io aperture.darksky.io chell.darksky.io snowstorm.darksky.io navcom.darksky.io deadknightsociety.org' ssh scp ping
+complete -o default -W 'nodehost.darksky.io squirtle.darksky.io hailstorm.darksky.io blackmesa.darksky.io aperture.darksky.io chell.darksky.io snowstorm.darksky.io navcom.darksky.io deadknightsociety.org nova.darksky.io' ssh scp ping
 
 # Homebrew completions
 test -x /usr/local/bin/brew && source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
