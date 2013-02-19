@@ -15,7 +15,7 @@ Installation
 
 **Personal** Installation with local repository:
 
-  1. Clone or unzip this repo
+  1. Clone this repo (depends on git for submodules)
   2. Install dependencies and recommended packages using a script from `prerequisites/`
   3. Run `./install.sh`
 
