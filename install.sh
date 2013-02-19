@@ -12,8 +12,8 @@ fi
 cd $(dirname $0)
 
 # make sure the submodules are fetched
-git submodule --quiet init
-git submodule --quiet update
+git submodule --quiet init || exit 1
+git submodule --quiet update || exit 2
 
 # clobber vim!
 test -d ~/.vim/ && rm -rf ~/.vim/
