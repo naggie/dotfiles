@@ -13,6 +13,9 @@ shopt -s cdspell
 # Useful title for ssh
 printf "\033]0;$HOSTNAME\007" "$@"
 
+# Update TMUX title with path
+PROMPT_COMMAND="echo -ne \"\\033k\${PWD##*/}\\033\\\\\""
+
 # MOAR PROMPT
 PS1='\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[m\]\n\$ '
 
