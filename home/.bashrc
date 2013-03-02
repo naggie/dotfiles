@@ -14,7 +14,10 @@ shopt -s cdspell
 printf "\033]0;$HOSTNAME\007" "$@"
 
 # Update TMUX title with path
-PROMPT_COMMAND="echo -ne \"\\033k\${PWD##*/}\\033\\\\\""
+function prompt {
+	echo -ne "\\033k${PWD##*/}\\033\\\\"
+}
+PROMPT_COMMAND=prompt
 
 # MOAR PROMPT
 PS1='\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[m\]\n\$ '
