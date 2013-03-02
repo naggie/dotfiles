@@ -3,7 +3,7 @@
 
 
 # this bashrc takes a sec or so thanks to all the completions
-echo -ne "> Just a sec..."
+echo -ne "\r\033[37m> Welcome to $(hostname -s), $USER.\033[0m "
 
 # update the values of LINES and COLUMNS. Automatically
 shopt -s checkwinsize
@@ -109,6 +109,6 @@ test -x /usr/bin/dircolors && eval $(dircolors ~/.dir_colors)
 
 # ls is the first thing I normally do when I log in. Let's hope it's not annoying
 # note the carriage return, overwriting the loading message from the top of this script
-echo -e "\r\033[37m> Welcome to $(hostname -s), $USER.\033[0m Files in $PWD are:"
+echo "Files in $PWD are:"
 echo
 ls
