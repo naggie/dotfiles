@@ -111,4 +111,5 @@ test -x /usr/bin/dircolors && eval $(dircolors ~/.dir_colors)
 # note the carriage return, overwriting the loading message from the top of this script
 echo "Files in $PWD are:"
 echo
-ls
+# neat ls with fixed width
+COLUMNS=80 ls
