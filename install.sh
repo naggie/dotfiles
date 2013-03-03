@@ -3,6 +3,9 @@
 # RUN AS ROOT TO INSTALL TO /etc/skel/ so new users have these dotfiles
 # or sudo -u <user> ./install.sh to install as any other user
 
+# Put a list of pubkeys in pubkeys/user
+# put specific setup scripts in specific/user
+
 date
 
 if [ `whoami` == root ]; then
@@ -23,19 +26,9 @@ cp -r home/* ~
 cp -r home/.??* ~
 chmod +x ~/bin/*
 
-# installing stuff from source? best keep it.
-mkdir -p ~/src/
-
-#test -e ~/.ssh/id_rsa || ssh-keygen
-
-if [ `whoami` = 'naggie' ] || [ `whoami` = 'callanbryant' ]; then
-	git config --global user.name 'Callan Bryant'
-	git config --global user.email 'callan.bryant@gmail.com'
-	echo 'set jid = naggie@darksky.io' >> ~/.mcabberrc
-elif [ `whoami` = 'cbryant' ] || [ "$(hostname -d)" = 'cam.broadcom.com' ]; then
-	git config --global user.name 'Callan Bryant'
-	git config --global user.email 'cbryant@broadcom.com'
-	echo 'set jid = cbryant@spark.eu.broadcom.com' >> ~/.mcabberrc
+# user-specific stuff
+if [ -x "specific/`whoami`" ]; then
+	"./specific/`whoami`"
 fi
 
 # authorised keys for ssh for this user
@@ -45,6 +38,3 @@ if [ -d ~/.ssh/ ] && [ -r pubkeys/`whoami` ]; then
 	cp "$KEYFILE" ~/.ssh/authorized_keys
 	chmod 0600 ~/.ssh/authorized_keys
 fi
-
-# generate docs for vim plugins
-#vim -e -S -c :Helptags -c :q

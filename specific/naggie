@@ -1,0 +1,4 @@
+#!/bin/bash
+git config --global user.name 'Callan Bryant'
+git config --global user.email 'callan.bryant@gmail.com'
+echo 'set jid = naggie@darksky.io' >> ~/.mcabberrc
