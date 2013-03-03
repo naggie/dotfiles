@@ -1,5 +1,9 @@
 **WARNING, THIS WILL CLOBBER YOUR EXISTING CONFIGURATION BY DESIGN**
 
+This dotfiles collection separates anything specific to me, only if it detects my username
+will it configure with my keys and auth. Therefore it can be (and is) also used by several
+other humans.
+
 For:
 
   * tmux 1.6+
