@@ -6,8 +6,10 @@
 # Put a list of pubkeys in pubkeys/user
 # put specific setup scripts in specific/user
 
+# this is good for log files
 date
 
+# sneaky hack to install to skel if run as root
 if [ `whoami` == root ]; then
 	HOME=/etc/skel
 fi
