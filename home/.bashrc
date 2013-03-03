@@ -36,7 +36,7 @@ PS1='\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[m\]\n\$ '
 alias more=less
 alias sagi='yes | sudo apt-get install'
 alias grep='grep --color=auto'
-alias ll='ls -al'
+alias la='ls -al'
 alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -67,6 +67,8 @@ if [[ $PLATFORM == 'Linux' ]]; then
 	alias ls='ls --color=auto'
 elif [[ $PLATFORM == 'Darwin' ]]; then
 	alias ls='ls -G'
+	#export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+	#export CLICOLOR=1
 fi
 
 # cd then ls
