@@ -26,6 +26,9 @@ cp -r home/* ~
 cp -r home/.??* ~
 chmod +x ~/bin/*
 
+# in case someone forgot....
+chmod +x specific/*
+
 # user-specific stuff
 if [ -x "specific/`whoami`" ]; then
 	"./specific/`whoami`"
