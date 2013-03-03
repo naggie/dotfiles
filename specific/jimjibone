@@ -4,9 +4,10 @@ git config --global user.name 'jimjibone'
 git config --global user.email 'jamesreuss@gmail.com'
 
 # personal settings for bash
-echo "alias la='ls -a'" >> ~/.bashrc
-echo 'export CLICOLOR=1' >> ~/.bashrc
-#light echo 'export LSCOLORS=ExFxCxDxBxegedabagacad' >> ~/.bashrc
-echo 'export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx' >> ~/.bashrc
+text="alias la='ls -a';\
+export CLICOLOR=1;\
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx;"
+#light screen 'export LSCOLORS=ExFxCxDxBxegedabagacad'
 
-# initial mac setup is now done by prerequisites/osx.sh
+# prepend the 'text' onto .bashrc
+exec 3<> ~/.bashrc && awk -v TEXT="$text" 'BEGIN {print TEXT}{print}' ~/.bashrc >&3
