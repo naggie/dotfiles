@@ -1,5 +1,14 @@
 **WARNING, THIS WILL CLOBBER YOUR EXISTING CONFIGURATION BY DESIGN**
 
+This dotfiles collection separates anything specific to me, only if it detects my username
+will it configure with my keys and auth. Therefore it can be (and is) also used by several
+other humans. It also stops people from committing as me, for example.
+
+To configure specific things, add an executable script to `specific/<user>`, this
+will be executed after setup.
+
+Add SSH keys specific to that user to `pubkeys/<user>`
+
 For:
 
   * tmux 1.6+
@@ -25,10 +34,6 @@ To install **globally** (to `/etc/skel/`) run `sudo ./install.sh`.
 
 This way *new* users will automatically get a personal copy of dotfiles. They
 are then free to delete or modify them.
-
-Some user-sepcific things are installed if your username matches. For example,
-git user/email and SSH authorised keys. This is mostly to prevent forks from
-accidentally committing as me, for example.
 
 Automated updates
 -----------------
