@@ -5,10 +5,9 @@ git config --global user.email 'jamesreuss@gmail.com'
 
 # personal settings for bash into bashrc
 #
-cat <<EOF > ~/.bashrc
+cat <<EOF >> ~/.bashrc
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 #light screen export LSCOLORS=ExFxCxDxBxegedabagacad
 
-$(cat ~/.bashrc)
 EOF
