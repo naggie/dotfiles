@@ -4,9 +4,12 @@ git config --global user.name 'jimjibone'
 git config --global user.email 'jamesreuss@gmail.com'
 
 # personal settings for bash into bashrc
+#
 cat <<EOF > ~/.bashrc
- alias la='ls -a'
- export CLICOLOR=1
- export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
- #light screen export LSCOLORS=ExFxCxDxBxegedabagacad
+alias la='ls -a'
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+#light screen export LSCOLORS=ExFxCxDxBxegedabagacad
+
+$(cat ~/.bashrc)
 EOF
