@@ -66,9 +66,9 @@ PLATFORM=`uname`
 if [[ $PLATFORM == 'Linux' ]]; then
 	alias ls='ls --color=auto'
 elif [[ $PLATFORM == 'Darwin' ]]; then
-	alias ls='ls -G'
-	#export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-	#export CLICOLOR=1
+	#alias ls='ls -G'
+	export CLICOLOR=1
+	export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 fi
 
 # cd then ls
