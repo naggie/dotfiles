@@ -14,7 +14,11 @@ defaults write com.apple.finder QLEnableTextSelection -boolean YES
 defaults write com.apple.dashboard mcx-disabled -boolean YES
 
 # make the user library folder visible again
-chflags no hidden ~/Library/
+chflags nohidden ~/Library/
+
+# stop preview from opening every PDF you've ever opened every time you view a PDF
+# (how did apple think this was a good idea!?!?!)
+defaults write com.apple.Preview NSQuitAlwaysKeepsWindows -bool false
 
 # refresh stuff
 killall Dock

@@ -23,8 +23,11 @@ function prompt {
 }
 PROMPT_COMMAND=prompt
 
+
 # MOAR PROMPT
-PS1='\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[m\]\n\$ '
+# with git branch
+source ~/.git-prompt.bash
+PS1="\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[0;33m\]\$(__git_ps1)\[\e[m\]\n\$ "
 
 
 # git completion (maybe other completion too)
@@ -66,9 +69,9 @@ PLATFORM=`uname`
 if [[ $PLATFORM == 'Linux' ]]; then
 	alias ls='ls --color=auto'
 elif [[ $PLATFORM == 'Darwin' ]]; then
-	alias ls='ls -G'
-	#export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-	#export CLICOLOR=1
+	#alias ls='ls -G'
+	export CLICOLOR=1
+	export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 fi
 
 # cd then ls
