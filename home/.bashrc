@@ -23,8 +23,11 @@ function prompt {
 }
 PROMPT_COMMAND=prompt
 
+
 # MOAR PROMPT
-PS1='\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[m\]\n\$ '
+# with git branch
+source ~/.git-prompt.sh
+PS1="\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[0;33m\] \$(__git_ps1)\[\e[m\]\n\$ "
 
 
 # git completion (maybe other completion too)
