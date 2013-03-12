@@ -26,7 +26,7 @@ PROMPT_COMMAND=prompt
 
 # MOAR PROMPT
 # with git branch
-source ~/.git-prompt.sh
+source ~/.git-prompt.bash
 PS1="\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[0;33m\]\$(__git_ps1)\[\e[m\]\n\$ "
 
 
