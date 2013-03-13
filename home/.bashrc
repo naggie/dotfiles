@@ -26,7 +26,12 @@ PROMPT_COMMAND=prompt
 
 # MOAR PROMPT
 # with git branch
-#source ~/.git-prompt.bash (included)
+# make sure the function exists, even if it wasn't included
+# this is overridden later
+function __git_ps1 {
+	exit
+}
+
 PS1="\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[0;33m\]\$(__git_ps1)\[\e[m\]\n\$ "
 
 
@@ -35,6 +40,10 @@ PS1="\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[0;33m\]\$(__git_ps1)\[\e[m\]\n\$ "
 
 # OS X via homebrew git completion via package bash-completion
 [ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
+
+# Homebrew completions
+test -x /usr/local/bin/brew && source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
+
 
 alias more=less
 alias sagi='yes | sudo apt-get install'
@@ -59,9 +68,6 @@ complete -o default -o nospace -F _git g
 
 # hardcoded ssh completions (known_hosts is encrypted mostly)
 complete -o default -W 'nodehost.darksky.io squirtle.darksky.io hailstorm.darksky.io blackmesa.darksky.io aperture.darksky.io chell.darksky.io snowstorm.darksky.io navcom.darksky.io deadknightsociety.org nova.darksky.io' ssh scp ping
-
-# Homebrew completions
-test -x /usr/local/bin/brew && source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
 
 PLATFORM=`uname`
 if [[ $PLATFORM == 'Linux' ]]; then
