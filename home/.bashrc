@@ -103,7 +103,7 @@ export HISTIGNORE='git*--amend*:ls:cd:git*-m*:git*-am*:git*-f*:rm -rf*'
 export HISTCONTROL=ignoredups:ignorespace
 
 export EDITOR=vim
-export PATH=$PATH:~/bin/
+export PATH=$PATH:~/bin
 
 # fix backspace on some terminals
 stty erase ^?
