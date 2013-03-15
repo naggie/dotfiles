@@ -19,6 +19,10 @@ For:
   * mcabber 0.10.1+
   * inotool
 
+
+![iScreenshot](screenshot.png)
+
+
 Installation
 ------------
 
