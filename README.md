@@ -1,8 +1,8 @@
 **WARNING, THIS WILL CLOBBER YOUR EXISTING CONFIGURATION BY DESIGN**
 
-This dotfiles collection separates anything specific to me, only if it detects my username
+This general dotfiles collection separates anything specific to me, only if it detects my username
 will it configure with my keys and auth. Therefore it can be (and is) also used by several
-other humans. It also stops people from committing as me, for example.
+other humans or usernames. It also stops people from committing as me, for example.
 
 To configure specific things, add an executable script to `specific/<user>`, this
 will be executed after setup.
@@ -13,11 +13,12 @@ For:
 
   * tmux 1.6+
   * vim 7.3+
+  * Bash
+  * SSH
   * git (obviously)
   * keychain
   * Dark xterm-256color compatible terminal, mouse enabled
   * mcabber 0.10.1+
-  * inotool
 
 
 ![Screenshot](screenshot.png "Why do all terminal screenshots show top or htop running?")
