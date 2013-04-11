@@ -13,3 +13,8 @@
 	autocorrect = 1
 [include]
 	path = ~/.gitconfig.local
+[alias]
+	tpush = push
+	tpull = pull
+	pus = push
+	pul = pull
