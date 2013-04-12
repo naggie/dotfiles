@@ -62,6 +62,7 @@ alias s='git status'
 alias gi=git
 alias g=git
 alias v=vim
+alias cim=vim
 
 # map completion for aliases
 complete -o default -o nospace -F _git g
