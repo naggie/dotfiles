@@ -63,6 +63,7 @@ alias gi=git
 alias g=git
 alias v=vim
 alias cim=vim
+alias nom=npm
 
 # map completion for aliases
 complete -o default -o nospace -F _git g
