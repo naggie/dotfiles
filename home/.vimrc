@@ -83,6 +83,7 @@ set mouse=a
 " abbreviations
 ab teh the
 ab THe The
+ab eb be
 
 " Hide toolbar by default
 if has("gui_running")
