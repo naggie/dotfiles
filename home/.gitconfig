@@ -18,3 +18,7 @@
 	tpull = pull
 	pus = push
 	pul = pull
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
