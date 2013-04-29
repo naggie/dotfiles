@@ -89,3 +89,5 @@ ab eb be
 if has("gui_running")
 	set guioptions=egmrt
 endif
+
+set tabpagemax=20
