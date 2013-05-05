@@ -76,6 +76,9 @@ Thumbs.db
 # ino build stuff
 .build/
 
+# Xcode mess
+xcuserdata
+
 # KEIL IDE GARBAGE
 
 *.axf
