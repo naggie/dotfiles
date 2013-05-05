@@ -1,0 +1,6 @@
+# from the guys at lifehacker
+# http://lifehacker.com/supercharge-your-command-lines-history-search-with-fou-478683529
+"\e[A":history-search-backward
+"\e[B": history-search-forward
+set show-all-if-ambiguous on
+set completion-ignore-case on
