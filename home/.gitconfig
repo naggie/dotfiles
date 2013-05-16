@@ -1,6 +1,3 @@
-[github]
-	token = 131134fec82469af7e743c11505987e8
-	user = naggie
 [color]
 	branch = auto
 	diff = auto
@@ -13,3 +10,8 @@
 	autocorrect = 1
 [include]
 	path = ~/.gitconfig.local
+[user]
+	name = jimjibone
+	email = jamesreuss@gmail.com
+[push]
+	default = simple
