@@ -21,4 +21,4 @@
 	url = git://github.com/terryma/vim-multiple-cursors.git
 [submodule "home/.vim/bundle/vim-css-color"]
 	path = home/.vim/bundle/vim-css-color
-	url = git://github.com:ap/vim-css-color.git
+	url = git://github.com/ap/vim-css-color.git
