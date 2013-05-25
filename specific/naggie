@@ -1,4 +1,7 @@
 #!/bin/bash
 git config --global user.name 'Callan Bryant'
 git config --global user.email 'callan.bryant@gmail.com'
+git config --global github.token '131134fec82469af7e743c11505987e8'
+git config --global github.user 'naggie'
+
 echo 'set jid = naggie@darksky.io' >> ~/.mcabberrc
