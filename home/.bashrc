@@ -2,7 +2,8 @@
 [ -z "$PS1" ] && return
 
 
-# this bashrc takes a sec or so thanks to all the completions
+# this bashrc takes a sec or so thanks to all the completions, so print this first
+# Now this doesn't matter thanks to the deferred() system
 echo -ne "\r\033[37m> Welcome to $(hostname -s), $USER.\033[0m "
 
 # update the values of LINES and COLUMNS. Automatically
