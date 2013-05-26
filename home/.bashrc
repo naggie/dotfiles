@@ -37,15 +37,6 @@ function __git_ps1 {
 PS1="\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[0;33m\]\$(__git_ps1)\[\e[m\]\n\$ "
 
 
-# git completion (maybe other completion too)
-[ -f /etc/bash_completion ] && source /etc/bash_completion
-
-# OS X via homebrew git completion via package bash-completion
-[ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
-
-# Homebrew completions
-test -x /usr/local/bin/brew && source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
-
 
 alias more=less
 alias sagi='yes | sudo apt-get install'
@@ -68,11 +59,24 @@ alias cim=vim
 alias nom=npm
 alias webserver='python -m SimpleHTTPServer'
 
-# map completion for aliases
-complete -o default -o nospace -F _git g
 
-# hardcoded ssh completions (known_hosts is encrypted mostly)
-complete -o default -W 'nodehost.darksky.io squirtle.darksky.io hailstorm.darksky.io blackmesa.darksky.io aperture.darksky.io chell.darksky.io snowstorm.darksky.io navcom.darksky.io deadknightsociety.org nova.darksky.io' ssh scp ping
+# slow completion things in background after bashrc is executed
+function deferred {
+	# git completion (maybe other completion too)
+	[ -f /etc/bash_completion ] && source /etc/bash_completion
+
+	# OS X via homebrew git completion via package bash-completion
+	[ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
+
+	# Homebrew completions
+	test -x /usr/local/bin/brew && source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
+
+	# map completion for aliases
+	complete -o default -o nospace -F _git g
+
+	# hardcoded ssh completions (known_hosts is encrypted mostly)
+	complete -o default -W 'nodehost.darksky.io squirtle.darksky.io hailstorm.darksky.io blackmesa.darksky.io aperture.darksky.io chell.darksky.io snowstorm.darksky.io navcom.darksky.io deadknightsociety.org nova.darksky.io' ssh scp ping
+}
 
 PLATFORM=`uname`
 if [[ $PLATFORM == 'Linux' ]]; then
@@ -84,13 +88,12 @@ elif [[ $PLATFORM == 'Darwin' ]]; then
 fi
 
 # cd then ls
-function cd()
-{
+function cd {
 	builtin cd "$@" && ls
 }
 
 # cheap coloured man pages. Yay!
-man() {
+function man {
 	env \
 	LESS_TERMCAP_mb=$(printf "\e[1;31m") \
 	LESS_TERMCAP_md=$(printf "\e[1;31m") \
@@ -126,3 +129,7 @@ echo "Files in $PWD are:"
 echo
 # neat ls with fixed width
 COLUMNS=80 ls
+
+# run the deferred function in the background in this context after bashrc
+trap 'deferred; trap USR1' USR1
+{ sleep 0.1 ; builtin kill -USR1 $$ ; } & disown
