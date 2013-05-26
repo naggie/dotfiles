@@ -39,7 +39,7 @@ chmod +x presets/*
 
 # user-specific stuff
 echo
-if [ -x "presets/$PRESET" ]; then
+if [ "$PRESET" ] && [ -x "presets/$PRESET" ]; then
 	echo Installing preset: $PRESET
 	"./presets/$PRESET"
 else
