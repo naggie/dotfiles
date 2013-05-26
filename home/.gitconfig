@@ -10,8 +10,12 @@
 	autocorrect = 1
 [include]
 	path = ~/.gitconfig.local
-[user]
-	name = jimjibone
-	email = jamesreuss@gmail.com
-[push]
-	default = simple
+[alias]
+	tpush = push
+	tpull = pull
+	pus = push
+	pul = pull
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff

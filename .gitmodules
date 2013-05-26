@@ -16,3 +16,9 @@
 [submodule "home/.vim/bundle/trailing-whitespace"]
 	path = home/.vim/bundle/trailing-whitespace
 	url = git://github.com/vim-scripts/trailing-whitespace.git
+[submodule "home/.vim/bundle/vim-multiple-cursors"]
+	path = home/.vim/bundle/vim-multiple-cursors
+	url = git://github.com/terryma/vim-multiple-cursors.git
+[submodule "home/.vim/bundle/vim-css-color"]
+	path = home/.vim/bundle/vim-css-color
+	url = git://github.com/ap/vim-css-color.git

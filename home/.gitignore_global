@@ -8,6 +8,7 @@
 *.so
 *.bin
 *.hex
+*.pyc
 
 # Packages
 
@@ -71,6 +72,7 @@ Thumbs.db
 *.mtc
 *.mtc1
 *.out
+*.pyg
 *.synctex.gz
 
 # ino build stuff

@@ -19,7 +19,9 @@ printf "\033]0;$HOSTNAME\007" "$@"
 
 # Update TMUX title with path
 function prompt {
-	echo -ne "\\033k${PWD##*/}\\033\\\\"
+	# capital folder name
+	LABEL=`echo ${PWD##*/} | tr a-z A-Z`
+	echo -ne "\\033k$LABEL\\033\\\\"
 }
 PROMPT_COMMAND=prompt
 
@@ -58,10 +60,13 @@ alias c=cd
 alias d=cd
 alias sl=ls
 alias l=ls
-alias s=ls
+alias s='git status'
 alias gi=git
 alias g=git
 alias v=vim
+alias cim=vim
+alias nom=npm
+alias webserver='python -m SimpleHTTPServer'
 
 # map completion for aliases
 complete -o default -o nospace -F _git g
@@ -103,7 +108,7 @@ export HISTIGNORE='git*--amend*:ls:cd:git*-m*:git*-am*:git*-f*:rm -rf*'
 export HISTCONTROL=ignoredups:ignorespace
 
 export EDITOR=vim
-export PATH=/usr/local/bin:$PATH:~/bin
+export PATH=/usr/local/bin:$PATH:~/bin:/usr/local/share/npm/bin
 
 # fix backspace on some terminals
 stty erase ^?
@@ -117,7 +122,6 @@ alias tm='test -z $TMUX && (tmux a || tmux)'
 test -x /usr/bin/dircolors && eval $(dircolors ~/.dir_colors)
 
 # ls is the first thing I normally do when I log in. Let's hope it's not annoying
-# note the carriage return, overwriting the loading message from the top of this script
 echo "Files in $PWD are:"
 echo
 # neat ls with fixed width

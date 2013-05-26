@@ -1,23 +1,23 @@
 **WARNING, THIS WILL CLOBBER YOUR EXISTING CONFIGURATION BY DESIGN**
 
-This dotfiles collection separates anything specific to me, only if it detects my username
-will it configure with my keys and auth. Therefore it can be (and is) also used by several
-other humans. It also stops people from committing as me, for example.
-
-To configure specific things, add an executable script to `specific/<user>`, this
-will be executed after setup.
-
-Add SSH keys specific to that user to `pubkeys/<user>`
+Running `./install.sh` will set up a generic version. Running `./install.sh <preset>`
+will run a post-install script in `presets`. Therefore it can be (and is) also used
+by several other humans or usernames. It also stops people from committing as me, for example.
 
 For:
 
   * tmux 1.6+
   * vim 7.3+
+  * Bash
+  * SSH
   * git (obviously)
   * keychain
   * Dark xterm-256color compatible terminal, mouse enabled
   * mcabber 0.10.1+
-  * inotool
+
+
+![Screenshot](screenshot.png "Why do all terminal screenshots show top or htop running?")
+
 
 Installation
 ------------
@@ -26,14 +26,14 @@ Installation
 
   1. Clone this repo (depends on git for submodules)
   2. Install dependencies and recommended packages using a script from `prerequisites/`
-  3. Run `./install.sh`
+  3. Run `./install.sh <preset>`
 
 To update, run `git pull && ./install.sh` which will also take care of submodules.
 
 To install **globally** (to `/etc/skel/`) run `sudo ./install.sh`.
 
-This way *new* users will automatically get a personal copy of dotfiles. They
-are then free to delete or modify them.
+This way *new* users will automatically get a personal, generic, copy of dotfiles. They
+are then free to delete or modify.
 
 Automated updates
 -----------------
