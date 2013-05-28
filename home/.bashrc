@@ -37,28 +37,12 @@ function __git_ps1 {
 
 PS1="\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[0;33m\]\$(__git_ps1)\[\e[m\]\n\$ "
 
+# aliases shared between fish and bash
+source ~/.aliases
 
-
-alias more=less
-alias sagi='yes | sudo apt-get install'
-alias grep='grep --color=auto'
-alias la='ls -al'
-alias cd..='cd ..'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias c=cd
-alias d=cd
-alias sl=ls
-alias l=ls
-alias s='git status'
-alias gi=git
-alias g=git
-alias v=vim
-alias cim=vim
-alias nom=npm
-alias webserver='python -m SimpleHTTPServer'
+# bash specific aliases
+alias tmux='TERM=screen-256color-bce tmux'
+alias tm='test -z $TMUX && (tmux a || tmux)'
 
 
 # slow completion things in background after bashrc is executed
@@ -118,10 +102,6 @@ export PATH=/usr/local/bin:$PATH:~/bin:/usr/local/share/npm/bin
 stty erase ^?
 #stty erase ^H
 
-# colour schemes must work, and tmux should not complain when it thinks the term is rubbish
-alias tmux='TERM=screen-256color-bce tmux'
-alias tm='test -z $TMUX && (tmux a || tmux)'
-
 [ -x /usr/bin/keychain ] && [ -r ~/.ssh/id_rsa ] && eval `keychain --quiet --eval ~/.ssh/id_rsa`
 test -x /usr/bin/dircolors && eval $(dircolors ~/.dir_colors)
 
@@ -132,5 +112,6 @@ echo
 COLUMNS=80 ls
 
 # run the deferred function in the background in this context after bashrc
+# http://superuser.com/questions/267771/bash-completion-makes-bash-start-slowly
 trap 'deferred; trap USR1' USR1
 { sleep 0.1 ; builtin kill -USR1 $$ ; } & disown
