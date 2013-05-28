@@ -26,8 +26,9 @@ PRESET=$1
 git submodule --quiet init || exit 1
 git submodule --quiet update || exit 2
 
-# clobber vim!
+# clobber vim and fish config (because there are dirs)
 test -d ~/.vim/ && rm -rf ~/.vim/
+test -d ~/.config/fish/ && rm -rf ~/.config/fish/
 
 cp -r home/* ~
 # copy dotfiles separately , normal glob does not match

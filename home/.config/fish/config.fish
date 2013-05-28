@@ -6,6 +6,8 @@ end
 set -U EDITOR vim
 set -x PATH /usr/local/bin $PATH ~/bin /usr/local/share/npm/bin
 
+set -U HOSTNAME (hostname)
+
 
 # alias is just a wrapper for creating a function
 alias more        less
@@ -51,6 +53,13 @@ end
 
 function fish_title --description 'Set tmux (or TE) title'
 	pwd
+end
+
+function fish_prompt --description 'Write out the prompt'
+	echo -n -s \n (set_color green) $USER @ $HOSTNAME (set_color normal)\
+	' ' (set_color --bold blue) (pwd) (set_color normal)\
+	(set_color yellow) (__fish_git_prompt) (set_color normal)\
+	\n\$ ' '
 end
 
 function fish_right_prompt --description 'Reminds user of fish'
