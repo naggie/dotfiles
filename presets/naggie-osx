@@ -47,3 +47,6 @@ brew cask install google-chrome adium arduino bettertouchtool cyberduck gimp ite
 
 # iterm2 prefs
 cp etc/com.googlecode.iterm2.plist ~/Library/Preferences/
+
+# update completion db from man pages. OMGWOW.
+/usr/local/bin/fish -c fish_update_completions

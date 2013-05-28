@@ -40,6 +40,8 @@ PS1="\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[0;33m\]\$(__git_ps1)\[\e[m\]\n\$ "
 # aliases shared between fish and bash
 source ~/.aliases
 
+# bash specific aliases
+alias tmux='TERM=screen-256color-bce tmux'
 alias tm='test -z $TMUX && (tmux a || tmux)'
 
 

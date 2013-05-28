@@ -13,8 +13,8 @@ set -U HOSTNAME (hostname)
 # aliases shared between fish and bash
 . ~/.aliases
 
-# fish specific
-alias tm         'test -z $TMUX; and tmux a ; or tmux'
+# fish specific aliases
+alias tm 'test -z $TMUX; and tmux a ; or tmux'
 
 function cd
 	builtin cd $argv
