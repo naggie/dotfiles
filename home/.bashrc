@@ -132,5 +132,6 @@ echo
 COLUMNS=80 ls
 
 # run the deferred function in the background in this context after bashrc
+# http://superuser.com/questions/267771/bash-completion-makes-bash-start-slowly
 trap 'deferred; trap USR1' USR1
 { sleep 0.1 ; builtin kill -USR1 $$ ; } & disown
