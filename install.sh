@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 # Usage: ./install.sh <preset>
 #
@@ -34,14 +34,17 @@ cp -r home/* ~
 cp -r home/.??* ~
 chmod +x ~/bin/*
 
-# in case someone forgot....
+# in case someone forgot...
 chmod +x presets/*
+# oops, not README.md
+chmod -x presets/README.md
 
 # user-specific stuff
 echo
 if [ "$PRESET" ] && [ -x "presets/$PRESET" ]; then
 	echo Installing preset: $PRESET
-	"./presets/$PRESET"
+	cd presets/
+	source "./presets/$PRESET"
 else
 	echo No preset specfified, default installed.
 	echo 'Run with ./install.sh <preset>'
