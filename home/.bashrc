@@ -37,30 +37,9 @@ function __git_ps1 {
 
 PS1="\n\[\e[0;32m\]\u@\h \[\e[1;34m\]\w\[\e[0;33m\]\$(__git_ps1)\[\e[m\]\n\$ "
 
+# aliases shared between fish and bash
+source ~/.aliases
 
-
-alias more=less
-alias sagi='yes | sudo apt-get install'
-alias grep='grep --color=auto'
-alias la='ls -al'
-alias cd..='cd ..'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias c=cd
-alias d=cd
-alias sl=ls
-alias l=ls
-alias s='git status'
-alias gi=git
-alias g=git
-alias v=vim
-alias cim=vim
-alias nom=npm
-alias webserver='python -m SimpleHTTPServer'
-# colour schemes must work, and tmux should not complain when it thinks the term is rubbish
-alias tmux='TERM=screen-256color-bce tmux'
 alias tm='test -z $TMUX && (tmux a || tmux)'
 
 
