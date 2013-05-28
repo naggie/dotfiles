@@ -42,9 +42,9 @@ chmod -x presets/README.md
 # user-specific stuff
 echo
 if [ "$PRESET" ] && [ -x "presets/$PRESET" ]; then
-	echo Installing preset: $PRESET
+	echo "Installing preset: $PRESET"
 	cd presets/
-	source "./presets/$PRESET"
+	source "$PRESET"
 else
 	echo No preset specfified, default installed.
 	echo 'Run with ./install.sh <preset>'
