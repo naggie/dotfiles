@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 # Usage: ./install.sh <preset>
 #
@@ -26,22 +26,26 @@ PRESET=$1
 git submodule --quiet init || exit 1
 git submodule --quiet update || exit 2
 
-# clobber vim!
+# clobber vim and fish config (because there are dirs)
 test -d ~/.vim/ && rm -rf ~/.vim/
+test -d ~/.config/fish/ && rm -rf ~/.config/fish/
 
 cp -r home/* ~
 # copy dotfiles separately , normal glob does not match
 cp -r home/.??* ~
 chmod +x ~/bin/*
 
-# in case someone forgot....
+# in case someone forgot...
 chmod +x presets/*
+# oops, not README.md
+chmod -x presets/README.md
 
 # user-specific stuff
 echo
 if [ "$PRESET" ] && [ -x "presets/$PRESET" ]; then
-	echo Installing preset: $PRESET
-	"./presets/$PRESET"
+	echo "Installing preset: $PRESET"
+	cd presets/
+	source "$PRESET"
 else
 	echo No preset specfified, default installed.
 	echo 'Run with ./install.sh <preset>'
