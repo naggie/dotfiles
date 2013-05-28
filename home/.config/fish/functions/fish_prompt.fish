@@ -7,10 +7,6 @@ function fish_prompt --description 'Write out the prompt'
 		set -g __fish_prompt_hostname (hostname|cut -d . -f 1)
 	end
 
-	if not set -q __fish_prompt_normal
-		set -g __fish_prompt_normal (set_color normal)
-	end
-
 	if not set -q -g __fish_classic_git_functions_defined
 		set -g __fish_classic_git_functions_defined
 
@@ -38,40 +34,7 @@ function fish_prompt --description 'Write out the prompt'
 
 	set -l delim \n\$
 
-	switch $USER
+	echo -n -s \n (set_color green) $USER @ $__fish_prompt_host $__fish_prompt_hostname (set_color normal) ' ' (set_color --bold blue) (pwd) (set_color normal) (set_color yellow) (__fish_git_prompt) (set_color normal) $delim ' '
 
-	case root
-
-		if not set -q __fish_prompt_cwd
-			if set -q fish_color_cwd_root
-				set -g __fish_prompt_cwd (set_color $fish_color_cwd_root)
-			else
-				set -g __fish_prompt_cwd (set_color $fish_color_cwd)
-			end
-		end
-
-	case '*'
-
-		if not set -q __fish_prompt_cwd
-			set -g __fish_prompt_cwd (set_color $fish_color_cwd)
-		end
-
-	end
-
-	set -l prompt_status
-	if test $last_status -ne 0
-		if not set -q __fish_prompt_status
-			set -g __fish_prompt_status (set_color $fish_color_status)
-		end
-		set prompt_status "$__fish_prompt_status [$last_status]$__fish_prompt_normal"
-	end
-
-	if not set -q __fish_prompt_user
-		set -g __fish_prompt_user (set_color $fish_color_user)
-	end
-	if not set -q __fish_prompt_host
-		set -g __fish_prompt_host (set_color $fish_color_host)
-	end
-
-	echo -n -s \n "$__fish_prompt_user" "$USER" "$__fish_prompt_normal" @ "$__fish_prompt_host" "$__fish_prompt_hostname" "$__fish_prompt_normal" ' ' "$__fish_prompt_cwd" (prompt_pwd) (__fish_git_prompt) "$__fish_prompt_normal" "$prompt_status" "$delim" ' '
 end
+

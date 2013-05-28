@@ -32,10 +32,29 @@ alias webserver  'python -m SimpleHTTPServer'
 alias tmux       'TERM=screen-256color-bce tmux'
 alias tm         'test -z $TMUX; and tmux a ; or tmux'
 
+function cd
+	builtin cd $argv
+	ls
+end
+
 # no fish greeting, to ls last
 set fish_greeting
 
 #[ -x /usr/bin/keychain ] && [ -r ~/.ssh/id_rsa ] && eval `keychain --quiet --eval ~/.ssh/id_rsa`
 
-echo \r\> Welcome to (hostname -s), (whoami). Files in (pwd) are:\n
-ls
+# these functions are too small to warrant a separate file
+function fish_greeting
+	echo \r\> Welcome to (hostname -s), (whoami). Files in (pwd) are:\n
+	ls
+end
+
+
+function fish_title --description 'Set tmux (or TE) title'
+	pwd
+end
+
+function fish_right_prompt --description 'Reminds user of fish'
+	set_color 111
+	echo FISH
+	set_color normal
+end
