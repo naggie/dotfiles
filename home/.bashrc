@@ -59,6 +59,9 @@ alias v=vim
 alias cim=vim
 alias nom=npm
 alias webserver='python -m SimpleHTTPServer'
+# colour schemes must work, and tmux should not complain when it thinks the term is rubbish
+alias tmux='TERM=screen-256color-bce tmux'
+alias tm='test -z $TMUX && (tmux a || tmux)'
 
 
 # slow completion things in background after bashrc is executed
@@ -117,10 +120,6 @@ export PATH=/usr/local/bin:$PATH:~/bin:/usr/local/share/npm/bin
 # fix backspace on some terminals
 stty erase ^?
 #stty erase ^H
-
-# colour schemes must work, and tmux should not complain when it thinks the term is rubbish
-alias tmux='TERM=screen-256color-bce tmux'
-alias tm='test -z $TMUX && (tmux a || tmux)'
 
 [ -x /usr/bin/keychain ] && [ -r ~/.ssh/id_rsa ] && eval `keychain --quiet --eval ~/.ssh/id_rsa`
 test -x /usr/bin/dircolors && eval $(dircolors ~/.dir_colors)
