@@ -2,9 +2,9 @@
 
 # This script will find the best shell it can and load it
 
-if [ -x /usr/local/bin/fish ]; then
+if [ -x /usr/local/bin/fish ] && /usr/local/bin/fish -v 2>&1 | grep -q 'version 2'; then
 	/usr/local/bin/fish
-elif [ -x /usr/bin/fish ]; then
+elif [ -x /usr/bin/fish ] && /usr/local/bin/fish -v 2>&1 | grep -q 'version 2'; then
 	/usr/bin/fish
 else
 	/bin/bash

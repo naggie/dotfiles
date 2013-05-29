@@ -8,7 +8,7 @@ For:
 
   * tmux 1.6+
   * vim 7.3+
-  * Bash
+  * Bash or fish >2.0
   * SSH
   * git (obviously)
   * keychain
