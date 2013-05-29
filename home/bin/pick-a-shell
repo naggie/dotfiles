@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# This script will find the best shell it can and load it
+
+if [ -x /usr/local/bin/fish ]; then
+	/usr/local/bin/fish
+elif [ -x /usr/bin/fish ]; then
+	/usr/bin/fish
+else
+	/bin/bash
+fi
