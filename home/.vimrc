@@ -15,8 +15,10 @@ set smartcase
 set autoindent
 set incsearch
 
+" match by highlight as well (still need to press return to search, however)
 set hlsearch
-nnoremap <silent> <CR> :noh<CR>  " Clear search highlight by hitting ente
+" Clear search highlight by hitting enter
+nnoremap <silent> <CR> :noh<CR>
 
 " Spell checking. Does not offer suggestions :-)
 set spell
