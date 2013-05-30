@@ -29,7 +29,7 @@ killall Finder
 # https://developer.apple.com/downloads/index.action
 
 # install homebrew
-ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+test -x /usr/local/bin/brew || ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 
 brew update || exit 2
 brew upgrade
