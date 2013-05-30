@@ -34,7 +34,12 @@ end
 
 
 function fish_title --description 'Set tmux (or TE) title'
-	pwd
+	# title of terminal
+	echo $HOSTNAME
+end
+
+function fish_tmux_title --description "Set the tmux pane title, called under fish_prompt"
+	echo $PWD | grep -oE '\w+\/\w+$'
 end
 
 function fish_prompt --description 'Write out the prompt'
@@ -42,6 +47,9 @@ function fish_prompt --description 'Write out the prompt'
 	' ' (set_color --bold blue) (pwd) (set_color normal)\
 	(set_color yellow) (__fish_git_prompt) (set_color normal)\
 	\n\$ ' '
+
+	# title of tmux pane, must be separate to fish_title
+	printf "\\033k%s\\033\\\\" (fish_tmux_title)
 end
 
 function fish_right_prompt --description 'Reminds user of fish'
