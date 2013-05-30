@@ -1,8 +1,5 @@
 #!/bin/bash
 
-source naggie
-
-
 # initial mac setup
 
 # disable warning when changing file extensions
