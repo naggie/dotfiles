@@ -25,9 +25,9 @@ function cd
 	ls
 end
 
-#test -x /usr/bin/keychain
-#	and test -r ~/.ssh/id_rsa
-#	and eval `keychain --quiet --eval ~/.ssh/id_rsa`
+test -x /usr/bin/keychain
+	and test -r ~/.ssh/id_rsa
+	and eval (keychain --quiet --eval ~/.ssh/id_rsa)
 
 # these functions are too small to warrant a separate file
 function fish_greeting
