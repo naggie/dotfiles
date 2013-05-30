@@ -8,7 +8,7 @@ For:
 
   * tmux 1.6+
   * vim 7.3+
-  * Bash or fish >2.0
+  * fish >2.0 (bash, if you don't have fish > 2.0)
   * SSH
   * git (obviously)
   * keychain
@@ -41,4 +41,25 @@ Automated updates
 To automatically  update, put something like this in your crontab (via crontab -e):
 
 	24 13 * * * cd dotfiles/ && git pull origin master && ./install.sh &> ../dotfiles.log
+
+Why fish?
+---------
+
+  * Amazing suggestion engine (parses man files for options)
+  * Great completion engine (looks at history for commands)
+  * All variables are arrays of strings, and can only ever be that (this really helps!)
+  * variables are _not_ further split after substitution (no more "$@" and impending confusion)
+  * It's event based
+  * It's fast!
+  * Real-time syntax highlighting!
+
+
+Read http://fishshell.com/tutorial.html for more information. Recently,
+development was picked up on github by [ridiculous\_fish][1].
+
+
+Warning: if you specify `#!/bin/sh` in a `bash` script and call it with fish,
+it won't work properly. You need to explicitly call `#!/bin/bash`.
+
+[1]: https://github.com/fish-shell/fish-shell/
 
