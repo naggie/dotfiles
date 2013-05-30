@@ -20,7 +20,8 @@ fi
 
 cd $(dirname $0)
 
-PRESET=$1
+# just the arguments (cryptic, I know. That's why you should use fish!)
+PRESETS=$@
 
 # make sure the submodules are fetched
 git submodule --quiet init || exit 1
@@ -42,13 +43,20 @@ chmod -x presets/README.md
 
 # user-specific stuff
 echo
-if [ "$PRESET" ] && [ -x "presets/$PRESET" ]; then
-	echo "Installing preset: $PRESET"
+if [ "$PRESETS" ]; then
 	cd presets/
-	source "$PRESET"
+	for PRESET in ${PRESETS[@]}; do
+		if [ -x "$PRESET" ]; then
+			echo "Installing preset: $PRESET"
+			source "$PRESET"
+		else
+			echo Invalid preset: $PRESET
+		fi
+	done
+	cd ..
 else
 	echo No preset specfified, default installed.
-	echo 'Run with ./install.sh <preset>'
+	echo 'Run with ./install.sh <preset> <preset> ...'
 	echo To load a prefix from presets/
 fi
 

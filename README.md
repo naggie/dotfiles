@@ -1,8 +1,9 @@
 **WARNING, THIS WILL CLOBBER YOUR EXISTING CONFIGURATION BY DESIGN**
 
-Running `./install.sh` will set up a generic version. Running `./install.sh <preset>`
-will run a post-install script in `presets`. Therefore it can be (and is) also used
-by several other humans or usernames. It also stops people from committing as me, for example.
+Running `./install.sh` will set up a generic version. Running `./install.sh <preset> <preset> ...`
+will run the specified post-install scripts in `presets`. Therefore it can be (and is) also used
+by several other humans, usernames and operating systems. It also stops people
+from committing as me, for example.
 
 For:
 
