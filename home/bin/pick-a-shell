@@ -3,9 +3,12 @@
 # This script will find the best shell it can and load it
 
 if [ -x /usr/local/bin/fish ] && /usr/local/bin/fish -v 2>&1 | grep -q 'version 2'; then
+	export SHELL=/usr/local/bin/fish
 	/usr/local/bin/fish
-elif [ -x /usr/bin/fish ] && /usr/local/bin/fish -v 2>&1 | grep -q 'version 2'; then
+elif [ -x /usr/bin/fish ] && /usr/bin/fish -v 2>&1 | grep -q 'version 2'; then
+	export SHELL=/usr/bin/fish
 	/usr/bin/fish
 else
+	export SHELL=/bin/bash
 	/bin/bash
 fi
