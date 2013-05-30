@@ -53,6 +53,7 @@ Why fish?
   * It's event based
   * It's fast!
   * Real-time syntax highlighting!
+  * It's like bash, but without the ambiguity
 
 
 Read http://fishshell.com/tutorial.html for more information. Recently,
