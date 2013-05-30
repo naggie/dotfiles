@@ -1,3 +1,4 @@
+
 [color]
 	branch = auto
 	diff = auto
@@ -22,3 +23,5 @@
 	tool = vimdiff
 [merge]
 	tool = vimdiff
+[push]
+	default = current
