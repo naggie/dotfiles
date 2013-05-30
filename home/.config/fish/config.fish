@@ -63,3 +63,6 @@ function fish_right_prompt --description 'Reminds user of fish'
 	echo FISH
 	set_color normal
 end
+
+# initially set title
+fish_tmux_handler
