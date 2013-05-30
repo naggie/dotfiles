@@ -9,6 +9,10 @@ set -x PATH /usr/local/bin $PATH ~/bin /usr/local/share/npm/bin
 set -U HOSTNAME (hostname)
 
 
+# if you call a different shell, this does not happen automatically. WTF?
+set -U SHELL (which fish)
+
+
 # alias is just a wrapper for creating a function
 # aliases shared between fish and bash
 . ~/.aliases
@@ -21,10 +25,9 @@ function cd
 	ls
 end
 
-# no fish greeting, to ls last
-set fish_greeting
-
-#[ -x /usr/bin/keychain ] && [ -r ~/.ssh/id_rsa ] && eval `keychain --quiet --eval ~/.ssh/id_rsa`
+#test -x /usr/bin/keychain
+#	and test -r ~/.ssh/id_rsa
+#	and eval `keychain --quiet --eval ~/.ssh/id_rsa`
 
 # these functions are too small to warrant a separate file
 function fish_greeting

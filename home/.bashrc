@@ -6,6 +6,9 @@
 # Now this doesn't matter thanks to the deferred() system
 echo -ne "\r\033[37m> Welcome to $(hostname -s), $USER.\033[0m "
 
+# if you call a different shell, this does not happen automatically. WTF?
+export SHELL=$(which bash)
+
 # update the values of LINES and COLUMNS. Automatically
 shopt -s checkwinsize
 
