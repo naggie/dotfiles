@@ -1,6 +1,14 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# AUTOMATIC TMUX
+# must not launch tmux inside tmux (no memes please)
+# must be installed/single session/no clients
+test -z "$TMUX"
+	and which tmux > /dev/null \
+	&& test $(tmux list-sessions | wc -l 2> /dev/null) -eq 1 \
+	&& test $(tmux list-clients | wc -l 2> /dev/null) -eq 0 \
+	&& tmux attach
 
 # this bashrc takes a sec or so thanks to all the completions, so print this first
 # Now this doesn't matter thanks to the deferred() system
