@@ -3,14 +3,14 @@ if not status --is-interactive
 end
 
 
-set -U EDITOR vim
+set -x EDITOR vim
 set -x PATH /usr/local/bin $PATH ~/bin /usr/local/share/npm/bin
 
-set -U HOSTNAME (hostname)
+set -x HOSTNAME (hostname)
 
 
 # if you call a different shell, this does not happen automatically. WTF?
-set -U SHELL (which fish)
+set -x SHELL (which fish)
 
 
 # alias is just a wrapper for creating a function
