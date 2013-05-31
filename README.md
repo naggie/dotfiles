@@ -7,7 +7,7 @@ from committing as me, for example.
 
 For:
 
-  * tmux 1.6+
+  * tmux 1.6+ (which is automatically launched, but only when it's needed)
   * vim 7.3+
   * fish >2.0 (bash, if you don't have fish > 2.0)
   * SSH
