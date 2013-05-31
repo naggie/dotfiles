@@ -5,8 +5,6 @@ alias la='ls -al'
 alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
 alias c=cd
 alias d=cd
 alias sl=ls
@@ -18,4 +16,3 @@ alias v=vim
 alias cim=vim
 alias nom=npm
 alias webserver='python -m SimpleHTTPServer'
-# colour schemes must work, and tmux should not complain when it thinks the term is rubbish
