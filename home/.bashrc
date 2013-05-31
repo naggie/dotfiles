@@ -4,8 +4,8 @@
 # AUTOMATIC TMUX
 # must not launch tmux inside tmux (no memes please)
 # must be installed/single session/no clients
-test -z "$TMUX"
-	and which tmux > /dev/null \
+test -z "$TMUX" \
+	&& which tmux > /dev/null \
 	&& test $(tmux list-sessions | wc -l 2> /dev/null) -eq 1 \
 	&& test $(tmux list-clients | wc -l 2> /dev/null) -eq 0 \
 	&& tmux attach
