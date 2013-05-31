@@ -45,5 +45,14 @@ brew cask install google-chrome adium arduino bettertouchtool cyberduck gimp ite
 # iterm2 prefs
 cp etc/com.googlecode.iterm2.plist ~/Library/Preferences/
 
+# set default shell
+if ! grep -q /usr/local/bin/fish /etc/shells; then
+	echo Registering fish shell...
+	echo /usr/local/bin/fish | sudo tee -a /etc/shells
+fi
+chsh -s /usr/local/bin/fish
+
 # update completion db from man pages. OMGWOW.
 /usr/local/bin/fish -c fish_update_completions
+
+
