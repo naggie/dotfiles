@@ -1,6 +1,5 @@
-if not status --is-interactive
-	exit 0
-end
+status --is-interactive; or exit 0
+
 
 # AUTOMATIC TMUX
 # must not launch tmux inside tmux (no memes please)
