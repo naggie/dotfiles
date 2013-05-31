@@ -2,6 +2,17 @@ if not status --is-interactive
 	exit 0
 end
 
+# AUTOMATIC TMUX
+# must not launch tmux inside tmux (no memes please)
+test -z $TMUX
+	# installed?
+	and which tmux > /dev/null
+	# only attach if single session
+	and test (tmux list-sessions | wc -l ^ /dev/null) -eq 1
+	# don't attach if already attached elsewhere
+	and test (tmux list-clients | wc -l ^ /dev/null) -eq 0
+	and tmux attach
+
 
 set -x EDITOR vim
 set -x PATH /usr/local/bin $PATH ~/bin /usr/local/share/npm/bin
