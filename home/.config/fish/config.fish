@@ -55,10 +55,10 @@ function fish_tmux_title --description "Set the tmux window title"
 	echo $PWD | grep -oE '[^\/]+\/[^\/]+$'
 end
 
-function fish_tmux_handler --description "Sets tmux pane title to output of fish_tmux_title" --on-variable PWD
+function fish_set_tmux_title --description "Sets tmux pane title to output of fish_tmux_title, with padding" --on-variable PWD
 	# title of tmux pane, must be separate to fish_title
 	# FIXME fish-shell: if this line is in fish_prompt, fish segfaults when not in tmux
-	printf "\\033k%s\\033\\\\" (fish_tmux_title)
+	printf "\\033k%s\\033\\\\" ' '(fish_tmux_title)' '
 end
 
 function fish_prompt --description 'Write out the prompt'
@@ -75,4 +75,5 @@ function fish_right_prompt --description 'Reminds user of fish'
 end
 
 # initially set title
-fish_tmux_handler
+fish_set_tmux_title
+
