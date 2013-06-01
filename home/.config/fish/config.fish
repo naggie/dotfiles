@@ -46,13 +46,13 @@ function fish_greeting
 end
 
 
-function fish_title --description 'Set tmux (or TE) title'
+function fish_title --description 'Set terminal (not tmux) title'
 	# title of terminal
 	echo $HOSTNAME
 end
 
-function fish_tmux_title --description "Set the tmux pane title"
-	echo $PWD | grep -oE '\w+\/\w+$'
+function fish_tmux_title --description "Set the tmux window title"
+	echo $PWD | grep -oE '[^\/]+\/[^\/]+$'
 end
 
 function fish_tmux_handler --description "Sets tmux pane title to output of fish_tmux_title" --on-variable PWD

@@ -29,7 +29,7 @@ printf "\033]0;$HOSTNAME\007" "$@"
 # Update TMUX title with path
 function prompt {
 	# capital folder name
-	LABEL=$(echo $PWD | grep -oE '\w+\/\w+$')
+	LABEL=$(echo $PWD | grep -oE '[^\/]+\/[^\/]+$')
 	echo -ne "\\033k$LABEL\\033\\\\"
 }
 PROMPT_COMMAND=prompt
