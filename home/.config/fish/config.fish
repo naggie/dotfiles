@@ -48,7 +48,7 @@ test -x /usr/bin/keychain
 
 # these functions are too small to warrant a separate file
 function fish_greeting
-	echo \r\> Welcome to $HOSTNAME, $USER. Files in $PWD are:\n
+	echo \n\> Welcome to $HOSTNAME, $USER. Files in $PWD are:\n
 	ls
 end
 
