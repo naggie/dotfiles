@@ -13,12 +13,18 @@
 # this is good for log files
 date
 
-echo "Installing dotfiles..."
-echo
-echo "Make sure you have at least"
-echo "  * tmux 1.8+"
-echo "  * fish 2.0+ (or bash, if you haven't seen how awesome fish is)"
-echo "  * vim 7.3++"
+cat <<EOF
+
+Installing dotfiles...
+
+Make sure you have at least:
+
+  * tmux 1.8+
+  * fish 2.0+ (don't forget to chsh -s to it)
+  * vim 7.3++
+
+Bash if you really must.
+EOF
 
 # sneaky hack to install to skel if run as root
 if [ `whoami` == root ]; then
