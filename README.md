@@ -15,6 +15,7 @@ For:
   * keychain
   * Dark xterm-256color compatible terminal, mouse enabled
   * mcabber 0.10.1+
+  * mpc/ncmpcpp
 
 
 ![Screenshot](screenshot.png "Why do all terminal screenshots show top or htop running?")
