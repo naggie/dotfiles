@@ -13,6 +13,13 @@ test -z $TMUX
 	and tmux attach
 
 
+# totally worth it
+if not test -d ~/.config/fish/generated_completions/
+	echo "One moment..."
+	fish_update_completions
+end
+
+
 set -x EDITOR vim
 set -x PATH /usr/local/bin $PATH ~/bin /usr/local/share/npm/bin
 
