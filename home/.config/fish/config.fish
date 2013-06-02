@@ -1,5 +1,6 @@
 status --is-interactive; or exit 0
 
+set -x PATH ~/bin /usr/local/bin /usr/local/share/npm/bin $PATH
 
 # AUTOMATIC TMUX
 # must not launch tmux inside tmux (no memes please)
@@ -21,7 +22,6 @@ end
 
 
 set -x EDITOR vim
-set -x PATH /usr/local/bin $PATH ~/bin /usr/local/share/npm/bin
 
 set -x HOSTNAME (hostname)
 
