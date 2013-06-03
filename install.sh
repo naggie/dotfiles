@@ -14,9 +14,6 @@
 date
 
 cat <<EOF
-
-Installing dotfiles...
-
 Make sure you have at least:
 
   * tmux 1.8+
@@ -24,6 +21,8 @@ Make sure you have at least:
   * vim 7.3++
 
 Bash if you really must.
+
+Installing dotfiles...
 EOF
 
 # sneaky hack to install to skel if run as root
