@@ -1,16 +1,33 @@
-if not status --is-interactive
-	exit 0
+status --is-interactive; or exit 0
+
+set -x PATH ~/bin /usr/local/bin /usr/local/share/npm/bin $PATH
+
+# AUTOMATIC TMUX
+# must not launch tmux inside tmux (no memes please)
+test -z $TMUX
+	# installed?
+	and which tmux > /dev/null
+	# only attach if single session
+	and test (tmux list-sessions | wc -l ^ /dev/null) -eq 1
+	# don't attach if already attached elsewhere
+	and test (tmux list-clients | wc -l ^ /dev/null) -eq 0
+	and tmux attach
+
+
+# totally worth it
+if not test -d ~/.config/fish/generated_completions/
+	echo "One moment..."
+	fish_update_completions
 end
 
 
-set -U EDITOR vim
-set -x PATH /usr/local/bin $PATH ~/bin /usr/local/share/npm/bin
+set -x EDITOR vim
 
-set -U HOSTNAME (hostname)
+set -x HOSTNAME (hostname)
 
 
 # if you call a different shell, this does not happen automatically. WTF?
-set -U SHELL (which fish)
+set -x SHELL (which fish)
 
 
 # alias is just a wrapper for creating a function
@@ -31,24 +48,24 @@ test -x /usr/bin/keychain
 
 # these functions are too small to warrant a separate file
 function fish_greeting
-	echo \r\> Welcome to (hostname -s), (whoami). Files in (pwd) are:\n
+	echo \n\> Welcome to $HOSTNAME, $USER. Files in $PWD are:\n
 	ls
 end
 
 
-function fish_title --description 'Set tmux (or TE) title'
+function fish_title --description 'Set terminal (not tmux) title'
 	# title of terminal
 	echo $HOSTNAME
 end
 
-function fish_tmux_title --description "Set the tmux pane title"
-	echo $PWD | grep -oE '\w+\/\w+$'
+function fish_tmux_title --description "Set the tmux window title"
+	echo $PWD | grep -oE '[^\/]+\/[^\/]+$'
 end
 
-function fish_tmux_handler --description "Sets tmux pane title to output of fish_tmux_title" --on-variable PWD
+function fish_set_tmux_title --description "Sets tmux pane title to output of fish_tmux_title, with padding" --on-variable PWD
 	# title of tmux pane, must be separate to fish_title
 	# FIXME fish-shell: if this line is in fish_prompt, fish segfaults when not in tmux
-	printf "\\033k%s\\033\\\\" (fish_tmux_title)
+	printf "\\033k%s\\033\\\\" ' '(fish_tmux_title)' '
 end
 
 function fish_prompt --description 'Write out the prompt'
@@ -63,3 +80,7 @@ function fish_right_prompt --description 'Reminds user of fish'
 	echo FISH
 	set_color normal
 end
+
+# initially set title
+fish_set_tmux_title
+

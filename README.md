@@ -1,12 +1,13 @@
 **WARNING, THIS WILL CLOBBER YOUR EXISTING CONFIGURATION BY DESIGN**
 
-Running `./install.sh` will set up a generic version. Running `./install.sh <preset>`
-will run a post-install script in `presets`. Therefore it can be (and is) also used
-by several other humans or usernames. It also stops people from committing as me, for example.
+Running `./install.sh` will set up a generic version. Running `./install.sh <preset> <preset> ...`
+will run the specified post-install scripts in `presets`. Therefore it can be (and is) also used
+by several other humans, usernames and operating systems. It also stops people
+from committing as me, for example.
 
 For:
 
-  * tmux 1.6+
+  * tmux 1.6+ (which is automatically launched, but only when it's needed)
   * vim 7.3+
   * fish >2.0 (bash, if you don't have fish > 2.0)
   * SSH
@@ -14,6 +15,7 @@ For:
   * keychain
   * Dark xterm-256color compatible terminal, mouse enabled
   * mcabber 0.10.1+
+  * mpc/ncmpcpp
 
 
 ![Screenshot](screenshot.png "Why do all terminal screenshots show top or htop running?")
@@ -52,6 +54,7 @@ Why fish?
   * It's event based
   * It's fast!
   * Real-time syntax highlighting!
+  * It's like bash, but without the ambiguity
 
 
 Read http://fishshell.com/tutorial.html for more information. Recently,

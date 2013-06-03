@@ -1,10 +1,20 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+export PATH=~/bin:/usr/local/bin:/usr/local/share/npm/bin:$PATH
+
+# AUTOMATIC TMUX
+# must not launch tmux inside tmux (no memes please)
+# must be installed/single session/no clients
+test -z "$TMUX" \
+	&& which tmux > /dev/null \
+	&& test $(tmux list-sessions | wc -l 2> /dev/null) -eq 1 \
+	&& test $(tmux list-clients | wc -l 2> /dev/null) -eq 0 \
+	&& tmux attach
 
 # this bashrc takes a sec or so thanks to all the completions, so print this first
 # Now this doesn't matter thanks to the deferred() system
-echo -ne "\r\033[37m> Welcome to $(hostname -s), $USER.\033[0m "
+echo -ne "\n\033[37m> Welcome to $(hostname -s), $USER.\033[0m "
 
 # if you call a different shell, this does not happen automatically. WTF?
 export SHELL=$(which bash)
@@ -21,8 +31,9 @@ printf "\033]0;$HOSTNAME\007" "$@"
 # Update TMUX title with path
 function prompt {
 	# capital folder name
-	LABEL=$(echo $PWD | grep -oE '\w+\/\w+$')
-	echo -ne "\\033k$LABEL\\033\\\\"
+	LABEL=$(echo $PWD | grep -oE '[^\/]+\/[^\/]+$')
+	# tmux title, padded
+	echo -ne "\\033k $LABEL \\033\\\\"
 }
 PROMPT_COMMAND=prompt
 
