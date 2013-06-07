@@ -11,6 +11,9 @@ test -z $TMUX
 	and test (tmux list-sessions | wc -l ^ /dev/null) -eq 1
 	# don't attach if already attached elsewhere
 	and test (tmux list-clients | wc -l ^ /dev/null) -eq 0
+	# terminal must be wide enough
+	and test (tput cols) -gt 119
+	# only then is is safe to assume it's OK to jump in
 	and tmux attach
 
 

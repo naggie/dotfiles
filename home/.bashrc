@@ -6,10 +6,12 @@ export PATH=~/bin:/usr/local/bin:/usr/local/share/npm/bin:$PATH
 # AUTOMATIC TMUX
 # must not launch tmux inside tmux (no memes please)
 # must be installed/single session/no clients
+# term must be sufficiently wide
 test -z "$TMUX" \
 	&& which tmux > /dev/null \
 	&& test $(tmux list-sessions | wc -l 2> /dev/null) -eq 1 \
 	&& test $(tmux list-clients | wc -l 2> /dev/null) -eq 0 \
+	&& test $(tput cols) -gt 120 \
 	&& tmux attach
 
 # this bashrc takes a sec or so thanks to all the completions, so print this first
