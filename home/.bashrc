@@ -9,8 +9,8 @@ export PATH=~/bin:/usr/local/bin:/usr/local/share/npm/bin:$PATH
 # term must be sufficiently wide
 test -z "$TMUX" \
 	&& which tmux > /dev/null \
-	&& test $(tmux list-sessions | wc -l 2> /dev/null) -eq 1 \
-	&& test $(tmux list-clients | wc -l 2> /dev/null) -eq 0 \
+	&& test $(tmux list-sessions 2> /dev/null | wc -l) -eq 1 \
+	&& test $(tmux list-clients 2> /dev/null | wc -l) -eq 0 \
 	&& test $(tput cols) -gt 120 \
 	&& tmux attach
 
