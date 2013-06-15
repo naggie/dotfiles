@@ -62,7 +62,8 @@ function fish_title --description 'Set terminal (not tmux) title'
 end
 
 function fish_tmux_title --description "Set the tmux window title"
-	echo $PWD | grep -oE '[^\/]+\/[^\/]+$'
+	# to a clever shorthand representation of the current dir
+	echo $PWD | sed s-^$HOME/-- | sed s-^$HOME-$USER- | grep -oE '[^\/]*\/?[^\/]+$'
 end
 
 function fish_set_tmux_title --description "Sets tmux pane title to output of fish_tmux_title, with padding" --on-variable PWD

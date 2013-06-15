@@ -28,12 +28,13 @@ shopt -s checkwinsize
 set +o histexpand
 
 # Useful title for ssh
-printf "\033]0;$HOSTNAME\007" "$@"
+printf "\033]0;%s\007" $HOSTNAME
 
 # Update TMUX title with path
 function prompt {
-	# capital folder name
-	LABEL=$(echo $PWD | grep -oE '[^\/]+\/[^\/]+$')
+	# to a clever shorthand representation of the current dir
+	LABEL=$(echo $PWD | sed s-^$HOME/-- | sed s-^$HOME-$USER- | grep -oE '[^\/]*\/?[^\/]+$')
+
 	# tmux title, padded
 	echo -ne "\\033k $LABEL \\033\\\\"
 }
