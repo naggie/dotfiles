@@ -11,6 +11,9 @@ test -z $TMUX
 	and test (tmux list-sessions | wc -l ^ /dev/null) -eq 1
 	# don't attach if already attached elsewhere
 	and test (tmux list-clients | wc -l ^ /dev/null) -eq 0
+	# terminal must be wide enough
+	and test (tput cols) -gt 119
+	# only then is is safe to assume it's OK to jump in
 	and tmux attach
 
 
@@ -59,7 +62,8 @@ function fish_title --description 'Set terminal (not tmux) title'
 end
 
 function fish_tmux_title --description "Set the tmux window title"
-	echo $PWD | grep -oE '[^\/]+\/[^\/]+$'
+	# to a clever shorthand representation of the current dir
+	echo $PWD | sed s-^$HOME/-- | sed s-^$HOME-$USER- | grep -oE '[^\/]*\/?[^\/]+$'
 end
 
 function fish_set_tmux_title --description "Sets tmux pane title to output of fish_tmux_title, with padding" --on-variable PWD

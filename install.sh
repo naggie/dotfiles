@@ -41,7 +41,8 @@ git submodule --quiet update || exit 2
 
 # clobber vim and fish config (because there are dirs)
 test -d ~/.vim/ && rm -rf ~/.vim/
-test -d ~/.config/fish/ && rm -rf ~/.config/fish/
+# not for fish as it removes generated completions which have to rebuilt which is a pain
+#test -d ~/.config/fish/ && rm -rf ~/.config/fish/
 
 cp -r home/* ~
 # copy dotfiles separately , normal glob does not match

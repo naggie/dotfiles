@@ -6,10 +6,12 @@ export PATH=~/bin:/usr/local/bin:/usr/local/share/npm/bin:$PATH
 # AUTOMATIC TMUX
 # must not launch tmux inside tmux (no memes please)
 # must be installed/single session/no clients
+# term must be sufficiently wide
 test -z "$TMUX" \
 	&& which tmux > /dev/null \
-	&& test $(tmux list-sessions | wc -l 2> /dev/null) -eq 1 \
-	&& test $(tmux list-clients | wc -l 2> /dev/null) -eq 0 \
+	&& test $(tmux list-sessions 2> /dev/null | wc -l) -eq 1 \
+	&& test $(tmux list-clients 2> /dev/null | wc -l) -eq 0 \
+	&& test $(tput cols) -gt 120 \
 	&& tmux attach
 
 # this bashrc takes a sec or so thanks to all the completions, so print this first
@@ -26,12 +28,13 @@ shopt -s checkwinsize
 set +o histexpand
 
 # Useful title for ssh
-printf "\033]0;$HOSTNAME\007" "$@"
+printf "\033]0;%s\007" $HOSTNAME
 
 # Update TMUX title with path
 function prompt {
-	# capital folder name
-	LABEL=$(echo $PWD | grep -oE '[^\/]+\/[^\/]+$')
+	# to a clever shorthand representation of the current dir
+	LABEL=$(echo $PWD | sed s-^$HOME/-- | sed s-^$HOME-$USER- | grep -oE '[^\/]*\/?[^\/]+$')
+
 	# tmux title, padded
 	echo -ne "\\033k $LABEL \\033\\\\"
 }
