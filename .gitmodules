@@ -37,3 +37,6 @@
 [submodule "home/.vim/bundle/pathogen"]
 	path = home/.vim/bundle/pathogen
 	url = git://github.com/tpope/vim-pathogen.git
+[submodule "home/.oh-my-zsh"]
+	path = home/.oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh.git
