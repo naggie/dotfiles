@@ -129,7 +129,7 @@ function tm {
 
 # patches for Mac OS X
 PLATFORM=`uname`
-if [ "$PLATFORM" == 'Darwin' ]; then
+if [[ "$PLATFORM" == 'Darwin' ]]; then
 	#alias ls='ls -G'
 	unalias ls
 	# see `locale -a`
@@ -164,8 +164,9 @@ stty -ixon -ixoff
 export ZSH=$HOME/.oh-my-zsh
 
 # or, set purely here?
-ZSH_CUSTOM=~/.oh-my-zsh-custom/
-ZSH_THEME="naggie"
+# # TODO naggie theme
+#ZSH_CUSTOM=~/.oh-my-zsh-custom/
+#ZSH_THEME="naggie"
 
 DISABLE_AUTO_UPDATE="true"
 
