@@ -269,6 +269,10 @@ stty -ixon -ixoff
 stty stop undef
 stty start undef
 
+# fix gpg-agent ncurses passphrase prompt
+# https://www.gnupg.org/documentation/manuals/gnupg/Common-Problems.html
+export GPG_TTY=$(tty)
+
 # run the deferred function in the background in this context after bashrc
 # http://superuser.com/questions/267771/bash-completion-makes-bash-start-slowly
 trap 'deferred; trap USR1' USR1

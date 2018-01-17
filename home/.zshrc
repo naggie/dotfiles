@@ -263,6 +263,10 @@ stty -ixon -ixoff
 stty stop undef
 stty start undef
 
+# fix gpg-agent ncurses passphrase prompt
+# https://www.gnupg.org/documentation/manuals/gnupg/Common-Problems.html
+export GPG_TTY=$(tty)
+
 # ls is the first thing I normally do when I log in. Let's hope it's not annoying
 uptime
 echo -e "\nFiles in $PWD:\n"

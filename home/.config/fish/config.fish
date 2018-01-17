@@ -195,9 +195,9 @@ function ssh --description 'SSH wrapper to magically LOCK tmux title to hostname
 	end
 end
 
-
-
-
 # initially set title
 fish_set_tmux_title
 
+# fix gpg-agent ncurses passphrase prompt
+# https://www.gnupg.org/documentation/manuals/gnupg/Common-Problems.html
+set GPG_TTY (tty)
