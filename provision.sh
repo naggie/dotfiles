@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# curl -sL https://github.com/naggie/dotfiles/raw/naggie/bootstrap.sh | bash && bash
+# curl -sL https://github.com/naggie/dotfiles/raw/master/provision.sh | bash && bash
 
 cat <<EOF
 This script is intended to be run once. It will install packages then sync
