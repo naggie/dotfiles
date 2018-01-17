@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------------------------------
-# Copyright (c) 2010-2016 zsh-syntax-highlighting contributors
+# Copyright (c) 2010-2017 zsh-syntax-highlighting contributors
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted
@@ -46,6 +46,7 @@
 : ${ZSH_HIGHLIGHT_STYLES[single-quoted-argument]:=fg=yellow}
 : ${ZSH_HIGHLIGHT_STYLES[double-quoted-argument]:=fg=yellow}
 : ${ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]:=fg=yellow}
+: ${ZSH_HIGHLIGHT_STYLES[rc-quote]:=fg=cyan}
 : ${ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]:=fg=cyan}
 : ${ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]:=fg=cyan}
 : ${ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]:=fg=cyan}
@@ -78,12 +79,17 @@ _zsh_highlight_main_add_region_highlight() {
         command arg0
         precommand arg0
         hashed-command arg0
-        
+
         path_prefix path
         # The path separator fallback won't ever be used, due to the optimisation
         # in _zsh_highlight_main_highlighter_highlight_path_separators().
         path_pathseparator path
         path_prefix_pathseparator path_prefix
+
+        single-quoted-argument{-unclosed,}
+        double-quoted-argument{-unclosed,}
+        dollar-single-quoted-argument{-unclosed,}
+        back-quoted-argument{-unclosed,}
     )
     local needle=$1 value
     while [[ -n ${value::=$fallback_of[$needle]} ]]; do
@@ -101,6 +107,12 @@ _zsh_highlight_main_add_region_highlight() {
   (( end < 0 )) && return # having end<0 would be a bug
   (( start < 0 )) && start=0 # having start<0 is normal with e.g. multiline strings
   _zsh_highlight_add_highlight $start $end "$@"
+}
+
+_zsh_highlight_main_add_many_region_highlights() {
+  for 1 2 3; do
+    _zsh_highlight_main_add_region_highlight $1 $2 $3
+  done
 }
 
 # Get the type of a command.
@@ -162,7 +174,8 @@ _zsh_highlight_main__is_redirection() {
   # - starts with an optional single-digit number;
   # - then, has a '<' or '>' character;
   # - is not a process substitution [<(...) or >(...)].
-  [[ $1 == (<0-9>|)(\<|\>)* ]] && [[ $1 != (\<|\>)$'\x28'* ]]
+  # - is not a numeric glob <->
+  [[ $1 == (<0-9>|)(\<|\>)* ]] && [[ $1 != (\<|\>)$'\x28'* ]] && [[ $1 != *'<'*'-'*'>'* ]]
 }
 
 # Resolve alias.
@@ -286,7 +299,7 @@ _zsh_highlight_highlighter_main_paint()
   # and :sudo_opt:.
   #
   # The tokens are always added with both leading and trailing colons to serve as
-  # word delimiters (an improvised array); [[ $x == *:foo:* ]] and x=${x//:foo:/} 
+  # word delimiters (an improvised array); [[ $x == *:foo:* ]] and x=${x//:foo:/}
   # will DTRT regardless of how many elements or repetitions $x has..
   #
   # Handling of redirections: upon seeing a redirection token, we must stall
@@ -542,7 +555,7 @@ _zsh_highlight_highlighter_main_paint()
         'suffix alias') style=suffix-alias;;
         alias)          () {
                           integer insane_alias
-                          case $arg in 
+                          case $arg in
                             # Issue #263: aliases with '=' on their LHS.
                             #
                             # There are three cases:
@@ -669,21 +682,6 @@ _zsh_highlight_highlighter_main_paint()
                  ;|
         '--'*)   style=double-hyphen-option;;
         '-'*)    style=single-hyphen-option;;
-        "'"*)    style=single-quoted-argument;;
-        '"'*)    style=double-quoted-argument
-                 _zsh_highlight_main_add_region_highlight $start_pos $end_pos $style
-                 _zsh_highlight_main_highlighter_highlight_string
-                 already_added=1
-                 ;;
-        \$\'*)   style=dollar-quoted-argument
-                 _zsh_highlight_main_add_region_highlight $start_pos $end_pos $style
-                 _zsh_highlight_main_highlighter_highlight_dollar_string
-                 already_added=1
-                 ;;
-        '`'*)    style=back-quoted-argument;;
-        [$][*])  style=default;;
-        [*?]*|*[^\\][*?]*)
-                 $highlight_glob && style=globbing || style=default;;
         *)       if false; then
                  elif [[ $arg = $'\x7d' ]] && $right_brace_is_recognised_everywhere; then
                    # was handled by the $'\x7d' case above
@@ -698,18 +696,14 @@ _zsh_highlight_highlighter_main_paint()
                  elif (( in_redirection == 2 )); then
                    style=redirection
                  else
-                   if _zsh_highlight_main_highlighter_check_path; then
-                     style=$REPLY
-                   else
-                     style=default
-                   fi
+                   _zsh_highlight_main_highlighter_highlight_argument
+                   already_added=1
                  fi
                  ;;
       esac
     fi
     if ! (( already_added )); then
       _zsh_highlight_main_add_region_highlight $start_pos $end_pos $style
-      [[ $style == path || $style == path_prefix ]] && _zsh_highlight_main_highlighter_highlight_path_separators
     fi
     if [[ -n ${(M)ZSH_HIGHLIGHT_TOKENS_COMMANDSEPARATOR:#"$arg"} ]]; then
       if [[ $arg == ';' ]] && $in_array_assignment; then
@@ -800,17 +794,96 @@ _zsh_highlight_main_highlighter_check_path()
   return 1
 }
 
-# Highlight special chars inside double-quoted strings
-_zsh_highlight_main_highlighter_highlight_string()
+# Highlight an argument and possibly special chars in quotes
+# This command will at least highlight start_pos to end_pos with the default style
+_zsh_highlight_main_highlighter_highlight_argument()
 {
-  local -a match mbegin mend
+  local i path_eligible style
+  path_eligible=1
+
+  _zsh_highlight_main_add_region_highlight $start_pos $end_pos default
+  for (( i = 1 ; i <= end_pos - start_pos ; i += 1 )); do
+    case "$arg[$i]" in
+      "\\") (( i += 1 )); continue;;
+      "'") _zsh_highlight_main_highlighter_highlight_single_quote $i; (( i = REPLY ));;
+      '"') _zsh_highlight_main_highlighter_highlight_double_quote $i; (( i = REPLY ));;
+      '`') _zsh_highlight_main_highlighter_highlight_backtick $i; (( i = REPLY ));;
+      '$')
+        if [[ $arg[i+1] == "'" ]]; then
+          _zsh_highlight_main_highlighter_highlight_dollar_quote $i
+          (( i = REPLY ))
+        elif [[ $arg[i+1] == [\^=~#+] ]]; then
+          while [[ $arg[i+1] == [\^=~#+] ]]; do
+            (( i += 1 ))
+          done
+          if [[ $arg[i+1] == [*@#?-$!] ]]; then
+            (( i += 1 ))
+          fi
+        elif [[ $arg[i+1] == [*@#?-$!] ]]; then
+          (( i += 1 ))
+        fi;;
+      [*?]|\<)
+	# The '<' is for the <-> globbing syntax.  (This function doesn't get called on redirection tokens.)
+        if $highlight_glob; then
+          _zsh_highlight_main_add_region_highlight $start_pos $end_pos globbing
+          path_eligible=0
+          break
+        fi;;
+      *) continue;;
+    esac
+  done
+
+  if (( path_eligible )) && _zsh_highlight_main_highlighter_check_path; then
+    style=$REPLY
+    _zsh_highlight_main_add_region_highlight $start_pos $end_pos $style
+    _zsh_highlight_main_highlighter_highlight_path_separators
+  fi
+}
+
+# Quote Helper Functions
+#
+# $arg is expected to be set to the current argument
+# $start_pos is expected to be set to the start of $arg in $BUFFER
+# $1 is the index in $arg which starts the quote
+# $REPLY is returned as the end of quote index in $arg
+
+# Highlight single-quoted strings
+_zsh_highlight_main_highlighter_highlight_single_quote()
+{
+  local arg1=$1 i q=\' style
+  local -a highlights
+  i=$arg[(ib:arg1+1:)$q]
+
+  if [[ $zsyh_user_options[rcquotes] == on ]]; then
+    while [[ $arg[i+1] == "'" ]]; do
+      highlights+=($(( start_pos + i - 1 )) $(( start_pos + i + 1 )) rc-quote)
+      (( i++ ))
+      i=$arg[(ib:i+1:)$q]
+    done
+  fi
+
+  if [[ $arg[i] == "'" ]]; then
+    style=single-quoted-argument
+  else
+    style=single-quoted-argument-unclosed
+  fi
+  highlights+=($(( start_pos + arg1 - 1 )) $(( start_pos + i )) $style $highlights)
+  _zsh_highlight_main_add_many_region_highlights $highlights
+  REPLY=$i
+}
+
+# Highlight special chars inside double-quoted strings
+_zsh_highlight_main_highlighter_highlight_double_quote()
+{
+  local -a highlights match mbegin mend
   local MATCH; integer MBEGIN MEND
   local i j k style
-  # Starting quote is at 1, so start parsing at offset 2 in the string.
-  for (( i = 2 ; i < end_pos - start_pos ; i += 1 )) ; do
+
+  for (( i = $1 + 1 ; i < end_pos - start_pos ; i += 1 )) ; do
     (( j = i + start_pos - 1 ))
     (( k = j + 1 ))
     case "$arg[$i]" in
+      '"') break;;
       '$' ) style=dollar-double-quoted-argument
             # Look for an alphanumeric parameter name.
             if [[ ${arg:$i} =~ ^([A-Za-z_][A-Za-z0-9_]*|[0-9]+) ]] ; then
@@ -851,23 +924,33 @@ _zsh_highlight_main_highlighter_highlight_string()
       *) continue ;;
 
     esac
-    _zsh_highlight_main_add_region_highlight $j $k $style
+    highlights+=($j $k $style)
   done
+
+  if [[ $arg[i] == '"' ]]; then
+    style=double-quoted-argument
+  else
+    style=double-quoted-argument-unclosed
+  fi
+  highlights=($(( start_pos + $1 - 1)) $(( start_pos + i )) $style $highlights)
+  _zsh_highlight_main_add_many_region_highlights $highlights
+  REPLY=$i
 }
 
 # Highlight special chars inside dollar-quoted strings
-_zsh_highlight_main_highlighter_highlight_dollar_string()
+_zsh_highlight_main_highlighter_highlight_dollar_quote()
 {
-  local -a match mbegin mend
+  local -a highlights match mbegin mend
   local MATCH; integer MBEGIN MEND
   local i j k style
   local AA
   integer c
-  # Starting dollar-quote is at 1:2, so start parsing at offset 3 in the string.
-  for (( i = 3 ; i < end_pos - start_pos ; i += 1 )) ; do
+
+  for (( i = $1 + 2 ; i < end_pos - start_pos ; i += 1 )) ; do
     (( j = i + start_pos - 1 ))
     (( k = j + 1 ))
     case "$arg[$i]" in
+      "'") break;;
       "\\") style=back-dollar-quoted-argument
             for (( c = i + 1 ; c <= end_pos - start_pos ; c += 1 )); do
               [[ "$arg[$c]" != ([0-9xXuUa-fA-F]) ]] && break
@@ -893,8 +976,32 @@ _zsh_highlight_main_highlighter_highlight_dollar_string()
       *) continue ;;
 
     esac
-    _zsh_highlight_main_add_region_highlight $j $k $style
+    highlights+=($j $k $style)
   done
+
+  if [[ $arg[i] == "'" ]]; then
+    style=dollar-quoted-argument
+  else
+    style=dollar-quoted-argument-unclosed
+  fi
+  highlights+=($(( start_pos + $1 - 1 )) $(( start_pos + i )) $style $highlights)
+  _zsh_highlight_main_add_many_region_highlights $highlights
+  REPLY=$i
+}
+
+# Highlight backtick subshells
+_zsh_highlight_main_highlighter_highlight_backtick()
+{
+  local arg1=$1 i=$1 q=\` style
+  while i=$arg[(ib:i+1:)$q]; [[ $arg[i-1] == '\' && $i -lt $(( end_pos - start_pos )) ]]; do done
+
+  if [[ $arg[i] == '`' ]]; then
+    style=back-quoted-argument
+  else
+    style=back-quoted-argument-unclosed
+  fi
+  _zsh_highlight_main_add_region_highlight $(( start_pos + arg1 - 1 )) $(( start_pos + i )) $style
+  REPLY=$i
 }
 
 # Called with a single positional argument.

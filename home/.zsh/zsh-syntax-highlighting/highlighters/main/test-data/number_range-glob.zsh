@@ -1,5 +1,6 @@
+#!/usr/bin/env zsh
 # -------------------------------------------------------------------------------------------------
-# Copyright (c) 2015 zsh-syntax-highlighting contributors
+# Copyright (c) 2017 zsh-syntax-highlighting contributors
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted
@@ -27,11 +28,13 @@
 # vim: ft=zsh sw=2 ts=2 et
 # -------------------------------------------------------------------------------------------------
 
-# Similar to double-quoted2.zsh
-# This test checks that the '1' gets highlighted correctly.  Do not append to the BUFFER.
-BUFFER=": \$'\xa1"
+BUFFER='print <-> x<-> <foo2-3>'
 
 expected_region_highlight=(
-  "3 4 dollar-quoted-argument-unclosed" # $'
-  "5 8 back-dollar-quoted-argument" # \xa1
+  '1 5 builtin' # print
+  '7 9 globbing' # <->
+  '11 14 globbing' # x<->
+  '16 16 redirection' # <
+  '17 22 default' # foo2-3 (the filename)
+  '23 23 redirection' # >
 )
