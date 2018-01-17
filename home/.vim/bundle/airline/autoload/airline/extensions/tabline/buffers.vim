@@ -1,12 +1,8 @@
-" MIT License. Copyright (c) 2013-2016 Bailey Ling.
+" MIT License. Copyright (c) 2013-2018 Bailey Ling et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
 
-let s:buffer_idx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
-let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
-let s:buffers_label = get(g:, 'airline#extensions#tabline#buffers_label', 'buffers')
-let s:keymap_ignored_filetypes = get(g:, 'airline#extensions#tabline#keymap_ignored_filetypes', ['vimfiler', 'nerdtree'])
 let s:spc = g:airline_symbols.space
 
 let s:current_bufnr = -1
@@ -50,7 +46,11 @@ function! airline#extensions#tabline#buffers#invalidate()
 endfunction
 
 function! airline#extensions#tabline#buffers#get()
-  call <sid>map_keys()
+  try
+    call <sid>map_keys()
+  catch
+    " no-op
+  endtry
   let cur = bufnr('%')
   if cur == s:current_bufnr
     if !g:airline_detect_modified || getbufvar(cur, '&modified') == s:current_modified
@@ -58,9 +58,18 @@ function! airline#extensions#tabline#buffers#get()
     endif
   endif
 
-  let l:index = 1
+  let index = 1
   let b = airline#extensions#tabline#new_builder()
   let tab_bufs = tabpagebuflist(tabpagenr())
+  let show_buf_label_first = 0
+
+  if get(g:, 'airline#extensions#tabline#buf_label_first', 0)
+    let show_buf_label_first = 1
+  endif
+  if show_buf_label_first
+    call airline#extensions#tabline#add_label(b, 'buffers')
+  endif
+  let pgroup = ''
   for nr in s:get_visible_buffers()
     if nr < 0
       call b.add_raw('%#airline_tabhid#...')
@@ -77,27 +86,33 @@ function! airline#extensions#tabline#buffers#get()
     if has("tablineat")
       call b.add_raw('%'.nr.'@airline#extensions#tabline#buffers#clickbuf@')
     endif
-    if s:buffer_idx_mode
+
+    let space= (pgroup == group ? s:spc : '')
+
+    if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
       if len(s:number_map) > 0
-        call b.add_section(group, s:spc . get(s:number_map, l:index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
+        call b.add_section(group, space. get(s:number_map, index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
       else
-        call b.add_section(group, '['.l:index.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.']')
+        call b.add_section(group, '['.index.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.']')
       endif
-      let l:index = l:index + 1
+      let index += 1
     else
-      call b.add_section(group, s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
+      call b.add_section(group, space.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
     endif
+
     if has("tablineat")
       call b.add_raw('%X')
     endif
+    let pgroup=group
   endfor
 
   call b.add_section('airline_tabfill', '')
   call b.split()
   call b.add_section('airline_tabfill', '')
-  if s:show_tab_type
-    call b.add_section_spaced('airline_tabtype', s:buffers_label)
+  if !show_buf_label_first
+    call airline#extensions#tabline#add_label(b, 'buffers')
   endif
+
   if tabpagenr('$') > 1
     call b.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
   endif
@@ -110,6 +125,12 @@ endfunction
 function! s:get_visible_buffers()
   let buffers = airline#extensions#tabline#buflist#list()
   let cur = bufnr('%')
+  if get(g:, 'airline#extensions#tabline#current_first', 0)
+    if index(buffers, cur) > -1
+      call remove(buffers, index(buffers, cur))
+    endif
+    let buffers = [cur] + buffers
+  endif
 
   let total_width = 0
   let max_width = 0
@@ -162,7 +183,8 @@ endfunction
 
 function! s:select_tab(buf_index)
   " no-op when called in 'keymap_ignored_filetypes'
-  if count(s:keymap_ignored_filetypes, &ft)
+  if count(get(g:, 'airline#extensions#tabline#keymap_ignored_filetypes', 
+        \ ['vimfiler', 'nerdtree']), &ft)
     return
   endif
 
@@ -178,15 +200,15 @@ function! s:select_tab(buf_index)
 endfunction
 
 function! s:jump_to_tab(offset)
-    let l = s:current_visible_buffers
+    let l = airline#extensions#tabline#buflist#list()
     let i = index(l, bufnr('%'))
     if i > -1
-        exec 'b!' . l[float2nr(fmod(i + a:offset, len(l)))]
+        exec 'b!' . l[(i + a:offset) % len(l)]
     endif
 endfunction
 
 function! s:map_keys()
-  if s:buffer_idx_mode
+  if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
     noremap <silent> <Plug>AirlineSelectTab1 :call <SID>select_tab(0)<CR>
     noremap <silent> <Plug>AirlineSelectTab2 :call <SID>select_tab(1)<CR>
     noremap <silent> <Plug>AirlineSelectTab3 :call <SID>select_tab(2)<CR>

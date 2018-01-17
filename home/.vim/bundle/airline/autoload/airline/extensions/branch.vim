@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2016 Bailey Ling et al.
+" MIT License. Copyright (c) 2013-2018 Bailey Ling et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -26,8 +26,9 @@ let s:vcs_config = {
 \    'exe': 'git',
 \    'cmd': 'git status --porcelain -- ',
 \    'untracked_mark': '??',
-\    'update_branch': 's:update_git_branch',
 \    'exclude': '\.git',
+\    'update_branch': 's:update_git_branch',
+\    'display_branch': 's:display_git_branch',
 \    'branch': '',
 \    'untracked': {},
 \  },
@@ -37,6 +38,7 @@ let s:vcs_config = {
 \    'untracked_mark': '?',
 \    'exclude': '\.hg',
 \    'update_branch': 's:update_hg_branch',
+\    'display_branch': 's:display_hg_branch',
 \    'branch': '',
 \    'untracked': {},
 \  },
@@ -81,46 +83,46 @@ else
   endfunction
 endif
 
-let s:git_dirs = {}
 
-function! s:update_git_branch(path)
+" Fugitive special revisions. call '0' "staging" ?
+let s:names = {'0': 'index', '1': 'orig', '2':'fetch', '3':'merge'}
+let s:sha1size = get(g:, 'airline#extensions#branch#sha1_len', 7)
+
+function! s:update_git_branch()
   if !s:has_fugitive
     let s:vcs_config['git'].branch = ''
     return
   endif
 
-  let name = fugitive#head(7)
-  if empty(name)
-    if has_key(s:git_dirs, a:path)
-      let s:vcs_config['git'].branch = s:git_dirs[a:path]
-      return
-    endif
-
-    let dir = fugitive#extract_git_dir(a:path)
-    if empty(dir)
-      let name = ''
-    else
-      try
-        let line = join(readfile(dir . '/HEAD'))
-        if strpart(line, 0, 16) == 'ref: refs/heads/'
-          let name = strpart(line, 16)
-        else
-          " raw commit hash
-          let name = strpart(line, 0, 7)
-        endif
-      catch
-        let name = ''
-      endtry
-    endif
+  let s:vcs_config['git'].branch = fugitive#head(s:sha1size)
+  if s:vcs_config['git'].branch is# 'master' && winwidth(0) < 81
+    " Shorten default a bit
+    let s:vcs_config['git'].branch='mas'
   endif
-
-  let s:git_dirs[a:path] = name
-  let s:vcs_config['git'].branch = name
 endfunction
 
-function! s:update_hg_branch(...)
-  " path argument is not actually used, so we don't actually care about a:1
-  " it is just needed, because update_git_branch needs it.
+function! s:display_git_branch()
+  let name = b:buffer_vcs_config['git'].branch
+  try
+    let commit = fugitive#buffer().commit()
+
+    if has_key(s:names, commit)
+      let name = get(s:names, commit)."(".name.")"
+    elseif !empty(commit)
+      let ref = fugitive#repo().git_chomp('describe', '--all', '--exact-match', commit)
+      if ref !~ "^fatal: no tag exactly matches"
+        let name = s:format_name(substitute(ref, '\v\C^%(heads/|remotes/|tags/)=','',''))."(".name.")"
+      else
+        let name = commit[0:s:sha1size-1]."(".name.")"
+      endif
+    endif
+  catch
+  endtry
+
+  return name
+endfunction
+
+function! s:update_hg_branch()
   if s:has_lawrencium
     let cmd='LC_ALL=C hg qtop'
     let stl=lawrencium#statusline()
@@ -151,11 +153,13 @@ function! s:update_hg_branch(...)
   endif
 endfunction
 
+function! s:display_hg_branch()
+  return b:buffer_vcs_config['mercurial'].branch
+endfunction
+
 function! s:update_branch()
-  let b:airline_fname_path = get(b:, 'airline_fname_path',
-        \ exists("*fnamemodify") ? fnamemodify(resolve(@%), ":p:h") : expand("%:p:h"))
   for vcs in keys(s:vcs_config)
-    call {s:vcs_config[vcs].update_branch}(b:airline_fname_path)
+    call {s:vcs_config[vcs].update_branch}()
     if b:buffer_vcs_config[vcs].branch != s:vcs_config[vcs].branch
       let b:buffer_vcs_config[vcs].branch = s:vcs_config[vcs].branch
       unlet! b:airline_head
@@ -225,18 +229,21 @@ function! airline#extensions#branch#head()
   let b:airline_head = ''
   let vcs_priority = get(g:, "airline#extensions#branch#vcs_priority", ["git", "mercurial"])
 
-  let heads = {}
+  let heads = []
   for vcs in vcs_priority
     if !empty(b:buffer_vcs_config[vcs].branch)
-      let heads[vcs] = b:buffer_vcs_config[vcs].branch
+      let heads += [vcs]
     endif
   endfor
 
-  for vcs in keys(heads)
+  for vcs in heads
     if !empty(b:airline_head)
       let b:airline_head .= ' | '
     endif
-    let b:airline_head .= (len(heads) > 1 ? s:vcs_config[vcs].exe .':' : '') . s:format_name(heads[vcs])
+    if len(heads) > 1
+      let b:airline_head .= s:vcs_config[vcs].exe .':'
+    endif
+    let b:airline_head .= s:format_name({s:vcs_config[vcs].display_branch}())
     let b:airline_head .= b:buffer_vcs_config[vcs].untracked
   endfor
 
@@ -256,9 +263,6 @@ function! airline#extensions#branch#head()
     endif
   endif
 
-  if has_key(heads, 'git') && !s:check_in_path()
-    let b:airline_head = ''
-  endif
   let minwidth = empty(get(b:, 'airline_hunks', '')) ? 14 : 7
   let b:airline_head = airline#util#shorten(b:airline_head, 120, minwidth)
   return b:airline_head
@@ -271,35 +275,6 @@ function! airline#extensions#branch#get_head()
   return empty(head)
         \ ? empty_message
         \ : printf('%s%s', empty(symbol) ? '' : symbol.(g:airline_symbols.space), head)
-endfunction
-
-function! s:check_in_path()
-  if !exists('b:airline_file_in_root')
-    let root = get(b:, 'git_dir', get(b:, 'mercurial_dir', ''))
-    let bufferpath = resolve(fnamemodify(expand('%'), ':p'))
-
-    if !filereadable(root) "not a file
-      " if .git is a directory, it's the old submodule format
-      if match(root, '\.git$') >= 0
-        let root = expand(fnamemodify(root, ':h'))
-      else
-        " else it's the newer format, and we need to guesstimate
-        " 1) check for worktrees
-        if match(root, 'worktrees') > -1
-          " worktree can be anywhere, so simply assume true here
-          return 1
-        endif
-        " 2) check for submodules
-        let pattern = '\.git[\\/]\(modules\)[\\/]'
-        if match(root, pattern) >= 0
-          let root = substitute(root, pattern, '', '')
-        endif
-      endif
-    endif
-
-    let b:airline_file_in_root = stridx(bufferpath, root) > -1
-  endif
-  return b:airline_file_in_root
 endfunction
 
 function! s:reset_untracked_cache(shellcmdpost)
@@ -328,9 +303,8 @@ endfunction
 function! airline#extensions#branch#init(ext)
   call airline#parts#define_function('branch', 'airline#extensions#branch#get_head')
 
-  autocmd BufReadPost * unlet! b:airline_file_in_root
-  autocmd ShellCmdPost,CmdwinLeave * unlet! b:airline_head b:airline_do_mq_check b:airline_fname_path
-  autocmd User AirlineBeforeRefresh unlet! b:airline_head b:airline_do_mq_check b:airline_fname_path
+  autocmd ShellCmdPost,CmdwinLeave * unlet! b:airline_head b:airline_do_mq_check
+  autocmd User AirlineBeforeRefresh unlet! b:airline_head b:airline_do_mq_check
   autocmd BufWritePost * call s:reset_untracked_cache(0)
   autocmd ShellCmdPost * call s:reset_untracked_cache(1)
 endfunction

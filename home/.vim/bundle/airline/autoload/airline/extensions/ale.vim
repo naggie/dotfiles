@@ -1,5 +1,7 @@
-" MIT License. Copyright (c) 2013-2017 Bjorn Neergaard, w0rp
+" MIT License. Copyright (c) 2013-2018 Bjorn Neergaard, w0rp et al.
 " vim: et ts=2 sts=2 sw=2
+
+scriptencoding utf-8
 
 let s:error_symbol = get(g:, 'airline#extensions#ale#error_symbol', 'E:')
 let s:warning_symbol = get(g:, 'airline#extensions#ale#warning_symbol', 'W:')
