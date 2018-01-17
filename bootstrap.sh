@@ -4,7 +4,9 @@ set -e
 # curl -sL https://github.com/naggie/dotfiles/raw/naggie/bootstrap.sh | bash && bash
 
 cat <<EOF
-This script will install vim/git/tmux and then dotfiles, trusting github public key.
+This script is intended to be run once. It will install packages then sync
+dotfiles.
+
 Hit CTRL+C to abort in the next 3 seconds....
 
 EOF
@@ -70,9 +72,7 @@ else
 fi
 
 cd ~
-
-# SSH key may or may not have been set up. If it has, use naggie branch. If not, master over HTTPS
-git clone -b naggie git@github.com:naggie/dotfiles.git || git clone https://github.com/naggie/dotfiles.git
+git clone https://github.com/naggie/dotfiles.git
 
 cd dotfiles
 ./install.sh

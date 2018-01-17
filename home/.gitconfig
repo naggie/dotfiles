@@ -28,8 +28,3 @@
 	default = current
 [pull]
 	default = current
-[user]
-	name = Callan Bryant
-	email = callan.bryant@gmail.com
-[github]
-	user = naggie
