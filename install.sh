@@ -21,6 +21,8 @@ fi
 touch ~/.ssh/known_hosts
 chmod 600 ~/.ssh/known_hosts
 
+chmod 0700 ~/.gnupg
+
 # trust github pubkey
 grep -q github.com ~/.ssh/known_hosts || cat <<EOF >> ~/.ssh/known_hosts
 github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
@@ -87,10 +89,7 @@ if [ $PLATFORM == 'Darwin' ]; then
     rm ~/.xinitrc
 elif [ -n "$DISPLAY" ] && which xrdb &>/dev/null; then
 	xrdb -merge ~/.Xresources
-	# kind of forced to put this here. Ubuntu occasionally changes it for absolutely no reason.
 	setxkbmap gb
-else
-	warning "X not configured. Now you can't enjoy the nice urxvt and xterm settings."
 fi
 
 # generate help files (well, tags) for the vim plugins
@@ -98,8 +97,6 @@ if which vim &>/dev/null; then
 	# -e : ex mode, -s : silent batch mode, -n : no swap
 	# must source vimrc in this mode.
 	echo 'source ~/.vimrc | call pathogen#helptags()' | vim -es -n -s
-else
-	warning 'Vim not found! Is your brain functioning correctly?'
 fi
 
 if [ -f ~/.bash_history ] && [ ! -f ~/.history ]; then
@@ -111,5 +108,3 @@ chmod 600 ~/.history
 if which fish > /dev/null; then
     fish -c fish_update_completions
 fi
-
-chmod 0700 ~/.gnupg
