@@ -14,18 +14,6 @@ EOF
 sleep 3
 
 
-if [ ! -d ~/.ssh ]; then
-    mkdir ~/.ssh
-    chmod 700 ~/.ssh
-fi
-
-touch ~/.ssh/known_hosts
-chmod 600 ~/.ssh/known_hosts
-
-grep -q github.com ~/.ssh/known_hosts || cat <<EOF >> ~/.ssh/known_hosts
-github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
-EOF
-
 if [ $(uname) == 'Darwin' ]; then
     # macos
     if [ ! -f /usr/local/bin/brew ]; then
@@ -48,11 +36,6 @@ if [ $(uname) == 'Darwin' ]; then
 
     # correct so alias works cross platform
     ln -s /usr/local/bin/gpg /usr/local/bin/gpg2
-
-    # remove everything from dock (only active applications should be there, as
-    # I use spotlight to launch apps with CMD+Space)
-    defaults write com.apple.dock persistent-apps -array
-    killall Dock # reload dock
 
 elif grep -q Ubuntu /etc/issue; then
     sudo apt-add-repository multiverse

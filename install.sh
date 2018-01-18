@@ -22,24 +22,17 @@ Dedpendencies:
 
 EOF
 
-# this is good for log files
-date
-echo
-
 function warning {
 	# TODO: check PS1, no escape code if not interactive....?
 	echo -e "\033[00;31m> $*\033[00m"
 }
 
 
-echo 'Clobbering...'
 test -d ~/.vim/ && rm -rf ~/.vim/
 test -d ~/.zsh/ && rm -rf ~/.zsh/
 # not for fish as it removes generated completions which have to rebuilt which is a pain
 #test -d ~/.config/fish/ && rm -rf ~/.config/fish/
 
-
-echo 'Initialising ssh...'
 if [ ! -d ~/.ssh ]; then
     mkdir ~/.ssh
     chmod 700 ~/.ssh
@@ -48,23 +41,48 @@ fi
 touch ~/.ssh/known_hosts
 chmod 600 ~/.ssh/known_hosts
 
+# trust github pubkey
 grep -q github.com ~/.ssh/known_hosts || cat <<EOF >> ~/.ssh/known_hosts
 github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
 EOF
 
-echo 'Copying dotfiles...'
 # copy dotfiles separately , normal glob does not match
 cp -r home/.??* ~ 2> /dev/null
 
 if [ $PLATFORM == 'Darwin' ]; then
-    echo 'Mac non-hidden...'
     cp -r home/Library ~
+    defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+    defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+    defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+    chflags nohidden ~/Library/
+    # stop preview from opening every PDF you've ever opened every time you view a PDF
+    # (how did apple think this was a good idea!?!?!)
+    defaults write com.apple.Preview NSQuitAlwaysKeepsWindows -bool false
+    # Check for software updates daily, not just once per week
+    defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+    # Trackpad: enable tap to click for this user and for the login screen
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+    defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+    defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+    # Disable auto-correct
+    defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+    # Finder: show status bar, path bar, posix path
+    defaults write com.apple.finder ShowStatusBar -bool true
+    defaults write com.apple.finder ShowPathbar -bool true
+    defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+    # When performing a search, search the current folder by default
+    defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+    # remove everything from dock (only active applications should be there, as
+    # I use spotlight to launch apps with CMD+Space)
+    defaults write com.apple.dock persistent-apps -array
+
+    # refresh stuff (killing will presumably make the watchdog restart the application)
+    killall Dock
+    killall Finder
+    killall SystemUIServer
 fi
 
-echo "Copying ~/etc..."
 cp -a etc ~
-
-echo 'Copying scripts...'
 cp -a bin ~
 
 if [ ! 0$(tput colors 2>/dev/null) -eq 256 ]; then
@@ -73,7 +91,6 @@ fi
 
 # reload TMUX config if running inside tmux
 if [ -n "$TMUX" ]; then
-	echo 'Reloading tmux configuration...'
 	tmux source-file ~/.tmux.conf >/dev/null
     export SYSTEM_COLOUR=$(~/bin/system-colour.py $HOSTNAME)
     tmux set -g status-left-bg colour${SYSTEM_COLOUR} &>/dev/null
@@ -81,11 +98,10 @@ else
 	warning "Not inside tmux, so can't tell tmux to reload"
 fi
 
-echo Installing/updating fonts...
 ./etc/powerline-patched/install.sh
 
 if [ $PLATFORM == 'Darwin' ]; then
-    echo 'Gah! Darwin!? XQuartz crashes in an annoying focus-stealing loop with this .xinirc. Removing...'
+    # 'Gah! Darwin!? XQuartz crashes in an annoying focus-stealing loop with this .xinirc. Removing...'
     rm ~/.xinitrc
 elif [ -n "$DISPLAY" ] && which xrdb &>/dev/null; then
 	echo 'Merging Xresources...'
@@ -98,7 +114,6 @@ fi
 
 # generate help files (well, tags) for the vim plugins
 if which vim &>/dev/null; then
-	echo 'Generating helptags for vim submodules...'
 	# -e : ex mode, -s : silent batch mode, -n : no swap
 	# must source vimrc in this mode.
 	echo 'source ~/.vimrc | call pathogen#helptags()' | vim -es -n -s
@@ -114,7 +129,6 @@ elif [[ $BRANCH =~ "*$USER*" ]]; then
 fi
 
 if [ -f ~/.bash_history ] && [ ! -f ~/.history ]; then
-    echo "Migrating history file..."
     cp ~/.bash_history ~/.history
 fi
 chmod 600 ~/.history
