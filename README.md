@@ -82,18 +82,3 @@ to differentiate between hosts.
 [3]: https://github.com/fish-shell/fish-shell/issues/814
 [4]: http://superuser.com/questions/413351/weird-insertion-from-vim-on-mouse-click
 [5]: https://github.com/unphased/putty-X
-
-# Darkbuntu
-This dotfiles repository is capable of remastering an Ubuntu 16.04 live CD.
-
-On an existing ubuntu machine, run `make livecd` to create a customised Ubuntu
-ISO based on these dotfiles. There are many tweaks to 'Darkbuntu' including:
-
-  * Numix theme
-  * Numic icons
-  * *Desaturation of nearly everything (cool, huh)*
-  * Remove Amazon spyware
-
-![Screenshot](etc/darkbuntu.png "Ubuntu, circa 1950's")
-
-
