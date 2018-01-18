@@ -3,6 +3,10 @@
 ! Fedora 8 at least, explicitly prompts you whether you want to load ~/.Xmodmap
 clear Lock
 
+! ... and replace it with ESC
+keycode 9 = Caps_Lock NoSymbol Caps_Lock
+keycode 66 = Escape NoSymbol Escape
+
 ! keyboard layout, can also set with stxkbmap gb, or modifying /etc/defaults/keyboard
 ! I think this is like a patch to xorg.conf, and works on the livecd
 Section "InputDevice"
