@@ -1,32 +1,12 @@
 #!/bin/bash
-
-# RUN as root with HOME=/etc/skel/ so new users have these dotfiles
-# or sudo -u <user> ./install.sh to install as any other user
-
 cd $(dirname $0)
 
-# quit on error
-#set -e
-CHANGE=$(git rev-list HEAD --count)
-BRANCH=$(git rev-parse --abbrev-ref HEAD)
 PLATFORM=$(uname)
-
-cat <<EOF
-Dedpendencies:
-
-  * tmux 1.8+
-  * fish 2.0+ (recommended) or bash 3+
-  * vim 7.3+
-  * Dark 256color terminal with SGR1006 mouse support and UTF-8 character
-    encoding for unicode character set
-
-EOF
 
 function warning {
 	# TODO: check PS1, no escape code if not interactive....?
 	echo -e "\033[00;31m> $*\033[00m"
 }
-
 
 test -d ~/.vim/ && rm -rf ~/.vim/
 test -d ~/.zsh/ && rm -rf ~/.zsh/
@@ -48,6 +28,8 @@ EOF
 
 # copy dotfiles separately , normal glob does not match
 cp -r home/.??* ~ 2> /dev/null
+cp -a etc ~
+cp -a bin ~
 
 if [ $PLATFORM == 'Darwin' ]; then
     cp -r home/Library ~
@@ -85,9 +67,6 @@ if [ $PLATFORM == 'Darwin' ]; then
     killall SystemUIServer
 fi
 
-cp -a etc ~
-cp -a bin ~
-
 if [ ! 0$(tput colors 2>/dev/null) -eq 256 ]; then
 	warning "TERM '$TERM' is not a 256 colour type! Please set in terminal emulator. EG: Putty should have putty-256color, xterm should have xterm-256color."
 fi
@@ -107,7 +86,6 @@ if [ $PLATFORM == 'Darwin' ]; then
     # 'Gah! Darwin!? XQuartz crashes in an annoying focus-stealing loop with this .xinirc. Removing...'
     rm ~/.xinitrc
 elif [ -n "$DISPLAY" ] && which xrdb &>/dev/null; then
-	echo 'Merging Xresources...'
 	xrdb -merge ~/.Xresources
 	# kind of forced to put this here. Ubuntu occasionally changes it for absolutely no reason.
 	setxkbmap gb
@@ -124,20 +102,10 @@ else
 	warning 'Vim not found! Is your brain functioning correctly?'
 fi
 
-# in case someone forgot...
-if [ $BRANCH == 'master' ]; then
-	warning "Generic version installed from master branch. Make your own branch for user/host-specific things."
-elif [[ $BRANCH =~ "*$USER*" ]]; then
-	warning "Branch does not contain user. Sure about this? The convention is to have a custom branch name containing your username."
-fi
-
 if [ -f ~/.bash_history ] && [ ! -f ~/.history ]; then
     cp ~/.bash_history ~/.history
 fi
 chmod 600 ~/.history
-
-tmux -V | grep -q 'tmux 2.' || warning "tmux 2.x not installed"
-vim --version | grep -q 'Vi IMproved 8.' || warning "vim 8.x not installed"
 
 # totally worth it
 if which fish > /dev/null; then
