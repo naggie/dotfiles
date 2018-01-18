@@ -76,6 +76,9 @@ if [ $PLATFORM == 'Darwin' ]; then
     # I use spotlight to launch apps with CMD+Space)
     defaults write com.apple.dock persistent-apps -array
 
+    # map caps lock to ESC
+    hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x700000029}]}'
+
     # refresh stuff (killing will presumably make the watchdog restart the application)
     killall Dock
     killall Finder
