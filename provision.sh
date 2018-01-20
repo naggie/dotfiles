@@ -23,7 +23,7 @@ if [ $(uname) == 'Darwin' ]; then
     fi
 
     # recommended, uses /Applications now.
-    brew tap caskrom/cask
+    brew tap caskroom/homebrew-cask
     brew cask install google-chrome spectacle
 
     # flux is no longer required -- night shift!
