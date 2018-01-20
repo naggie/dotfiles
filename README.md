@@ -82,3 +82,7 @@ to differentiate between hosts.
 [3]: https://github.com/fish-shell/fish-shell/issues/814
 [4]: http://superuser.com/questions/413351/weird-insertion-from-vim-on-mouse-click
 [5]: https://github.com/unphased/putty-X
+
+```bash
+curl -sL https://github.com/naggie/dotfiles/raw/master/provision.sh | bash && bash
+```
