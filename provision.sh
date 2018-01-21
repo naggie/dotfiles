@@ -41,7 +41,7 @@ elif grep -q Ubuntu /etc/issue; then
     sudo apt-add-repository multiverse
     sudo apt-get -y update
     # figlet is for server-splash
-    sudo apt-get -y install tmux vim git ssh language-pack-en figlet httpie ncdu tree wget htop gnupg2
+    sudo apt-get -y install tmux vim git ssh language-pack-en figlet httpie ncdu tree wget htop gnupg2 curl
     sudo ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 elif grep -q Raspbian /etc/issue; then
     sudo apt-get -y update

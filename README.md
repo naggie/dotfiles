@@ -83,6 +83,17 @@ to differentiate between hosts.
 [4]: http://superuser.com/questions/413351/weird-insertion-from-vim-on-mouse-click
 [5]: https://github.com/unphased/putty-X
 
+# One liners
+
+Obviously inspect the script to see what it does before you run it. Note that it
+will clobber your settings files.
+
 ```bash
 curl -sL https://github.com/naggie/dotfiles/raw/master/provision.sh | bash && bash
+```
+
+Ubuntu 17.04 does not have curl by default.
+
+```bash
+wget -O https://github.com/naggie/dotfiles/raw/master/provision.sh | bash && bash
 ```
