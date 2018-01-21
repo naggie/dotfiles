@@ -1,5 +1,5 @@
-#/bin/bash
-. ./install.sh
+#!/bin/bash
+source ./install.sh
 
 
 # git+ssh for push access
