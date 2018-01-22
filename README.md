@@ -95,5 +95,5 @@ curl -sL https://github.com/naggie/dotfiles/raw/master/provision.sh | bash && ba
 Ubuntu 17.04 does not have curl by default.
 
 ```bash
-wget -O https://github.com/naggie/dotfiles/raw/master/provision.sh | bash && bash
+wget -O - https://github.com/naggie/dotfiles/raw/master/provision.sh | bash && bash
 ```

@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-
+set -x
 # curl -sL https://github.com/naggie/dotfiles/raw/master/provision.sh | bash && bash
 
 cat <<EOF
@@ -35,7 +35,7 @@ if [ $(uname) == 'Darwin' ]; then
     done
 
     # correct so alias works cross platform
-    ln -s /usr/local/bin/gpg /usr/local/bin/gpg2
+    test -e /usr/local/bin/gpg2 || ln -s /usr/local/bin/gpg /usr/local/bin/gpg2
 
 elif grep -q Ubuntu /etc/issue; then
     sudo apt-add-repository multiverse
