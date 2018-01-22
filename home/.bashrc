@@ -216,8 +216,8 @@ function deferred {
 	# linux
 	[ -f /etc/bash_completion ] && source /etc/bash_completion
 
-	# Homebrew completions
-	test -x /usr/local/bin/brew && source /usr/local/etc/bash_completion.d/*
+    # Homebrew completions (package: bash-completion)
+    [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 	# map completion for aliases
 	complete -o default -o nospace -F _git g
