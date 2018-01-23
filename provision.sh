@@ -35,7 +35,7 @@ if [ $(uname) == 'Darwin' ]; then
     done
 
     # correct so alias works cross platform
-    test -e /usr/local/bin/gpg2 || ln -s /usr/local/bin/gpg /usr/local/bin/gpg2
+    ln -sf /usr/local/bin/gpg /usr/local/bin/gpg2
 
 elif grep -q Ubuntu /etc/issue; then
     sudo apt-add-repository multiverse
