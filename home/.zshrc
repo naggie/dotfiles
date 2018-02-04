@@ -252,7 +252,7 @@ function cd {
 	builtin cd "$@" && ls
 }
 
-[ -x /usr/bin/keychain ] && [ -r ~/.ssh/id_rsa ] && eval `keychain --nogui --quiet --eval ~/.ssh/id_rsa`
+[ -x /usr/bin/keychain ] && [ -r ~/.ssh/id_rsa ] && eval `keychain --nogui --quiet --eval --inherit any ~/.ssh/id_rsa`
 test -x /usr/bin/dircolors && eval $(dircolors ~/.dir_colors)
 
 # Disable stupid flow control. Ctrl+S can disable the terminal, requiring

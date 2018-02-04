@@ -123,7 +123,7 @@ end
 
 test -x /usr/bin/keychain
 	and test -r ~/.ssh/id_rsa
-	and keychain --nogui --quiet --eval ~/.ssh/id_rsa | .
+	and keychain --nogui --quiet --eval --inherit any ~/.ssh/id_rsa | .
 
 # these functions are too small to warrant a separate file
 function fish_greeting
