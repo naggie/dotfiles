@@ -239,6 +239,8 @@ autocmd FileType yaml setlocal softtabstop=2 shiftwidth=2 tabstop=2
 " has a vim plugin, which fixes things for all YAML files
 autocmd FileType yaml set filetype=ansible
 
+" go fmt uses tabs
+autocmd FileType go set noexpandtab
 
 command Retab normal! gg=G
 
