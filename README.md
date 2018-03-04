@@ -23,13 +23,16 @@ Specific:
 * `brew cask` : cask bundle manager for OS X
 * `pudb` : python debugger
 * `task` taskwarrior TODO list manager
-
+* `restic` : backup software
 
 Misc:
 
 `sox`,`ffmpeg`
 
 Recommended font: https://github.com/adobe-fonts/source-code-pro
+
+Tip: Minimise keyboard repeat delay and maximise keyboard repeat rate for a
+faster experience.
 
 # shell
 
