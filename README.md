@@ -32,7 +32,9 @@ Misc:
 Recommended font: https://github.com/adobe-fonts/source-code-pro
 
 Tip: Minimise keyboard repeat delay and maximise keyboard repeat rate for a
-faster experience.
+faster experience. Latency is everything.
+
+NOTE Alacrity.
 
 # shell
 

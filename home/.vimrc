@@ -308,3 +308,7 @@ set sidescrolloff=5
 set colorcolumn=141
 
 highlight ColorColumn ctermbg=black guibg=black
+
+" stop asterisk-initiated search from annoyingly jumping to next match -- this
+" is useful in combination with hlsearch
+nnoremap * *``
