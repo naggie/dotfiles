@@ -237,10 +237,10 @@ set tabstop=4
 autocmd FileType yaml setlocal softtabstop=2 shiftwidth=2 tabstop=2
 " ...yet, still, auto-indent does not work. The YAML superset used by ansible
 " has a vim plugin, which fixes things for all YAML files
-autocmd FileType yaml set filetype=ansible
+autocmd FileType yaml setlocal filetype=ansible
 
 " go fmt uses tabs
-autocmd FileType go set noexpandtab
+autocmd FileType go setlocal noexpandtab
 
 command Retab normal! gg=G
 
