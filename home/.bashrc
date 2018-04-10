@@ -3,7 +3,7 @@
 
 export GOPATH=~/gocode
 
-export PATH=~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$GOPATH/bin:/usr/local/go/bin:$PATH
+export PATH=~/bin:/usr/local/bin:/snap/bin:/usr/local/sbin:/usr/local/share/npm/bin:$GOPATH/bin:/usr/local/go/bin:$PATH
 
 # TERM TYPE Inside screen/tmux, it should be screen-256color -- this is
 # configured in .tmux.conf.  Outside, it's up to you to make sure your terminal
@@ -21,8 +21,8 @@ fi
 
 
 # fix annoying accidental commits and amends
-# and other dangerous commands
-export HISTIGNORE='git*--amend*:ls:cd'
+# and other dangerous commands, yubikey OTP
+export HISTIGNORE='git*--amend*:ls:cd:cccccc*'
 export HISTCONTROL=ignoredups:ignorespace
 # vim -X = don't look for X server, which can be slow
 export EDITOR=vim

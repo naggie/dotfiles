@@ -7,7 +7,7 @@ unsetopt NOMATCH
 export GOPATH=~/gocode
 
 typeset -U path
-path=(~/bin /usr/local/bin /usr/local/sbin /usr/local/share/npm/bin $GOPATH/bin /usr/local/go/bin $path)
+path=(~/bin /usr/local/bin /snap/bin /usr/local/sbin /usr/local/share/npm/bin $GOPATH/bin /usr/local/go/bin $path)
 
 
 # TERM TYPE Inside screen/tmux, it should be screen-256color -- this is
@@ -33,6 +33,11 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 unsetopt EXTENDED_HISTORY # just commands plskthx so bash_history is compatible
 setopt INC_APPEND_HISTORY # immediate sharing of history
+export HISTIGNORE='git*--amend*:ls:cd:cccccc*'
+
+# fix annoying accidental commits and amends
+# and other dangerous commands, yubikey OTP
+export HISTORY_IGNORE='(git*--amend*|ls|cd|cccccc*)'
 
 # auto rehash to discover execs in path
 setopt nohashdirs
