@@ -2,6 +2,5 @@
 set -e
 
 git checkout master
-git fetch --all
-git merge --ff-only FETCH_HEAD
+git pull --ff-only origin master
 git submodule update --init
