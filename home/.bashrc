@@ -211,7 +211,7 @@ function tm {
 }
 
 # slow completion things in background after bashrc is executed
-function deferred {
+function _deferred {
 	# linux
 	[ -f /etc/bash_completion ] && source /etc/bash_completion
 
@@ -274,5 +274,5 @@ export GPG_TTY=$(tty)
 
 # run the deferred function in the background in this context after bashrc
 # http://superuser.com/questions/267771/bash-completion-makes-bash-start-slowly
-trap 'deferred; trap USR1' USR1
+trap '_deferred 2>/dev/null; trap USR1' USR1
 { sleep 0.1 ; builtin kill -USR1 $$ ; } & disown
