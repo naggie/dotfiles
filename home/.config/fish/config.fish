@@ -139,11 +139,6 @@ function fish_title --description 'Set terminal (not tmux) title'
 	echo $HOSTNAME
 end
 
-function fish_tmux_title --description "Set the tmux window title"
-	# to a clever shorthand representation of the current dir. minus whitespace
-	echo $PWD | sed s/[^a-zA-Z0-9\.\/]/-/g | grep -oE '[^\/]+$'
-end
-
 # only auto set title based on initial pane
 # this detects if the pane is the first in a new window (probably)
 test $TMUX
@@ -151,12 +146,10 @@ test $TMUX
 	and set -x TMUX_PRIMARY_PANE set
 
 function fish_set_tmux_title --description "Sets tmux pane title to output of fish_tmux_title, with padding" --on-variable PWD
-	# title of tmux pane, must be separate to fish_title
-	# only run this if tmux is also running
-    test $USER != root
-	    and test $TMUX
-		and test $TMUX_PRIMARY_PANE
-		and printf "\\033k%s\\033\\\\" (fish_tmux_title)
+    if test $TMUX; and test $TMUX_PRIMARY_PANE
+        set LABEL (echo $PWD | sed 's/[^a-zA-Z0-9\.\/]/-/g' | grep -oE '[^\/]+$')
+        tmux rename-window "$LABEL"
+    end
 end
 
 function __fish_p4_prompt
