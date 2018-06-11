@@ -19,6 +19,7 @@ Specific:
 * `httpie` : curl alternative with better UX
 * `jq` : Command line JSON processor (good with httpie)
 * `ncdu` : hunt for disk usage
+* `tmpreaper` : delete old temporary files
 * `brew` : homebrew package manager for OS X
 * `brew cask` : cask bundle manager for OS X
 * `pudb` : python debugger
