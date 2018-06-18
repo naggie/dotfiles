@@ -312,3 +312,9 @@ highlight ColorColumn ctermbg=black guibg=black
 " stop asterisk-initiated search from annoyingly jumping to next match -- this
 " is useful in combination with hlsearch
 nnoremap * *``
+
+" I always missed the warnings and ended up editing files for which I had no
+" write permission, resulting in much frustration. A better solution is to
+" disallow editing to force me to exit early without modifying and the use
+" sudo without forgetting...
+autocmd BufRead * let &l:modifiable = !&readonly
