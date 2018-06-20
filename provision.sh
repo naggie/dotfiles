@@ -13,6 +13,9 @@ EOF
 
 sleep 3
 
+# tmpreaper tries to do a post-install "configuration" screen to warn the user.
+export DEBIAN_FRONTEND=noninteractive
+
 
 if [ $(uname) == 'Darwin' ]; then
     # macos
