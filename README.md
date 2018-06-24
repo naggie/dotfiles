@@ -18,8 +18,7 @@ Specific:
 * `ansible` : idempotent, agentless configuration management
 * `httpie` : curl alternative with better UX
 * `jq` : Command line JSON processor (good with httpie)
-* `ncdu` : hunt for disk usage
-* `tmpreaper` : delete old temporary files
+* `ncdu` + `tmpreaper` : tools for clearing up disk space
 * `brew` : homebrew package manager for OS X
 * `brew cask` : cask bundle manager for OS X
 * `pudb` : python debugger
