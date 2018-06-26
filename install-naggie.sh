@@ -13,6 +13,10 @@ cat <<EOF >> ~/.gitconfig
 	email = callan.bryant@gmail.com
 [github]
 	user = naggie
+
+; go get -- use ssh for private repository support without typing in password
+[url "git@github.com:"]
+	insteadOf = https://github.com/
 EOF
 
 cat <<EOF > ~/.ssh/authorized_keys
