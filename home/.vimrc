@@ -282,7 +282,9 @@ au BufRead * let g:ctrlp_prompt_mappings = {
     \ }
 
 " ignore all files that git does! https://github.com/kien/ctrlp.vim/issues/174
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+" https://github.com/kien/ctrlp.vim/issues/58 -- for the method of adding
+" extras for golang: ignore vendored modules which are checked in, and images
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files --exclude-standard -co |& egrep -v "\.(png|jpg|jpeg|gif)$|node_modules|vendor"']
 
 " http://blog.sanctum.geek.nz/vim-annoyances/
 " v-block mode: allow capturing blank space

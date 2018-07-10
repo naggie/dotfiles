@@ -24,6 +24,7 @@ Specific:
 * `pudb` : python debugger
 * `task` taskwarrior TODO list manager
 * `restic` : backup software
+* `tinc` : A reliable mesh VPN
 
 Misc:
 
