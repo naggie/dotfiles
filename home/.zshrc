@@ -33,11 +33,10 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 unsetopt EXTENDED_HISTORY # just commands plskthx so bash_history is compatible
 setopt INC_APPEND_HISTORY # immediate sharing of history
-export HISTIGNORE='git*--amend*:ls:cd:cccccc*'
 
 # fix annoying accidental commits and amends
 # and other dangerous commands, yubikey OTP
-export HISTORY_IGNORE='(git*--amend*|ls|cd|cccccc*)'
+export HISTORY_IGNORE='(git*--amend*|ls|cd|cccccc*|*reboot*|*halt*|0*)'
 
 # auto rehash to discover execs in path
 setopt nohashdirs
