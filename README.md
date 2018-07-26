@@ -25,6 +25,8 @@ Specific:
 * `task` taskwarrior TODO list manager
 * `restic` : backup software
 * `tinc` : A reliable mesh VPN
+* `xmind` : Mind map software for project research
+* `taskwarrior` : todo application with contexts
 
 Misc:
 
@@ -44,7 +46,7 @@ NOTE Alacrity.
 * `CTRL+p` will launch `vim` in find mode, also works inside vim
 * `CTRL+s` will prepend `sudo` to the prompt and move the cursor to the end of the prompt
 * `tryforever <cmd...>` will run a command in a loop until it fails
-* history is synchronised between open shells
+* history is globally shared, allowing CTRL+R search
 
 See `home/.aliases` and `bin/` for some useful shortcuts.
 
@@ -74,3 +76,20 @@ Ubuntu 17.04 does not have curl by default.
 ```bash
 wget -O - https://github.com/naggie/dotfiles/raw/master/provision.sh | bash && bash
 ```
+
+
+
+# Time management
+
+I've tried quite a few TODO systems including simple text files, Todoist,
+Trello, Github issues, JIRA, habitica and taskwarrior. The key is
+not to use one system for everything. I've settled on:
+
+1. Github issues for each personal projects (also using the rest of github)
+2. JIRA (with kanban) for work (not by choice but works extremely well if set up with a good workflow, but slow)
+3. Taskwarrior for anything not tracked by above, with contexts for home/work/inbox. Loosely following GTD.
+4. Text files to track ideas and proposals
+
+Relying on Taskwarrior for a report of what I've done. I kept a log text file for 3.5 years but stopped.
+
+I still want to try vim-orgmode and taskwiki.
