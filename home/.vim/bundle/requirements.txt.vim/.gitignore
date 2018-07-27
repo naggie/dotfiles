@@ -3,3 +3,4 @@
 /vendor/bundle
 /lib/bundler/man/
 .vim-flavor
+.ruby-version

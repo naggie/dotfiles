@@ -1,4 +1,0 @@
-# Since flavorfile is parsed as a Ruby script,
-# you can comment out arbitrary lines like this.
-
-# flavor '$foo_uri', '~> 1.0'
