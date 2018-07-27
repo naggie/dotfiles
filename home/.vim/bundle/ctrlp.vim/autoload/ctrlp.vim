@@ -540,7 +540,7 @@ fu! s:bufparts(bufnr)
 endf
 fu! ctrlp#buffers(...)
 	let ids = sort(filter(range(1, bufnr('$')), '(empty(getbufvar(v:val, "&bt"))'
-		\ .' || s:isneovimterminal(v:val)) && getbufvar(v:val, "&bl")'), 's:compmreb')
+		\ .' || s:isterminal(v:val)) && getbufvar(v:val, "&bl")'), 's:compmreb')
 	if a:0 && a:1 == 'id'
 		retu ids
 	el
@@ -563,7 +563,7 @@ fu! s:MatchIt(items, pat, limit, exc)
 	for item in a:items
 		let id += 1
 		try
-			if (s:matchcrfile || !( s:ispath && item == a:exc )) &&
+			if (s:matchcrfile || !( s:ispath && item ==# a:exc )) &&
 						\call(s:mfunc, [item, pat]) >= 0
 				cal add(lines, item)
 			en
@@ -1956,7 +1956,7 @@ endf
 
 fu! s:dictindex(dict, expr)
 	for key in keys(a:dict)
-		if a:dict[key] == a:expr | retu key | en
+		if a:dict[key] ==# a:expr | retu key | en
 	endfo
 	retu -1
 endf
@@ -2028,10 +2028,10 @@ fu! s:bufnrfilpath(line)
 endf
 
 fu! ctrlp#normcmd(cmd, ...)
-	let buftypes = [ 'quickfix', 'help' ]
+	let buftypes = [ 'quickfix', 'help', 'nofile' ]
 	if a:0 < 2 && s:nosplit() | retu a:cmd | en
 	let norwins = filter(range(1, winnr('$')),
-		\ 'index(buftypes, getbufvar(winbufnr(v:val), "&bt")) == -1 || s:isneovimterminal(winbufnr(v:val))')
+		\ 'index(buftypes, getbufvar(winbufnr(v:val), "&bt")) == -1 || s:isterminal(winbufnr(v:val))')
 	for each in norwins
 		let bufnr = winbufnr(each)
 		if empty(bufname(bufnr)) && empty(getbufvar(bufnr, '&ft'))
@@ -2305,8 +2305,8 @@ fu! s:delbuf()
 	cal s:PrtClearCache()
 endf
 
-fu! s:isneovimterminal(buf)
-	retu has('nvim') && getbufvar(a:buf, "&bt") == "terminal"
+fu! s:isterminal(buf)
+	retu getbufvar(a:buf, "&bt") == "terminal"
 endf
 " Entering & Exiting {{{2
 fu! s:getenv()
@@ -2595,6 +2595,20 @@ fu! s:ExitIfSingleCandidate()
 	return 0
 endfu
 
+fu! s:IsBuiltin()
+	let builtins = ['tag', 'dir', 'bft', 'rts', 'bkd', 'lns', 'chs', 'mix', 'udo', 'qfx']
+	let curtype = s:getextvar('sname')
+	return s:itemtype < len(s:coretypes) || index(builtins, curtype) > -1
+endfu
+
+fu! s:DetectFileType(type, ft)
+	if s:IsBuiltin() || empty(a:ft) || a:ft ==# 'ctrlp'
+		retu 'ctrlp'
+	el
+		retu 'ctrlp.' . a:ft
+	en
+endfu
+
 fu! ctrlp#init(type, ...)
 	if exists('s:init') || s:iscmdwin() | retu | en
 	let [s:ermsg, v:errmsg] = [v:errmsg, '']
@@ -2618,6 +2632,7 @@ fu! ctrlp#init(type, ...)
 		en
 	en
 	cal ctrlp#setlines(s:settype(type))
+	let &filetype = s:DetectFileType(type, &filetype)
 	cal ctrlp#syntax()
 	cal s:SetDefTxt()
 	let curName = s:CurTypeName()
