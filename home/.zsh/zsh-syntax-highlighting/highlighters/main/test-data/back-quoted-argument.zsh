@@ -28,9 +28,15 @@
 # -------------------------------------------------------------------------------------------------
 
 # 42 is in the command position in a nested subshell.
-BUFFER='echo `echo \`42\`` `echo 6 times 9'
+BUFFER='echo `echo \`42\`` "is `echo equal` to" `echo 6 times 9'
 
 expected_region_highlight=(
-  "6 18 back-quoted-argument"
-  "20 34 back-quoted-argument-unclosed"
+  "1 4 builtin" # echo
+  "6 18 default" # `echo \`42\``
+  "6 18 back-quoted-argument" # `echo \`42\``
+  "20 39 default" # "is `echo equal` to"
+  "20 39 double-quoted-argument" # "is `echo equal` to"
+  "24 35 back-quoted-argument" # `echo equal`
+  "41 55 default" # `echo 6 times 9
+  "41 55 back-quoted-argument-unclosed" # `echo 6 times 9
 )

@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------------------------------
-# Copyright (c) 2017 zsh-syntax-highlighting contributors
+# Copyright (c) 2015 zsh-syntax-highlighting contributors
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted
@@ -27,8 +27,12 @@
 # vim: ft=zsh sw=2 ts=2 et
 # -------------------------------------------------------------------------------------------------
 
-BUFFER=': x)'
+# Assumes that '/bin/sh' exists and '/bin/s' does not exist.
+# Related to path_prefix.zsh
+
+PREBUFFER='ls \'
+BUFFER='/bin/s'
 
 expected_region_highlight=(
-  "4 4 bracket-error" # )
+  '1 6 path_prefix' # /bin/s
 )

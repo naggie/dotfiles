@@ -1,5 +1,6 @@
+#!/usr/bin/env zsh
 # -------------------------------------------------------------------------------------------------
-# Copyright (c) 2017 zsh-syntax-highlighting contributors
+# Copyright (c) 2018 zsh-syntax-highlighting contributors
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are permitted
@@ -27,8 +28,9 @@
 # vim: ft=zsh sw=2 ts=2 et
 # -------------------------------------------------------------------------------------------------
 
-BUFFER=': x)'
+BUFFER=$': =(<foo)'
 
 expected_region_highlight=(
-  "4 4 bracket-error" # )
+  '1 1 builtin' # :
+  '3 9 default' # =(<foo)
 )
