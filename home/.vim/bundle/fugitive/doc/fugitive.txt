@@ -41,10 +41,11 @@ that are part of Git repositories).
                         -     |:Git| add
                         -     |:Git| reset (staged files)
                         a     Show alternative format
-                        cA    |:Gcommit| --amend --reuse-message=HEAD
                         ca    |:Gcommit| --amend
                         cc    |:Gcommit|
-                        cva   |:Gcommit| --amend --verbose
+                        ce    |:Gcommit| --amend --no-edit
+                        cw    |:Gcommit| --amend --only
+                        cva   |:Gcommit| --verbose --amend
                         cvc   |:Gcommit| --verbose
                         D     |:Gdiff|
                         ds    |:Gsdiff|
@@ -53,8 +54,8 @@ that are part of Git repositories).
                         dv    |:Gvdiff|
                         O     |:Gtabedit|
                         o     |:Gsplit|
-                        p     |:Git| add --patch
-                        p     |:Git| reset --patch (staged files)
+                        P     |:Git| add --patch
+                        P     |:Git| reset --patch (staged files)
                         q     close status
                         r     reload status
                         S     |:Gvsplit|
@@ -77,17 +78,21 @@ that are part of Git repositories).
 
                                                 *fugitive-:Gmerge*
 :Gmerge [args]          Calls git-merge and loads errors and conflicted files
-                        into the quickfix list.  Opens a |:Gcommit| style
+                        into the |quickfix| list.  Opens a |:Gcommit| style
                         split window for the commit message if the merge
                         succeeds.  If called during a merge conflict, the
                         conflicted files from the current index are loaded
-                        into the quickfix list.
+                        into the |quickfix| list.
 
                                                 *fugitive-:Gpull*
 :Gpull [args]           Like |:Gmerge|, but for git-pull.
 
+                                                *fugitive-:Grebase*
+:Grebase [args]         Like |:Gmerge|, but for git-rebase.  Interactive
+                        rebase not suppported.
+
                                                 *fugitive-:Gpush*
-:Gpush [args]           Invoke git-push, load the results into the quickfix
+:Gpush [args]           Invoke git-push, load the results into the |quickfix|
                         list, and invoke |:cwindow| to reveal any errors.
                         |:Dispatch| is used if available for asynchronous
                         invocation.
@@ -103,20 +108,20 @@ that are part of Git repositories).
 
                                                 *fugitive-:Glog*
 :Glog [args]            Load all previous revisions of the current file into
-                        the quickfix list.  Additional git-log arguments can
+                        the |quickfix| list.  Additional git-log arguments can
                         be given (for example, --reverse).  If "--" appears as
                         an argument, no file specific filtering is done, and
                         previous commits rather than previous file revisions
                         are loaded.
 
 :{range}Glog [args]     Use git-log -L to load previous revisions of the given
-                        range of the current file into the quickfix list.  The
-                        cursor is positioned on the first line of the first
-                        diff hunk for each commit.
+                        range of the current file into the |quickfix| list.
+                        The cursor is positioned on the first line of the
+                        first diff hunk for each commit.
 
                                                 *fugitive-:Gllog*
 :Gllog [args]           Like |:Glog|, but use the location list instead of the
-                        quickfix list.
+                        |quickfix| list.
 
                                         *fugitive-:Gedit* *fugitive-:Ge*
 :Gedit [revision]       |:edit| a |fugitive-revision|.
@@ -194,9 +199,11 @@ that are part of Git repositories).
 
                                                 *fugitive-:Gmove*
 :Gmove {destination}    Wrapper around git-mv that renames the buffer
-                        afterward.  The destination is relative to the current
-                        directory except when started with a /, in which case
-                        it is relative to the work tree.  Add a ! to pass -f.
+                        afterward.  Add a ! to pass -f.
+
+                                                *fugitive-:Grename*
+:Grename {destination}  Like |:Gmove| but operates relative to the parent
+                        directory of the current file.
 
                                                 *fugitive-:Gdelete*
 :Gdelete                Wrapper around git-rm that deletes the buffer
@@ -223,11 +230,10 @@ that are part of Git repositories).
                         <CR>  q, then open commit
                         o     open commit in horizontal split
                         O     open commit in new tab
+                        p     open commit in preview window
                         -     reblame at commit
                         ~     reblame at [count]th first grandparent
                         P     reblame at [count]th parent (like HEAD^[count])
-
-:[range]Gblame [flags]  Run git-blame on the given range.
 
                                                 *fugitive-:Gbrowse*
 :Gbrowse                Open the current file, blob, tree, commit, or tag
@@ -239,12 +245,6 @@ that are part of Git repositories).
                         appropriate Vim plugin.  For example, GitHub can be
                         supported by installing rhubarb.vim, available at
                         <https://github.com/tpope/vim-rhubarb>.
-
-                        The hosting provider is determined by looking at the
-                        remote for the current or specified branch and falls
-                        back to "origin".  In the special case of a "."
-                        remote, a local instance of git-instaweb will be
-                        started and used.
 
 :Gbrowse {revision}     Like :Gbrowse, but for a given |fugitive-revision|.  A
                         useful value here is -, which ties the URL to the
@@ -319,13 +319,13 @@ and the work tree file for everything else.  Example revisions follow.
 
 Revision        Meaning ~
 HEAD            .git/HEAD
-master          .git/refs/heads/master
-HEAD^{}         The commit referenced by HEAD
-HEAD^           The parent of the commit referenced by HEAD
-HEAD:           The tree referenced by HEAD
-/HEAD           The file named HEAD in the work tree
+refs/heads/x    .git/refs/heads/x
+@               The commit referenced by @ aka HEAD
+master^         The parent of the commit referenced by master
+master:         The tree referenced by master
+/master         The file named master in the work tree
 Makefile        The file named Makefile in the work tree
-HEAD^:Makefile  The file named Makefile in the parent of HEAD
+@^:Makefile     The file named Makefile in the parent of HEAD
 :Makefile       The file named Makefile in the index (writable)
 -               The current file in HEAD
 ^               The current file in the previous commit
@@ -339,16 +339,16 @@ HEAD^:Makefile  The file named Makefile in the parent of HEAD
 
 STATUSLINE                                      *fugitive-statusline*
 
-                                                *fugitive#statusline()*
-Add %{fugitive#statusline()} to your statusline to get an indicator including
+                                *FugitiveStatusline()* *fugitive#statusline()*
+Add %{FugitiveStatusline()} to your statusline to get an indicator including
 the current branch and the currently edited file's commit.  If you don't have
 a statusline, this one matches the default when 'ruler' is set:
 >
-    set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+    set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 <
-                                                *fugitive#head(...)*
-Use fugitive#head() to return the name of the current branch. If the current
-HEAD is detached, fugitive#head() will return the empty string, unless the
+                                *FugitiveHead(...)* *fugitive#head(...)*
+Use FugitiveHead() to return the name of the current branch. If the current
+HEAD is detached, FugitiveHead() will return the empty string, unless the
 optional argument is given, in which case the hash of the current commit will
 be truncated to the given number of characters.
 
