@@ -123,7 +123,7 @@ if v:version >= 800 && has("job")
     let s:po_jobs[a:file] = id
   endfunction
 
-  function airline#async#vim_vcs_untracked(config, file)
+  function! airline#async#vim_vcs_untracked(config, file)
     if g:airline#init#is_windows && &shell =~ 'cmd'
       let cmd = a:config['cmd'] . shellescape(a:file)
     else
@@ -242,7 +242,12 @@ function! airline#async#nvim_vcs_untracked(cfg, file, vcs)
       " still running
       return
     endif
+    try
     let id = jobstart(cmd, config)
+    catch
+      " catch-all, jobstart() failed, fall back to system()
+      let id=-1
+    endtry
     let s:untracked_jobs[a:file] = id
   endif
   " vim without job feature or nvim jobstart failed

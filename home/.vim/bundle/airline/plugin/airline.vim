@@ -35,15 +35,18 @@ function! s:init()
   silent doautocmd User AirlineAfterInit
 endfunction
 
+let s:active_winnr = -1
 function! s:on_window_changed()
+  let s:active_winnr = winnr()
+
   if pumvisible() && (!&previewwindow || g:airline_exclude_preview)
     return
   endif
   " Handle each window only once, since we might come here several times for
   " different autocommands.
-  let l:key = [bufnr('%'), winnr(), winnr('$'), tabpagenr(), &ft]
+  let l:key = [bufnr('%'), s:active_winnr, winnr('$'), tabpagenr(), &ft]
   if get(g:, 'airline_last_window_changed', []) == l:key
-        \ && &stl is# '%!airline#statusline('.winnr().')'
+        \ && &stl is# '%!airline#statusline('.s:active_winnr.')'
         \ && &ft !~? 'gitcommit'
     " fugitive is special, it changes names and filetypes several times,
     " make sure the caching does not get into its way
@@ -95,13 +98,26 @@ function! s:airline_toggle()
       autocmd CmdwinLeave * call airline#remove_statusline_func('airline#cmdwinenter')
 
       autocmd GUIEnter,ColorScheme * call <sid>on_colorscheme_changed()
+      if exists("##OptionSet")
+        " Make sure that g_airline_gui_mode is refreshed
+        autocmd OptionSet termguicolors call <sid>on_colorscheme_changed()
+      endif
+      if exists("##TerminalOpen")
+        autocmd TerminalOpen * call <sid>on_colorscheme_changed()
+      endif
       " Refresh airline for :syntax off
-      autocmd SourcePre */syntax/*syntax.vim call <sid>airline_refresh()
+      autocmd SourcePre */syntax/syntax.vim
+            \ call airline#extensions#tabline#buffers#invalidate()
       autocmd VimEnter,WinEnter,BufWinEnter,FileType,BufUnload *
             \ call <sid>on_window_changed()
-      if exists('#CompleteDone')
+      if exists('##CompleteDone')
         autocmd CompleteDone * call <sid>on_window_changed()
       endif
+      " non-trivial number of external plugins use eventignore=all, so we need to account for that
+      autocmd CursorMoved *
+            \   if winnr() != s:active_winnr
+            \ |   call <sid>on_window_changed()
+            \ | endif
 
       autocmd VimResized * unlet! w:airline_lastmode | :call <sid>airline_refresh()
       autocmd TabEnter * :unlet! w:airline_lastmode | let w:airline_active=1

@@ -86,3 +86,36 @@ else
     return 0
   endfunction
 endif
+
+" Compatibility wrapper for strchars, in case this vim version does not
+" have it natively
+function! airline#util#strchars(str)
+  if exists('*strchars')
+    return strchars(a:str)
+  else
+    return strlen(substitute(a:str, '.', 'a', 'g'))
+  endif
+endfunction
+
+function! airline#util#ignore_buf(name)
+  let pat = '\c\v'. get(g:, 'airline#ignore_bufadd_pat', '').
+        \ get(g:, 'airline#extensions#tabline#ignore_bufadd_pat', 
+        \ 'gundo|undotree|vimfiler|tagbar|nerd_tree|startify')
+  return match(a:name, pat) > -1
+endfunction
+
+function! airline#util#has_fugitive()
+  return exists('*fugitive#head') || exists('*FugitiveHead')
+endfunction
+
+function! airline#util#has_lawrencium()
+  return exists('*lawrencium#statusline')
+endfunction
+
+function! airline#util#has_vcscommand()
+  return get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')
+endfunction
+
+function! airline#util#has_custom_scm()
+  return !empty(get(g:, 'airline#extensions#branch#custom_head', ''))
+endfunction
