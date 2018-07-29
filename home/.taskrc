@@ -38,5 +38,4 @@ report._reviewed.filter=( reviewed.none: or reviewed.before:now-1week ) and ( +P
 context.work=+work -home
 context.home=+home -work
 context.inbox=+in
-context=home
 context.someday=+someday
