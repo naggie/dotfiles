@@ -22,7 +22,7 @@ fi
 
 # fix annoying accidental commits and amends
 # and other dangerous commands, yubikey OTP, mouse escape codes
-export HISTIGNORE='git*--amend*:ls:cd:cccccc*:*reboot*:*halt*:0*'
+export HISTIGNORE='git*--amend*:ls:cd:cccccc*:*reboot*:*halt*:0*:task*'
 export HISTCONTROL=ignoredups:ignorespace
 # vim -X = don't look for X server, which can be slow
 export EDITOR=vim

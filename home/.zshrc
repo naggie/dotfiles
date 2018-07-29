@@ -36,7 +36,7 @@ setopt INC_APPEND_HISTORY # immediate sharing of history
 
 # fix annoying accidental commits and amends
 # and other dangerous commands, yubikey OTP
-export HISTORY_IGNORE='(git*--amend*|ls|cd|cccccc*|*reboot*|*halt*|0*)'
+export HISTORY_IGNORE='(git*--amend*|ls|cd|cccccc*|*reboot*|*halt*|0*|task*)'
 
 # auto rehash to discover execs in path
 setopt nohashdirs
