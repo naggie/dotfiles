@@ -33,6 +33,7 @@ alias s='git status'
 # task default command is "next", hence "n"
 alias n='task'
 alias in='task add +in'
+alias week='task end.after:today-1wk completed'
 
 alias t="tail -n100 -f"
 alias d='git diff'
