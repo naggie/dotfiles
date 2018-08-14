@@ -8,12 +8,84 @@ if exists('g:loaded_fugitive')
 endif
 let g:loaded_fugitive = 1
 
-function! s:shellslash(path) abort
-  if &shell =~? 'cmd' || exists('+shellslash') && !&shellslash
-    return tr(a:path, '\', '/')
+function! FugitiveGitDir(...) abort
+  if !a:0 || a:1 ==# -1
+    return get(b:, 'git_dir', '')
+  elseif type(a:1) == type(0)
+    return getbufvar(a:1, 'git_dir')
+  elseif type(a:1) == type('')
+    return substitute(s:Slash(a:1), '/$', '', '')
   else
-    return a:path
+    return ''
   endif
+endfunction
+
+function! FugitiveCommonDir(...) abort
+  let dir = FugitiveGitDir(a:0 ? a:1 : -1)
+  if empty(dir)
+    return ''
+  endif
+  return fugitive#CommonDir(dir)
+endfunction
+
+function! FugitiveWorkTree(...) abort
+  return FugitiveTreeForGitDir(FugitiveGitDir(a:0 ? a:1 : -1))
+endfunction
+
+function! FugitiveReal(...) abort
+  let file = a:0 ? a:1 : @%
+  if file =~# '^\a\a\+:' || a:0 > 1
+    return call('fugitive#Real', [file] + a:000[1:-1])
+  elseif file =~# '^/\|^\a:\|^$'
+    return file
+  else
+    return fnamemodify(file, ':p' . (file =~# '[\/]$' ? '' : ':s?[\/]$??'))
+  endif
+endfunction
+
+function! FugitiveRoute(...) abort
+  return fugitive#Route(a:0 ? a:1 : '', FugitiveGitDir(a:0 > 1 ? a:2 : -1))
+endfunction
+
+function! FugitivePath(...) abort
+  if a:0 > 1
+    return fugitive#Path(a:1, a:2, FugitiveGitDir(a:0 > 2 ? a:3 : -1))
+  else
+    return FugitiveReal(a:0 ? a:1 : @%)
+  endif
+endfunction
+
+function! FugitiveParse(...) abort
+  let path = s:Slash(a:0 ? a:1 : @%)
+  let vals = matchlist(path, '\c^fugitive:\%(//\)\=\(.\{-\}\)\%(//\|::\)\(\x\{40\}\|[0-3]\)\(/.*\)\=$')
+  if len(vals)
+    return [(vals[2] =~# '^.$' ? ':' : '') . vals[2] . substitute(vals[3], '^/', ':', ''), vals[1]]
+  endif
+  let v:errmsg = 'fugitive: invalid Fugitive URL ' . path
+  throw v:errmsg
+endfunction
+
+function! FugitiveConfig(key, ...) abort
+  return fugitive#Config(a:key, FugitiveGitDir(a:0 ? a:1 : -1))
+endfunction
+
+function! FugitiveRemoteUrl(...) abort
+  return fugitive#RemoteUrl(a:0 ? a:1 : '', FugitiveGitDir(a:0 > 1 ? a:2 : -1))
+endfunction
+
+function! FugitiveHead(...) abort
+  let dir = FugitiveGitDir(a:0 > 1 ? a:2 : -1)
+  if empty(dir)
+    return ''
+  endif
+  return fugitive#Head(a:0 ? a:1 : 0, dir)
+endfunction
+
+function! FugitiveStatusline(...) abort
+  if !exists('b:git_dir')
+    return ''
+  endif
+  return fugitive#Statusline()
 endfunction
 
 function! FugitiveIsGitDir(path) abort
@@ -25,8 +97,8 @@ endfunction
 
 let s:worktree_for_dir = {}
 let s:dir_for_worktree = {}
-function! FugitiveTreeForGitDir(...) abort
-  let dir = substitute(s:shellslash(a:0 ? a:1 : get(b:, 'git_dir', '')), '/$', '', '')
+function! FugitiveTreeForGitDir(path) abort
+  let dir = a:path
   if dir =~# '/\.git$'
     return len(dir) ==# 5 ? '/' : dir[0:-6]
   endif
@@ -58,13 +130,17 @@ function! FugitiveTreeForGitDir(...) abort
 endfunction
 
 function! FugitiveExtractGitDir(path) abort
-  let path = s:shellslash(a:path)
+  let path = s:Slash(a:path)
   if path =~# '^fugitive:'
     return matchstr(path, '\C^fugitive:\%(//\)\=\zs.\{-\}\ze\%(//\|::\|$\)')
   elseif isdirectory(path)
     let path = fnamemodify(path, ':p:s?/$??')
   else
     let path = fnamemodify(path, ':p:h:s?/$??')
+  endif
+  let pre = substitute(matchstr(path, '^\a\a\+\ze:'), '^.', '\u&', '')
+  if len(pre) && exists('*' . pre . 'Real')
+    let path = s:Slash({pre}Real(path))
   endif
   let root = resolve(path)
   if root !=# path
@@ -82,7 +158,7 @@ function! FugitiveExtractGitDir(path) abort
       return simplify(fnamemodify($GIT_DIR, ':p:s?[\/]$??'))
     endif
     if FugitiveIsGitDir($GIT_DIR)
-      call FugitiveTreeForGitDir(simplify(fnamemodify($GIT_DIR, ':p:s?[\/]$??')))
+      call FugitiveWorkTree(simplify(fnamemodify($GIT_DIR, ':p:s?[\/]$??')))
       if has_key(s:dir_for_worktree, root)
         return s:dir_for_worktree[root]
       endif
@@ -124,63 +200,23 @@ function! FugitiveDetect(path) abort
   endif
 endfunction
 
-function! FugitiveStatusline(...) abort
-  if !exists('b:git_dir')
-    return ''
-  endif
-  return fugitive#Statusline()
-endfunction
-
-function! FugitiveHead(...) abort
-  let dir = a:0 > 1 ? a:2 : get(b:, 'git_dir', '')
-  if empty(dir)
-    return ''
-  endif
-  return fugitive#repo(dir).head(a:0 ? a:1 : 0)
-endfunction
-
-function! FugitiveReal(...) abort
-  let file = a:0 ? a:1 : @%
-  if file =~? '^fugitive:' || a:0 > 1
-    return call('fugitive#Real', [file] + a:000[1:-1])
-  elseif file =~# '^/\|^\a\+:'
-    return file
-  else
-    return fnamemodify(file, ':p' . (file =~# '[\/]$' ? '' : ':s?[\/]$??'))
-  endif
-endfunction
-
-function! FugitivePath(...) abort
-  return call(a:0 > 1 ? 'fugitive#Path' : 'FugitiveReal', a:000)
-endfunction
-
 function! FugitiveGenerate(...) abort
-  return fugitive#repo(a:0 > 1 ? a:2 : get(b:, 'git_dir', '')).translate(a:0 ? a:1 : '', 1)
+  return call('FugitiveRoute', a:000)
 endfunction
 
-function! FugitiveParse(...) abort
-  let path = s:shellslash(a:0 ? a:1 : @%)
-  let vals = matchlist(path, '\c^fugitive:\%(//\)\=\(.\{-\}\)\%(//\|::\)\(\x\{40\}\|[0-3]\)\(/.*\)\=$')
-  if len(vals)
-    return [(vals[2] =~# '^.$' ? ':' : '') . vals[2] . substitute(vals[3], '^/', ':', ''), vals[1]]
+function! s:Slash(path) abort
+  if &shell =~? 'cmd' || exists('+shellslash') && !&shellslash
+    return tr(a:path, '\', '/')
+  else
+    return a:path
   endif
-  let v:errmsg = 'fugitive: invalid Fugitive URL ' . path
-  throw v:errmsg
-endfunction
-
-function! FugitiveConfig(...) abort
-  return call('fugitive#Config', a:000)
-endfunction
-
-function! FugitiveRemoteUrl(...) abort
-  return call('fugitive#RemoteUrl', a:000)
 endfunction
 
 augroup fugitive
   autocmd!
 
-  autocmd BufNewFile,BufReadPost * call FugitiveDetect(expand('%:p'))
-  autocmd FileType           netrw call FugitiveDetect(fnamemodify(get(b:, 'netrw_curdir', @%), ':p'))
+  autocmd BufNewFile,BufReadPost * call FugitiveDetect(expand('<amatch>:p'))
+  autocmd FileType           netrw call FugitiveDetect(fnamemodify(get(b:, 'netrw_curdir', expand('<amatch>')), ':p'))
   autocmd User NERDTreeInit,NERDTreeNewRoot
         \ if exists('b:NERDTree.root.path.str') |
         \   call FugitiveDetect(b:NERDTree.root.path.str()) |
@@ -190,7 +226,7 @@ augroup fugitive
 
   autocmd FileType git
         \ if exists('b:git_dir') |
-        \  call fugitive#MapJumps() |
+        \   call fugitive#MapJumps() |
         \   call fugitive#MapCfile() |
         \ endif
   autocmd FileType gitcommit
@@ -200,14 +236,14 @@ augroup fugitive
   autocmd FileType gitrebase
         \ let &l:include = '^\%(pick\|squash\|edit\|reword\|fixup\|drop\|[pserfd]\)\>' |
         \ if exists('b:git_dir') |
-        \   let &l:includeexpr = 'v:fname =~# ''^\x\{4,40\}$'' ? FugitiveGenerate(v:fname) : ' .
+        \   let &l:includeexpr = 'v:fname =~# ''^\x\{4,40\}$'' ? FugitiveRoute(v:fname) : ' .
         \   (len(&l:includeexpr) ? &l:includeexpr : 'v:fname') |
         \ endif |
         \ let b:undo_ftplugin = get(b:, 'undo_ftplugin', 'exe') . '|setl inex= inc='
 
   autocmd BufReadCmd index{,.lock}
         \ if FugitiveIsGitDir(expand('<amatch>:p:h')) |
-        \   let b:git_dir = s:shellslash(expand('<amatch>:p:h')) |
+        \   let b:git_dir = s:Slash(expand('<amatch>:p:h')) |
         \   exe fugitive#BufReadStatus() |
         \ elseif filereadable(expand('<amatch>')) |
         \   read <amatch> |
