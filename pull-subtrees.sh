@@ -22,3 +22,4 @@ git subtree pull -m 'update subtree' --squash --prefix=home/.vim/bundle/typescri
 git subtree pull -m 'update subtree' --squash --prefix=home/.vim/bundle/vim-ps1 https://github.com/PProvost/vim-ps1.git master
 git subtree pull -m 'update subtree' --squash --prefix=home/.vim/bundle/requirements.txt.vim https://github.com/raimon49/requirements.txt.vim.git master
 git subtree pull -m 'update subtree' --squash --prefix=home/.vim/bundle/vim-pug.vim https://github.com/digitaltoad/vim-pug.git master
+git subtree pull -m 'update subtree' --squash --prefix=home/.vim/bundle/vim-toml https://github.com/cespare/vim-toml.git master
