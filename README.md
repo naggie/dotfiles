@@ -8,7 +8,7 @@ generates completions from man pages! (but CTRL+R reverse-i-search isn't there
 so I don't use it)
 * `tmux` : Terminal multiplexer
 * `git` : version control
-* `ack` : grep alternative for rebasing and source code exploration
+* `ack` : grep alternative for rebasing and source code exploration (I also use ripgrep)
 * `ssh` : secure remote shell (obvious I know)
 * `gnupg2`: OpenPGP cryptographic suite
 
@@ -25,8 +25,8 @@ Specific:
 * `task` taskwarrior TODO list manager
 * `restic` : backup software
 * `tinc` : A reliable mesh VPN
-* `xmind` : Mind map software for project research
 * `taskwarrior` : todo application with contexts
+* `xmind` : Mind map software for project research
 
 Misc:
 
@@ -37,7 +37,7 @@ Recommended font: https://github.com/adobe-fonts/source-code-pro
 Tip: Minimise keyboard repeat delay and maximise keyboard repeat rate for a
 faster experience. Latency is everything.
 
-NOTE Alacrity.
+NOTE Alacrity/kitty.
 
 # shell
 
@@ -79,17 +79,22 @@ wget -O - https://github.com/naggie/dotfiles/raw/master/provision.sh | bash && b
 
 
 
-# Time management
+# Task management
 
 I've tried quite a few TODO systems including simple text files, Todoist,
 Trello, Github issues, JIRA, habitica and taskwarrior. The key is
 not to use one system for everything. I've settled on:
 
-1. Github issues for each personal projects (also using the rest of github)
-2. JIRA (with kanban) for work (not by choice but works extremely well if set up with a good workflow, but slow)
-3. Taskwarrior for anything not tracked by above, with contexts for home/work/inbox. Loosely following GTD.
+1. Github issues for personal projects (also using the rest of github)
+2. JIRA (with kanban) for work (not by choice but works well if set up with a
+   good workflow, slow)
+3. Taskwarrior for anything not tracked by above, with contexts for
+   home/work/inbox. Loosely following GTD. Also used to log work.
 4. Text files to track ideas and proposals
 
-Relying on Taskwarrior for a report of what I've done. I kept a log text file for 3.5 years but stopped.
+Relying on Taskwarrior for a report of what I've done. I kept a log text file
+for 3.5 years but stopped because taskwarrior can generate reports.
 
-I still want to try vim-orgmode and taskwiki.
+In my opinion the key for using taskwarrior effectively is reducing noise via
+contexts, start/stop, scheduling and tagging. I keeo a separate context for
+work, home, someday; I defer tasks using the wait/schedule/due attributes.
