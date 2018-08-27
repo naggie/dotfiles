@@ -34,6 +34,7 @@ alias s='git status'
 alias n='task'
 alias in='task add +in'
 alias week='task end.after:today-1wk completed'
+alias day='task end.after:today completed'
 
 alias t="tail -n100 -f"
 alias d='git diff'
