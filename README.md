@@ -88,12 +88,13 @@ not to use one system for everything. I've settled on:
 1. Github issues for personal projects (also using the rest of github)
 2. JIRA (with kanban) for work (not by choice but works well if set up with a
    good workflow, slow)
-3. Taskwarrior for anything not tracked by above, with contexts for
-   home/work/inbox. Loosely following GTD. Also used to log work.
+3. Taskwarrior for top level tasks anf work logs, with contexts for
+   home/work/inbox and detail sometimes tracked separately in (1) and (2).
+   Loosely following GTD.
 4. Text files to track ideas and proposals
 
-Relying on Taskwarrior for a report of what I've done. I kept a log text file
-for 3.5 years but stopped because taskwarrior can generate reports.
+I rely on Taskwarrior to keep a report of what I've done. I kept a log text
+file for 3.5 years but stopped because taskwarrior can generate reports.
 
 In my opinion the key for using taskwarrior effectively is reducing noise via
 contexts, start/stop, scheduling and tagging. I keeo a separate context for
