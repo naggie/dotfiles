@@ -21,12 +21,13 @@ Specific:
 * `ncdu` + `tmpreaper` : tools for clearing up disk space
 * `brew` : homebrew package manager for OS X
 * `brew cask` : cask bundle manager for OS X
-* `pudb` : python debugger
 * `task` taskwarrior TODO list manager
 * `restic` : backup software
 * `tinc` : A reliable mesh VPN
 * `taskwarrior` : todo application with contexts
 * `xmind` : Mind map software for project research
+* `draw.io` : Diagram software
+* `tig` : Git history visualiser
 
 Misc:
 
