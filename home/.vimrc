@@ -105,7 +105,13 @@ let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_contrast_light = 'hard'
 let g:gruvbox_italic = 1
 set termguicolors
+
 colorscheme gruvbox
+
+" remove grey background colour (better contrast) (black or NONE) -- try
+" gruvbox grey first. Maybe enable if truecolour isn't available
+"highlight Normal ctermbg=black guibg=black
+"highlight NonText ctermbg=black guibg=black
 
 " anti typo (command aliases)
 " source: .viminfo
