@@ -66,7 +66,6 @@ test -z $TMUX
 	and tmux attach
 
 
-set -x EDITOR vim
 
 set -x PAGER 'less -R'
 
@@ -79,7 +78,14 @@ set -x GCC_COLORS 1
 # alias is just a wrapper for creating a function
 # aliases shared between fish and bash
 . ~/.aliases
-which nvim > /dev/null; and alias vim="nvim -p"
+
+# nvim? override
+if which nvim > /dev/null
+    alias vim="nvim -p"
+    set -x EDITOR nvim
+else
+    set -x EDITOR vim
+end
 
 # Very long-winded in fish...
 function _prependsudo

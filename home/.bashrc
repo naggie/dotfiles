@@ -197,7 +197,13 @@ PS1="\$(__exit_warn)\n\[\e[38;5;${PROMPT_COLOUR}m\]\u@\H:\$PWD\[\e[90m\]\$(__git
 
 # aliases shared between fish and bash
 source ~/.aliases
-which nvim > /dev/null && alias vim="nvim -p"
+
+# nvim? override
+if which nvim > /dev/null; then
+    alias vim="nvim -p"
+    export EDITOR=nvim
+fi
+
 # completions for aliases
 source ~/.wrap-alias.sh
 
