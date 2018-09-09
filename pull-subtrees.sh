@@ -1,5 +1,5 @@
 #!/bin/bash
-git subtree pull -m 'update subtree' --squash --prefix=home/.vim/bundle/solarized https://github.com/altercation/vim-colors-solarized.git master
+git subtree pull -m 'update subtree' --squash --prefix=home/.vim/bundle/gruvbox https://github.com/morhetz/gruvbox.git master
 git subtree pull -m 'update subtree' --squash --prefix=home/.vim/bundle/supertab https://github.com/ervandew/supertab.git master
 git subtree pull -m 'update subtree' --squash --prefix=home/.vim/bundle/fugitive https://github.com/tpope/vim-fugitive.git master
 git subtree pull -m 'update subtree' --squash --prefix=home/.vim/bundle/trailing-whitespace https://github.com/vim-scripts/trailing-whitespace.git master

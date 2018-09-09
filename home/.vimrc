@@ -98,21 +98,11 @@ vnoremap <Down> <Esc>:echo "Use [j] for down"<CR>
 
 let g:SuperTabNoCompleteAfter = ['^', '\s', '//', '#']
 
-" 16-color terminal with solarised theme is most accurate
-" failing this, the following option can be set to use a degraded 256 color palette
-let g:solarized_termcolors=256
-
-" I like the degraded color scheme, even on gvim
-let g:solarized_degrade=1
-
-" good on crap laptop monitors (yes, not recommended by Mr. Schoonover)
-let g:solarized_contrast="high"
-
 set background=dark
-
-if (&t_Co == 256)
-	colorscheme solarized
-endif
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_contrast_light = 'hard'
+set termguicolors
+colorscheme gruvbox
 
 " anti typo (command aliases)
 " source: .viminfo

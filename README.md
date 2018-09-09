@@ -45,7 +45,6 @@ Specific:
 * `sox`/`ffmpeg`/`gstreamer` Tools to convert multimedia
 * `httrack` : a website crawler better than wget (i.e. it works)
 
-
 Recommended font: https://github.com/adobe-fonts/source-code-pro
 
 Tip: Minimise keyboard repeat delay and maximise keyboard repeat rate for a
