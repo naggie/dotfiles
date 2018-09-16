@@ -99,4 +99,6 @@ file for 3.5 years but stopped because taskwarrior can generate reports.
 
 In my opinion the key for using taskwarrior effectively is reducing noise via
 contexts, start/stop, scheduling and tagging. I keeo a separate context for
-work, home, someday; I defer tasks using the wait/schedule/due attributes.
+work, home, someday; I defer tasks using the wait/schedule/due attributes. Also
+I think it's important not to put tasks on the queue for the sake of it. Only
+put tasks on the queue if you need to track them.
