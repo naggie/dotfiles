@@ -69,10 +69,6 @@ if [ $PLATFORM == 'Darwin' ]; then
     killall SystemUIServer
 fi
 
-if [ ! 0$(tput colors 2>/dev/null) -eq 256 ]; then
-	warning "TERM '$TERM' is not a 256 colour type! Please set in terminal emulator. EG: Putty should have putty-256color, xterm should have xterm-256color."
-fi
-
 # reload TMUX config if running inside tmux
 if [ -n "$TMUX" ]; then
 	tmux source-file ~/.tmux.conf >/dev/null
