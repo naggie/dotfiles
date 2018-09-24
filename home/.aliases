@@ -15,6 +15,9 @@ alias ip="ip -c"
 # Also, tabs by default. -O and -o will override, don't worry.
 alias vim='vim -X -p'
 
+# human readable timestamps
+alias dmesg='dmesg -T'
+
 # Moar ANSI colours, raw mode
 alias less='less -R'
 
