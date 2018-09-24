@@ -11,9 +11,8 @@ alias bci='brew cask install'
 alias tree="tree -CA"
 alias ip="ip -c"
 
-# vim -X = don't look for X server, which can be slow
-# Also, tabs by default. -O and -o will override, don't worry.
-alias vim='vim -X -p'
+# Open specified files in tabs by default. -O and -o will override.
+alias vim='vim -p'
 
 # human readable timestamps
 alias dmesg='dmesg -T'

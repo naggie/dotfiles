@@ -7,9 +7,6 @@
 	ui = true
 [core]
 	excludesfile = ~/.gitignore_global
-	# editor problems with fish shell:
-	# vim -X = don't look for X server, which can be slow
-	editor = vim -X
 [help]
 	autocorrect = 1
 [include]
