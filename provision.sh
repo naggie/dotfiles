@@ -44,13 +44,13 @@ elif grep -q Ubuntu /etc/issue; then
     sudo -E apt-add-repository multiverse
     sudo -E apt-get -y update
     # figlet is for server-splash
-    sudo -E apt-get -y install tmux vim git ssh language-pack-en figlet httpie ncdu tree wget htop gnupg2 curl keychain tmpreaper
+    sudo -E apt-get -y install tmux vim git ssh language-pack-en figlet httpie ncdu tree wget htop gnupg2 curl keychain tmpreaper bash-completion
     sudo -E ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 elif grep -q Raspbian /etc/issue; then
     sudo -E apt-get -y update
     # Raspbian is British, locale is already correct. language-pack-en isn't a package.
     # figlet is for server-splash
-    sudo -E apt-get -y install tmux vim git ssh figlet httpie ncdu tree wget htop gnupg2 keychain tmpreaper
+    sudo -E apt-get -y install tmux vim git ssh figlet httpie ncdu tree wget htop gnupg2 keychain tmpreaper bash-completion
     sudo -E ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 else
     echo "Unsupported OS."
