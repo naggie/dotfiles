@@ -5,11 +5,6 @@ set nocompatible
 call pathogen#infect()
 set laststatus=2
 
-" disable connecting to X11 for the sake of clipboard support
-" https://stackoverflow.com/questions/10718573/vim-x-flag-as-vimrc-entry
-" allternative to -X (which is a pain with aliases/git)
-set clipboard=exclude:.*
-
 " http://tooky.co.uk/2010/04/08/there-was-a-problem-with-the-editor-vi-git-on-mac-os-x.html
 " If this causes vim to exit with non-zero and breaks git on OS X, investigate.
 syntax on
@@ -171,9 +166,13 @@ cmap w!! w !sudo tee % >/dev/null
 " Enable mouse mode. Use xterm >= 277 for mouse mode for large terms.
 set mouse=a
 
-" real time mouse stuff!
+" legacy vim-only stuff
 if !has('nvim')
     set ttymouse=xterm2
+    " disable connecting to X11 for the sake of clipboard support
+    " https://stackoverflow.com/questions/10718573/vim-x-flag-as-vimrc-entry
+    " allternative to -X (which is a pain with aliases/git)
+    set clipboard=exclude:.*
 endif
 
 " abbreviations
