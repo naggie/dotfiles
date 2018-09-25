@@ -31,6 +31,8 @@ alias l=ls
 alias o='git log'
 alias g=git
 alias s='git status'
+alias d='git diff'
+alias dt='git difftool -y'
 
 # task default command is "next", hence "n"
 alias n='task'
@@ -39,13 +41,10 @@ alias week='task end.after:today-1wk completed'
 alias day='task end.after:today completed'
 
 alias t="tail -n100 -f"
-alias d='git diff'
-alias dt='git difftool -y'
 
 alias findack='find . | ack'
 alias sed-recursive="ack -f | xargs sed -i '' -E -e"
 alias TODO='ack TODO'
-alias ackl='ack -l'
 # use gitignore with ack
 alias gack="git ls-files -oc --exclude-standard | ack -x"
 alias acknonascii="ack '[^\x00-\x7F]'"

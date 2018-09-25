@@ -192,9 +192,6 @@ if which nvim > /dev/null; then
     export EDITOR=nvim
 fi
 
-# completions for aliases
-source ~/.wrap-alias.sh
-
 # get new or steal existing tmux
 function tm {
 	# must not already be inside tmux
@@ -206,23 +203,25 @@ function tm {
 
 # slow completion things in background after bashrc is executed
 function _deferred {
-	# linux
+	# linux / homebrew completions (package: bash-completion)
 	[ -f /etc/bash_completion ] && source /etc/bash_completion
-
-    # Homebrew completions (package: bash-completion)
     [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
-
-	# map completion for aliases
-	complete -o default -o nospace -F _git g
-
-	# hardcoded ssh completions (known_hosts is encrypted mostly)
-	#complete -o default -W 'example.com example.net' ssh scp ping
 
 	# latest git completion and PS1
 	source ~/.git-completion.sh
 	source ~/.git-prompt.sh
     # fish/zsh already have this
     which task > /dev/null && source ~/.task-completions.sh
+
+	# map completion for aliases that need them
+	complete -o default -o nospace -F _git g
+	complete -o default -o nospace -F _git_diff d
+	complete -o default -o nospace -F _git_log l
+	complete -o default -o nospace -F _git_status s
+	complete -o default -o nospace -F _task n
+
+	# hardcoded ssh completions (known_hosts is encrypted mostly)
+	#complete -o default -W 'example.com example.net' ssh scp ping
 }
 
 # patches for Mac OS X
