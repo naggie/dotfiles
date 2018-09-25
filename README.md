@@ -1,3 +1,12 @@
+# Support
+
+* Ubuntu 16.04
+* Ubuntu 18.04
+* MacOS (~10.13 High Sierra)
+* Raspbian Stretch
+* ~~RHEL5~~
+
+
 # My workflow
 
 General:
