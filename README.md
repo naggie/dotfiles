@@ -37,10 +37,9 @@ Specific:
 * `xmind` : Mind map software for project research
 * `draw.io` : Diagram software
 * `tig` : Git history visualiser
+* `sox`/`ffmpeg`/`gstreamer` Tools to convert multimedia
+* `httrack` : a website crawler better than wget (i.e. it works)
 
-Misc:
-
-`sox`,`ffmpeg`
 
 Recommended font: https://github.com/adobe-fonts/source-code-pro
 
