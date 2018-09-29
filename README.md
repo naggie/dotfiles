@@ -46,7 +46,7 @@ faster experience. Latency is everything.
 
 NOTE Alacrity/kitty.
 
-# shell
+# shell bindings
 
 * `tm` will start or attach to the first `tmux` session. If you're on the only
   shell, `tmux` session 0 will automatically attach.
@@ -95,7 +95,7 @@ not to use one system for everything. I've settled on:
 1. Github issues for personal projects (also using the rest of github)
 2. JIRA (with kanban) for work (not by choice but works well if set up with a
    good workflow, slow)
-3. Taskwarrior for top level tasks anf work logs, with contexts for
+3. Taskwarrior for top level tasks and work logs, with contexts for
    home/work/inbox and detail sometimes tracked separately in (1) and (2).
    Loosely following GTD.
 4. Text files to track ideas and proposals
@@ -104,7 +104,7 @@ I rely on Taskwarrior to keep a report of what I've done. I kept a log text
 file for 3.5 years but stopped because taskwarrior can generate reports.
 
 In my opinion the key for using taskwarrior effectively is reducing noise via
-contexts, start/stop, scheduling and tagging. I keeo a separate context for
+contexts, start/stop, scheduling and tagging. I keep a separate context for
 work, home, someday; I defer tasks using the wait/schedule/due attributes. Also
 I think it's important not to put tasks on the queue for the sake of it. Only
 put tasks on the queue if you need to track them.
