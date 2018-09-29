@@ -2,7 +2,7 @@ status --is-interactive; or exit 0
 
 set -x GOPATH ~/gocode
 
-set -x PATH ~/bin /usr/local/bin /snap/bin /usr/local/sbin /usr/local/share/npm/bin $GOPATH/bin /usr/local/go/bin $PATH
+set -x PATH ~/.local/bin ~/bin /usr/local/bin /snap/bin /usr/local/sbin /usr/local/share/npm/bin $GOPATH/bin /usr/local/go/bin $PATH
 
 # only on new shell, fail silently. Must be non-invasive.
 test ! $TMUX; and ~/bin/server-splash ^/dev/null
