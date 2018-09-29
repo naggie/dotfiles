@@ -13,14 +13,12 @@ test -d ~/.zsh/ && rm -rf ~/.zsh/
 # not for fish as it removes generated completions which have to rebuilt which is a pain
 #test -d ~/.config/fish/ && rm -rf ~/.config/fish/
 
-if [ ! -d ~/.ssh ]; then
-    mkdir ~/.ssh
-    chmod 700 ~/.ssh
-fi
+mkdir -p ~/.local/bin
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
 
 touch ~/.ssh/known_hosts
 chmod 600 ~/.ssh/known_hosts
-
 chmod 0700 ~/.gnupg
 
 # trust github pubkey
@@ -31,7 +29,7 @@ EOF
 # copy dotfiles separately , normal glob does not match
 cp -r home/.??* ~ 2> /dev/null
 cp -a etc ~
-cp -a bin ~
+cp -a bin/* ~/.local/bin/
 
 if [ $PLATFORM == 'Darwin' ]; then
     cp -r home/Library ~
