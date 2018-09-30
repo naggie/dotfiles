@@ -44,18 +44,14 @@ if [ $(uname) == 'Darwin' ]; then
     # correct so alias works cross platform
     ln -sf /usr/local/bin/gpg /usr/local/bin/gpg2
 
-elif grep -q Ubuntu /etc/issue; then
-    sudo -E apt-add-repository multiverse
+elif grep -q Ubuntu /etc/issue || grep -q Raspbian /etc/issue; then
+    if grep -q Ubuntu /etc/issue; then
+        sudo -E apt-add-repository multiverse
+        sudo -E apt-get -y install language-pack-en
+    fi
+
     sudo -E apt-get -y update
-    # figlet is for server-splash
-    sudo -E apt-get -y install tmux vim git tig ssh language-pack-en figlet httpie ncdu tree wget htop gnupg2 curl keychain tmpreaper bash-completion jq sox ffmpeg httrack python-pip
-    pip install --user ansible ipython
-    sudo -E ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
-elif grep -q Raspbian /etc/issue; then
-    sudo -E apt-get -y update
-    # Raspbian is British, locale is already correct. language-pack-en isn't a package.
-    # figlet is for server-splash
-    sudo -E apt-get -y install tmux vim git tig ssh figlet httpie ncdu tree wget htop gnupg2 keychain tmpreaper bash-completion jq sox ffmpeg httrack python-pip
+    sudo -E apt-get -y install tmux vim git tig ssh figlet httpie ncdu tree wget htop gnupg2 curl keychain tmpreaper bash-completion jq sox ffmpeg httrack python-pip
     pip install --user ansible ipython
     sudo -E ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 else
