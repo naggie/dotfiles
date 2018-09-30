@@ -1,10 +1,17 @@
-# Support
+# Supported OSes
 
-* Ubuntu 16.04
-* Ubuntu 18.04
+AKA the OSes I actively use.
+
+* Ubuntu 16.04 LTS
+* Ubuntu 18.04 LTS
 * MacOS (~10.13 High Sierra)
 * Raspbian Stretch
+* ~~Raspbian Jessie~~
 * ~~RHEL5~~
+* ~~RHEL6~~
+* ~~Ubuntu 11.10~~
+* ~~Ubuntu 12.04 LTS~~
+* ~~Ubuntu 14.04 LTS~~
 
 
 # My workflow
