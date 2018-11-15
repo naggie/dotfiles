@@ -128,7 +128,7 @@ if [ -r ~/etc/quotes ]; then
 		
 		echo; echo; echo; echo
 		SSH_CLIENT_IP=$(echo $SSH_CLIENT | cut -f 1 -d " ")
-		HAIKU=$(nodejs ~/bin/banner_haiku.js $SSH_CLIENT_IP)
+		HAIKU=$(~/bin/hipku.py $SSH_CLIENT_IP)
 		echo "A Haiku for $SSH_CLIENT_IP:" \
 			| right
 		echo
