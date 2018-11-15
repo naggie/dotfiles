@@ -22,6 +22,12 @@ function center {
 	done
 }
 
+function right {
+	while read; do
+		printf "%*s\n" $(((($COLUMNS)/10)*9)) "$REPLY"
+	done
+}
+
 if [ ! "$SSH_CLIENT" ];then
 	echo 'Only enabled on remote sessions ($SSH_CLIENT)' >&2
 	exit 23
@@ -119,9 +125,18 @@ if [ -r ~/etc/quotes ]; then
 		| sed 's/.*/"&"/g' \
 		| fold -w 76 -s \
 		| center
+		
+		echo; echo; echo; echo
+		SSH_CLIENT_IP=$(echo $SSH_CLIENT | cut -f 1 -d " ")
+		HAIKU=$(nodejs ~/bin/banner_haiku.js $SSH_CLIENT_IP)
+		echo "A Haiku for $SSH_CLIENT_IP:" \
+			| right
+		echo
+		echo "$HAIKU" \
+			| right
 
 	# extra pause if there is a quote, per character
-	WAIT=$( echo "${#QUOTE} * 0.02"  | bc -l )
+	WAIT=$( echo "${#HAIKU} * 0.02"  | bc -l )
 
 	# timeout or exit straight away
 	read -n1 -t $WAIT && exit
