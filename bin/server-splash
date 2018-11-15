@@ -129,15 +129,19 @@ if [ -r ~/etc/quotes ]; then
 		echo; echo; echo; echo
 		SSH_CLIENT_IP=$(echo $SSH_CLIENT | cut -f 1 -d " ")
 		HAIKU=$(~/bin/hipku.py $SSH_CLIENT_IP)
-		echo "A Haiku for $SSH_CLIENT_IP:" \
-			| right
-		echo
-		echo "$HAIKU" \
-			| right
+		if [ ${#HAIKU} -ne 0 ]; then
+			echo "A Haiku for $SSH_CLIENT_IP:" \
+				| right
+			echo
+			echo "$HAIKU" \
+				| right
 
-	# extra pause if there is a quote, per character
-	WAIT=$( echo "${#HAIKU} * 0.02"  | bc -l )
-
+			# extra pause if there is a haiku, per character
+			WAIT=$( echo "${#HAIKU} * 0.02"  | bc -l )
+		else
+			# extra pause if there is a quote, per character
+			WAIT=$( echo "${#QUOTE} * 0.02"  | bc -l )
+		fi
 	# timeout or exit straight away
 	read -n1 -t $WAIT && exit
 fi
