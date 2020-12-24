@@ -63,6 +63,7 @@ use them regularly.
 | System backup                  | [restic][26]                               |                                                                                                                       |
 | Cloud backup                   | [rclone][38]                               |                                                                                                                       |
 | CAD                            | [OpenSCAD][45]                             | Limited but powerful if you plan ahead                                                                                |
+| CAD                            | [CadQuery][52]                             | B-REP kernel instead of just CSG. More powerful, currently learning.            |
 | Diagramming                    | [draw.io][27]                              | Diagram creation software. See also dia, graphviz, tikz.                                                              |
 | SVG optimisation               | [svgo][28]                                 | Useful for inlining SVGs in a web page                                                                                |
 | Audio/video conversion         | [sox][29] + [ffmpeg][30] + [gstreamer][31] |                                                                                                                       |
@@ -103,6 +104,7 @@ use them regularly.
 [47]: https://github.com/mozilla/send
 [48]: https://github.com/naggie/dsnet
 [51]: https://github.com/eradman/entr/
+[52]: https://github.com/CadQuery/cadquery
 
 # Notable features
 * Workflows and application configuration profiled for speed. See section on
