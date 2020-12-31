@@ -40,6 +40,7 @@ sudo -E apt-get -y install --install-recommends \
     scdaemon \
     sox \
     ssh \
+    sshfs \
     tig \
     tmpreaper \
     tmux \
