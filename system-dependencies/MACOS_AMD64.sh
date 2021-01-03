@@ -1,7 +1,7 @@
 if [ ! -f /usr/local/bin/brew ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
-    git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" fetch --unshallow
+    git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" fetch
     brew update
 fi
 
