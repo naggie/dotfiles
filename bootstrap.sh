@@ -125,7 +125,7 @@ esac
 # clone main repository to home and change to it
 test ! -d ~/dotfiles && git clone $ORIGIN ~/dotfiles
 cd ~/dotfiles
-git pull --ff-only $ORIGIN master || true
+git pull --ff-only origin master || true
 git branch --set-upstream-to=origin/master master
 
 bash provision.sh $PLATFORM
