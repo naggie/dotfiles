@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+pggen --secure --numerals --symbols 42 1
