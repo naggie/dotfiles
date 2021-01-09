@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # I do all these steps manually, quite a lot
-echo -e '#!/usr/bin/env bash -e\n' > $1
+echo -e '#!/usr/bin/env bash\n\nset -e\n' > $1
 chmod +x $1
 git add $1 2> /dev/null
 vim "+ normal G $" $1
