@@ -136,6 +136,10 @@ EOF
     ssh -A -R $remote_socket:$local_socket "$@"
 }
 
+function gssht {
+    gssh -t $1 'bash -c "tmux attach -d || tmux"'
+}
+
 # this is a simple wrapper for scp to prevent local copying when a colon is forgotten
 # It's annoying to create files named naggie@10.0.0.1
 # use ~/.aliases to enable.
