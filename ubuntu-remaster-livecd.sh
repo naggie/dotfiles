@@ -6,7 +6,7 @@
 # environment! You'll need at least 3GB of RAM though.
 
 # Install pre-requisities
-#sudo apt-get install squashfs-tools genisoimage aufs-tools
+#sudo apt-get install squashfs-tools genisoimage aufs-tools syslinux-utils
 
 cd $(dirname $0)
 CHANGE=$(git rev-list HEAD --count)
@@ -38,7 +38,7 @@ fi
 
 # check dependencies
 if ! which mkisofs mksquashfs isohybrid &> /dev/null; then
-	WARNING 'Error! required genisoimage/squashfs-tools/syslinux package(s) are not installed'
+	WARNING 'Error! required genisoimage/squashfs-tools/syslinux-utils package(s) are not installed'
 	exit
 fi
 
@@ -125,7 +125,7 @@ INSIDE ln -s /bin/true /sbin/initctl || true
 #git clone . $WORKDIR/filesystem_rw/root/dotfiles
 rsync -r --delete --exclude=build --exclude='*iso' . $WORKDIR/filesystem_rw/etc/skel/dotfiles/
 
-INSIDE /etc/skel/dotfiles/provision.sh
+INSIDE /etc/skel/dotfiles/bootstrap.sh
 
 # If you're me, just run this in the live session rather than producing separate ISOs
 #INSIDE /etc/skel/dotfiles/install-naggie.sh

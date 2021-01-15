@@ -83,15 +83,29 @@ function _update_agents {
 
 # ssh with gpg and ssh agent forwarding Use only on trusted hosts.
 function gssh {
-    echo "Preparing host for forwarded GPG agent..." >&2
+    # look for host, attempting to avoid flags and commands. The host is
+    # assumed the last arg containing a dot, or the last arg.
+    for arg in "$@"; do
+        if [[ $arg == *.* ]]; then
+            host="$arg"
+        fi
+    done
 
+    if [[ ! $host ]]; then
+        echo "Could not determine host"
+        return 1
+    else
+        echo Host: $host
+    fi
+
+    echo "Preparing for forwarded GPG agent..." >&2
     # prepare remote for agent forwarding, get socket
     # Remove the socket in this pre-command as an alternative to requiring
     # StreamLocalBindUnlink to be set on the remote SSH server.
     # Find the path of the agent socket remotely to avoid manual configuration
     # client side. The location of the socket varies per version of GPG,
     # username, and host OS.
-    remote_socket=$(cat <<'EOF' | command ssh -T "$@" bash
+    remote_socket=$(cat <<'EOF' | command ssh -T "$host" bash
         set -e
         socket=$(gpgconf --list-dirs | grep agent-socket | cut -f 2 -d :)
         # killing agent works over socket, which might be dangling, so time it out.
