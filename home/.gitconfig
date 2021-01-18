@@ -20,6 +20,8 @@
 	tpull = pull
 	pus = push
 	pul = pull
+    # do not sign stash -- pointless and slow
+	stashq = -c commit.gpgsign=false stash
 [diff]
 	tool = vimdiff
 [merge]
