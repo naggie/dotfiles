@@ -37,6 +37,7 @@ sudo -E apt-get -y install --install-recommends \
     python \
     python3 \
     python3-pip \
+    rename \
     scdaemon \
     sox \
     ssh \
