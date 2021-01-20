@@ -4,23 +4,12 @@
 function adhoc_dstask_linux_amd64 {
     EXE="$(
         obtain \
-            https://github.com/naggie/dstask/releases/download/v0.23.2/dstask-linux-amd64 \
-            b68fa95630c6e39ca7aa3648103ba61c5f780db0aed711f8c0b2fc749f0eb2d7
+            https://github.com/naggie/dstask/releases/download/v0.24/dstask-linux-amd64 \
+            8bbb40089db5ed4e5c2ca35a0dd05900397f6af906d3349d87c940ec2cdf175a
     )"
     sudo cp "${EXE}" /usr/local/bin/dstask.new
     sudo chmod +x /usr/local/bin/dstask.new
     sudo mv -f /usr/local/bin/{dstask.new,dstask}
-}
-
-function adhoc_dstask_macos_amd64 {
-    EXE="$(
-        obtain \
-            https://github.com/naggie/dstask/releases/download/v0.23.2/dstask-darwin-amd64 \
-            f4fccede8101524c84ad6ad840ecdba079785f279b9a21ed14191949d089830e
-    )"
-    cp "${EXE}" /usr/local/bin/dstask.new
-    chmod +x /usr/local/bin/dstask.new
-    mv -f /usr/local/bin/{dstask.new,dstask}
 }
 
 function adhoc_ripgrep_linux_amd64 {

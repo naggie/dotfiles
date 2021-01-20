@@ -20,6 +20,7 @@ packages=(
     bash-completion@2
     brightness
     coreutils
+    dstask
     entr
     ffmpeg
     fzf
@@ -61,5 +62,4 @@ done
 # create alias for gsha256sum
 ln -sf /usr/local/bin/gsha256sum /usr/local/bin/sha256sum
 
-adhoc_dstask_macos_amd64
 adhoc_browserpass_macos_amd64
