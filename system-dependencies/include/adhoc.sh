@@ -25,8 +25,8 @@ function adhoc_ripgrep_linux_amd64 {
 function adhoc_fzf_linux_amd64 {
     TARGZ="$(
         obtain \
-            https://github.com/junegunn/fzf-bin/releases/download/0.17.5/fzf-0.17.5-linux_amd64.tgz \
-            3020c7d4d43d524ff394df306337b6de873b9db0bd9cd9dc73cd80cbd6e0c2f8
+            https://github.com/junegunn/fzf/releases/download/0.25.0/fzf-0.25.0-linux_amd64.tar.gz \
+            b80c0152e071d5d5da739a577402c436293474e477b7d283ff033bd081e5d071
     )"
     [ -f /usr/local/bin/fzf ] && sudo rm -f /usr/local/bin/fzf
     sudo tar -C /usr/local/bin -xzf "$TARGZ"
@@ -109,8 +109,8 @@ function adhoc_ripgrep_linux_armv5 {
 function adhoc_fzf_linux_armv5 {
     TARGZ="$(
         obtain \
-            https://github.com/junegunn/fzf-bin/releases/download/0.17.5/fzf-0.17.5-linux_arm5.tgz \
-            aa5f46c21fb765a20494fdcb00b86b6bde3b29538f25d49398f3b423f8e1e394
+            https://github.com/junegunn/fzf/releases/download/0.25.0/fzf-0.25.0-linux_armv5.tar.gz \
+            12062c479c7137f628cf4c9bfdcbc1c565d2e5c54763b61abf7d98a9125dcb41
     )"
     [ -f /usr/local/bin/fzf ] && sudo rm -f /usr/local/bin/fzf
     sudo tar -C /usr/local/bin/ -xzf "$TARGZ"
