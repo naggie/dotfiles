@@ -8,8 +8,10 @@ import (
 )
 
 // Types of user action
+type EventType int
+
 const (
-	Rune = iota
+	Rune EventType = iota
 
 	CtrlA
 	CtrlB
@@ -89,8 +91,6 @@ const (
 	Change
 	BackwardEOF
 
-	AltSpace
-	AltSlash
 	AltBS
 
 	AltUp
@@ -103,20 +103,38 @@ const (
 	AltSLeft
 	AltSRight
 
-	Alt0
+	Alt
+	CtrlAlt
 )
 
-const ( // Reset iota
-	AltA = Alt0 + 'a' - '0' + iota
-	AltB
-	AltC
-	AltD
-	AltE
-	AltF
-	AltZ     = AltA + 'z' - 'a'
-	CtrlAltA = AltZ + 1
-	CtrlAltM = CtrlAltA + 'm' - 'a'
-)
+func (t EventType) AsEvent() Event {
+	return Event{t, 0, nil}
+}
+
+func (t EventType) Int() int {
+	return int(t)
+}
+
+func (t EventType) Byte() byte {
+	return byte(t)
+}
+
+func (e Event) Comparable() Event {
+	// Ignore MouseEvent pointer
+	return Event{e.Type, e.Char, nil}
+}
+
+func Key(r rune) Event {
+	return Event{Rune, r, nil}
+}
+
+func AltKey(r rune) Event {
+	return Event{Alt, r, nil}
+}
+
+func CtrlAltKey(r rune) Event {
+	return Event{CtrlAlt, r, nil}
+}
 
 const (
 	doubleClickDuration = 500 * time.Millisecond
@@ -232,6 +250,7 @@ func (p ColorPair) MergeNonDefault(other ColorPair) ColorPair {
 type ColorTheme struct {
 	Colored      bool
 	Input        ColorAttr
+	Disabled     ColorAttr
 	Fg           ColorAttr
 	Bg           ColorAttr
 	PreviewFg    ColorAttr
@@ -251,7 +270,7 @@ type ColorTheme struct {
 }
 
 type Event struct {
-	Type       int
+	Type       EventType
 	Char       rune
 	MouseEvent *MouseEvent
 }
@@ -403,6 +422,7 @@ var (
 	ColPrompt               ColorPair
 	ColNormal               ColorPair
 	ColInput                ColorPair
+	ColDisabled             ColorPair
 	ColMatch                ColorPair
 	ColCursor               ColorPair
 	ColCursorEmpty          ColorPair
@@ -425,6 +445,7 @@ func EmptyTheme() *ColorTheme {
 	return &ColorTheme{
 		Colored:      true,
 		Input:        ColorAttr{colUndefined, AttrUndefined},
+		Disabled:     ColorAttr{colUndefined, AttrUndefined},
 		Fg:           ColorAttr{colUndefined, AttrUndefined},
 		Bg:           ColorAttr{colUndefined, AttrUndefined},
 		PreviewFg:    ColorAttr{colUndefined, AttrUndefined},
@@ -447,6 +468,7 @@ func NoColorTheme() *ColorTheme {
 	return &ColorTheme{
 		Colored:      false,
 		Input:        ColorAttr{colDefault, AttrRegular},
+		Disabled:     ColorAttr{colDefault, AttrRegular},
 		Fg:           ColorAttr{colDefault, AttrRegular},
 		Bg:           ColorAttr{colDefault, AttrRegular},
 		PreviewFg:    ColorAttr{colDefault, AttrRegular},
@@ -474,6 +496,7 @@ func init() {
 	Default16 = &ColorTheme{
 		Colored:      true,
 		Input:        ColorAttr{colDefault, AttrUndefined},
+		Disabled:     ColorAttr{colUndefined, AttrUndefined},
 		Fg:           ColorAttr{colDefault, AttrUndefined},
 		Bg:           ColorAttr{colDefault, AttrUndefined},
 		PreviewFg:    ColorAttr{colUndefined, AttrUndefined},
@@ -493,6 +516,7 @@ func init() {
 	Dark256 = &ColorTheme{
 		Colored:      true,
 		Input:        ColorAttr{colDefault, AttrUndefined},
+		Disabled:     ColorAttr{colUndefined, AttrUndefined},
 		Fg:           ColorAttr{colDefault, AttrUndefined},
 		Bg:           ColorAttr{colDefault, AttrUndefined},
 		PreviewFg:    ColorAttr{colUndefined, AttrUndefined},
@@ -512,6 +536,7 @@ func init() {
 	Light256 = &ColorTheme{
 		Colored:      true,
 		Input:        ColorAttr{colDefault, AttrUndefined},
+		Disabled:     ColorAttr{colUndefined, AttrUndefined},
 		Fg:           ColorAttr{colDefault, AttrUndefined},
 		Bg:           ColorAttr{colDefault, AttrUndefined},
 		PreviewFg:    ColorAttr{colUndefined, AttrUndefined},
@@ -546,6 +571,7 @@ func initTheme(theme *ColorTheme, baseTheme *ColorTheme, forceBlack bool) {
 		return c
 	}
 	theme.Input = o(baseTheme.Input, theme.Input)
+	theme.Disabled = o(theme.Input, o(baseTheme.Disabled, theme.Disabled))
 	theme.Fg = o(baseTheme.Fg, theme.Fg)
 	theme.Bg = o(baseTheme.Bg, theme.Bg)
 	theme.PreviewFg = o(theme.Fg, o(baseTheme.PreviewFg, theme.PreviewFg))
@@ -579,6 +605,7 @@ func initPalette(theme *ColorTheme) {
 	ColPrompt = pair(theme.Prompt, theme.Bg)
 	ColNormal = pair(theme.Fg, theme.Bg)
 	ColInput = pair(theme.Input, theme.Bg)
+	ColDisabled = pair(theme.Disabled, theme.Bg)
 	ColMatch = pair(theme.Match, theme.Bg)
 	ColCursor = pair(theme.Cursor, theme.Gutter)
 	ColCursorEmpty = pair(blank, theme.Gutter)
