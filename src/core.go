@@ -3,7 +3,7 @@ Package fzf implements fzf, a command-line fuzzy finder.
 
 The MIT License (MIT)
 
-Copyright (c) 2017 Junegunn Choi
+Copyright (c) 2013-2021 Junegunn Choi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -237,14 +237,16 @@ func Run(opts *Options, version string, revision string) {
 		go reader.restart(command)
 	}
 	eventBox.Watch(EvtReadNew)
+	query := []rune{}
 	for {
 		delay := true
 		ticks++
 		input := func() []rune {
-			if opts.Phony {
-				return []rune{}
+			paused, input := terminal.Input()
+			if !paused {
+				query = input
 			}
-			return []rune(terminal.Input())
+			return query
 		}
 		eventBox.Wait(func(events *util.Events) {
 			if _, fin := (*events)[EvtReadFin]; fin {
