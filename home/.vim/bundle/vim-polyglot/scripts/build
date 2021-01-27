@@ -7,6 +7,9 @@ require 'fileutils'
 require 'set'
 require 'json'
 require 'tsort'
+require 'pathname'
+
+BASE_DIR = Pathname.new(File.expand_path('../..', __FILE__))
 
 Dir.chdir(File.dirname(__dir__))
 
@@ -48,7 +51,7 @@ def verify(packages, heuristics)
   extensions = packages.flat_map { |e| e["filetypes"] || [] }
     .flat_map { |e| e["extensions"].map { |e| "*." + e } }
   native_filetypes = detect_filetypes_str(
-    File.read('ftdetect/polyglot.vim').match(/" DO NOT EDIT CODE ABOVE.*/m)[0]
+    File.read('autoload/polyglot/init.vim').match(/" DO NOT EDIT CODE ABOVE.*/m)[0]
   ).flat_map { |e| expand_all(e) }
 
   for e in (native_filetypes & extensions)
@@ -113,9 +116,9 @@ def sort_packages(packages)
   each_child = lambda { |n, &b|
     [
       implicit_dependencies[n] || [],
-      packages[n]["dependencies"] || [],
-      packages[n]["after"] || []
-    ].flatten.each(&b)
+      packages[n] ? packages[n]["dependencies"] || [] : [],
+      packages[n] ? packages[n]["after"] || [] : []
+    ].flatten.each { |e| b.call(e) if packages[e] }
   }
 
   TSort.tsort(each_node, each_child).map { |a| packages[a] }
@@ -248,11 +251,11 @@ def load_languages
 end
 
 def load_packages
-  YAML.load_stream(File.read('packages.yaml'))
+  YAML.load_stream(File.read('packages.yaml')) || []
 end
 
 def load_heuristics
-  YAML.load_stream(File.read('heuristics.yaml'))
+  YAML.load_stream(File.read('heuristics.yaml')) || []
 end
 
 def parse_remote(remote)
@@ -295,7 +298,7 @@ def copy_file(name, src, dest)
     open(dest, "w") do |output|
       if dest.match?(/\.vim$/)
         output << <<~EOF
-        if has_key(g:polyglot_is_disabled, '#{name}')
+        if polyglot#init#is_disabled(expand('<sfile>:p'), '#{name}', '#{dest}')
           finish
         endif
 
@@ -486,6 +489,7 @@ def extract(packages)
   )
 
   FileUtils.rm_rf(all_dirs)
+  Dir.mkdir('extras') unless File.exists?('extras')
 
   for dir in Dir.glob("*", base: "autoload")
     if dir != "polyglot"
@@ -516,7 +520,11 @@ def extract(packages)
         globs.each do |glob|
           Dir.glob("#{subdir}/#{glob}", base: subtree).each do |p|
             next unless File.file?("#{subtree}#{p}")
-            copy_file(package["name"], "#{subtree}#{p}", p)
+            target = p
+            if package["extract_in_after"] == true
+              target = "after/#{target}"
+            end
+            copy_file(package["name"], "#{subtree}#{p}", target)
           end
         end
       elsif File.exist?(subpath)
@@ -524,7 +532,7 @@ def extract(packages)
       end
     end
 
-    if repo.include?("vim/vim")
+    if repo == "vim/vim"
       next
     end
     if branch != "master" || path
@@ -683,7 +691,7 @@ def generate_ftdetect(packages, heuristics)
 
   show_warnings(all_filetypes, expected_filetypes)
 
-  inject_code('ftdetect/polyglot.vim', output)
+  inject_code('autoload/polyglot/init.vim', output)
 
   output = []
 

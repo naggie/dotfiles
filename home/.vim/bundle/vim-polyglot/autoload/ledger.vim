@@ -1,4 +1,4 @@
-if has_key(g:polyglot_is_disabled, 'ledger')
+if polyglot#init#is_disabled(expand('<sfile>:p'), 'ledger', 'autoload/ledger.vim')
   finish
 endif
 
@@ -442,6 +442,19 @@ function! ledger#align_commodity() abort
     endif " Append the part of the line that was previously removed:
     exe 'normal! a' . rhs
   endif
+endf
+
+" Align the commodity on the entire buffer
+function! ledger#align_commodity_buffer() abort
+  " Store the viewport position
+  let view = winsaveview()
+
+  " Call ledger#align_commodity for every line
+  %call ledger#align_commodity()
+
+  " Restore the viewport position
+  call winrestview(view)
+  unlet view
 endf
 
 " Align the amount under the cursor and append/prepend the default currency.

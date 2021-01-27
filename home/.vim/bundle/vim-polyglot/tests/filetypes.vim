@@ -644,6 +644,10 @@ call TestFiletype('xf86conf')
 call TestFiletype('xpm')
 call TestFiletype('xpm2')
 call TestFiletype('context')
+call TestFiletype('mint')
+call TestFiletype('jsonc')
+call TestFiletype('gleam')
+call TestFiletype('hjson')
 
 " DO NOT EDIT CODE ABOVE, IT IS GENERATED WITH MAKEFILE
 

@@ -403,6 +403,7 @@ filetypes:
   extra_extensions:
   # 17 results: https://github.com/search?q=extension%3Acoffeekup+html&type=Code
   - coffeekup
+  - cson
   ignored_warnings:
   # Probably mistake
   - '*Cakefile'
@@ -575,7 +576,7 @@ filetypes:
   - ferm.conf
 ---
 name: fish
-remote: georgewitteman/vim-fish
+remote: blankname/vim-fish
 filetypes:
 - name: fish
   linguist: fish
@@ -941,7 +942,9 @@ remote: MaxMEllon/vim-jsx-pretty
 dependencies: javascript
 filetypes:
 - name: javascriptreact
-  linguist: JSX
+  patterns:
+  - pattern: '*.jsx'
+    description: Syntax Extension to JavaScript
 ---
 name: julia
 remote: JuliaEditorSupport/julia-vim
@@ -4965,6 +4968,7 @@ filetypes:
 name: tex
 remote: vim/vim:runtime
 glob: "**/tex.vim"
+extract_in_after: true
 filetypes:
 - name: tex
   patterns:
@@ -5546,3 +5550,34 @@ filetypes:
   patterns:
   - pattern: '*.mkii,*.mkiv,*.mkvi'
     description: ConTeXt
+---
+name: mint
+remote: IrenejMarc/vim-mint
+filetypes:
+- name: mint
+  patterns:
+  - pattern: '*.mint'
+    description: Mint (https://www.mint-lang.com/)
+---
+name: jsonc
+remote: neoclide/jsonc.vim
+filetypes:
+- name: jsonc
+  patterns:
+  - pattern: '*.cjson,coc-settings.json,*.jsonc,.eslintrc.json,.babelrc,.jshintrc,.jslintrc,.mocharc.json,coffeelint.json,tsconfig.json,jsconfig.json'
+    description: 'JSON with comments (https://komkom.github.io/)'
+---
+name: gleam
+remote: gleam-lang/gleam.vim
+filetypes:
+  - name: gleam
+    extensions:
+    - gleam
+---
+name: hjson
+remote: hjson/vim-hjson
+filetypes:
+- name: hjson
+  patterns:
+  - pattern: '*.hjson'
+    description: Hjson (https://hjson.github.io)

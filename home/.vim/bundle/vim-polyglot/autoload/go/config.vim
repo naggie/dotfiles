@@ -1,4 +1,4 @@
-if has_key(g:polyglot_is_disabled, 'go')
+if polyglot#init#is_disabled(expand('<sfile>:p'), 'go', 'autoload/go/config.vim')
   finish
 endif
 
@@ -263,13 +263,14 @@ function! go#config#SetTemplateAutocreate(value) abort
   let g:go_template_autocreate = a:value
 endfunction
 
+let s:default_metalinter = 'staticcheck'
 function! go#config#MetalinterCommand() abort
-  return get(g:, 'go_metalinter_command', 'golangci-lint')
+  return get(g:, 'go_metalinter_command', s:default_metalinter)
 endfunction
 
 function! go#config#MetalinterAutosaveEnabled() abort
   let l:default = []
-  if get(g:, 'go_metalinter_command', 'golangci-lint') == 'golangci-lint'
+  if get(g:, 'go_metalinter_command', s:default_metalinter) == 'golangci-lint'
     let l:default = ['govet', 'golint']
   endif
 
@@ -278,7 +279,7 @@ endfunction
 
 function! go#config#MetalinterEnabled() abort
   let l:default = []
-  if get(g:, 'go_metalinter_command', 'golangci-lint') == 'golangci-lint'
+  if get(g:, 'go_metalinter_command', s:default_metalinter) == 'golangci-lint'
     let l:default = ['vet', 'golint', 'errcheck']
   endif
 
