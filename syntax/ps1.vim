@@ -1,4 +1,4 @@
-if has_key(g:polyglot_is_disabled, 'powershell')
+if polyglot#init#is_disabled(expand('<sfile>:p'), 'powershell', 'syntax/ps1.vim')
   finish
 endif
 
@@ -143,6 +143,9 @@ syn match ps1BuiltIn "$\%(args\|error\|foreach\|home\|input\)\>"
 syn match ps1BuiltIn "$\%(match\(es\)\?\|myinvocation\|host\|lastexitcode\)\>"
 syn match ps1BuiltIn "$\%(ofs\|shellid\|stacktrace\)\>"
 
+" Named Switch
+syn match ps1Label /\s-\w\+/
+
 " Folding blocks
 if !exists('g:ps1_nofold_blocks')
 	syn region ps1Block start=/{/ end=/}/ transparent fold
@@ -191,6 +194,7 @@ if version >= 508 || !exists("did_ps1_syn_inits")
 	HiLink ps1RepeatAndCmdlet Repeat
 	HiLink ps1Keyword Keyword
 	HiLink ps1KeywordAndCmdlet Keyword
+	HiLink ps1Label Label
 	delcommand HiLink
 endif
 

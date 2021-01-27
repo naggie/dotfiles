@@ -1,4 +1,4 @@
-if has_key(g:polyglot_is_disabled, 'aidl')
+if polyglot#init#is_disabled(expand('<sfile>:p'), 'aidl', 'syntax/aidl.vim')
   finish
 endif
 
@@ -6,7 +6,7 @@ endif
 " Language:	aidl (Android Interface Definition Language)
 "		https://developer.android.com/guide/components/aidl
 " Maintainer:	Dominique Pelle <dominique.pelle@tomtom.com>
-" LastChange:	2020/07/25
+" LastChange:	2020/12/03
 
 " Quit when a syntax file was already loaded.
 if exists("b:current_syntax")
@@ -16,7 +16,7 @@ endif
 source <sfile>:p:h/java.vim
 
 syn keyword aidlParamDir in out inout
-syn keyword aidlKeyword oneway parcelable
+syn keyword aidlKeyword const oneway parcelable
 
 " Needed for the 'in', 'out', 'inout' keywords to be highlighted.
 syn cluster javaTop add=aidlParamDir

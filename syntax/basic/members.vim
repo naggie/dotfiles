@@ -1,4 +1,4 @@
-if has_key(g:polyglot_is_disabled, 'typescript')
+if polyglot#init#is_disabled(expand('<sfile>:p'), 'typescript', 'syntax/basic/members.vim')
   finish
 endif
 
@@ -45,6 +45,6 @@ syntax region  typescriptStringMember   contained
 
 syntax region  typescriptComputedMember   contained matchgroup=typescriptProperty
   \ start=/\[/rs=s+1 end=/]/
-  \ contains=@typescriptValue,typescriptMember,typescriptMappedIn
+  \ contains=@typescriptValue,typescriptMember,typescriptMappedIn,typescriptCastKeyword
   \ nextgroup=@memberNextGroup
   \ skipwhite skipempty
