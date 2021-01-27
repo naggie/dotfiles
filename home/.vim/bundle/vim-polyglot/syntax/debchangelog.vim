@@ -1,4 +1,4 @@
-if has_key(g:polyglot_is_disabled, 'debchangelog')
+if polyglot#init#is_disabled(expand('<sfile>:p'), 'debchangelog', 'syntax/debchangelog.vim')
   finish
 endif
 
@@ -7,7 +7,7 @@ endif
 " Maintainer:  Debian Vim Maintainers
 " Former Maintainers: Gerfried Fuchs <alfie@ist.org>
 "                     Wichert Akkerman <wakkerma@debian.org>
-" Last Change: 2020 Oct 28
+" Last Change: 2020 Nov 28
 " URL: https://salsa.debian.org/vim-team/vim-debian/blob/master/syntax/debchangelog.vim
 
 " Standard syntax initialization
@@ -26,9 +26,9 @@ set cpo-=C
 let s:supported = [
       \ 'oldstable', 'stable', 'testing', 'unstable', 'experimental',
       \ 'jessie', 'stretch', 'buster', 'bullseye', 'bookworm',
-      \ 'sid', 'rc-buggy',
+      \ 'trixie', 'sid', 'rc-buggy',
       \
-      \ 'trusty', 'xenial', 'bionic', 'focal', 'groovy', 'hippo', 'devel'
+      \ 'trusty', 'xenial', 'bionic', 'focal', 'groovy', 'hirsute', 'devel'
       \ ]
 let s:unsupported = [
       \ 'frozen', 'buzz', 'rex', 'bo', 'hamm', 'slink', 'potato',

@@ -1,4 +1,4 @@
-if has_key(g:polyglot_is_disabled, 'idris2')
+if polyglot#init#is_disabled(expand('<sfile>:p'), 'idris2', 'ftplugin/idris2.vim')
   finish
 endif
 
@@ -37,8 +37,9 @@ endfunction
 
 function! s:IdrisCommand(...)
   let idriscmd = shellescape(join(a:000))
-"  echo("idris2 " . expand ('%:p') . " --client " . idriscmd)
-  return system("idris2 --find-ipkg " . shellescape(expand('%:p')) . " --client " . idriscmd)
+  " Vim does not support ANSI escape codes natively, so we need to disable
+  " automatic colouring
+  return system("idris2 --no-color --find-ipkg " . shellescape(expand('%:p')) . " --client " . idriscmd)
 endfunction
 
 function! IdrisDocFold(lineNum)
@@ -99,7 +100,7 @@ endfunction
 function! IdrisReload(q)
   w
   let file = expand('%:p')
-  let tc = system("idris2 --find-ipkg " . shellescape(file) . " --client ''")
+  let tc = system("idris2 --no-color --find-ipkg " . shellescape(file) . " --client ''")
   if (! (tc is ""))
     call IWrite(tc)
   else

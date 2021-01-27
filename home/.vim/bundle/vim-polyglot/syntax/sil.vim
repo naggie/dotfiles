@@ -1,4 +1,4 @@
-if has_key(g:polyglot_is_disabled, 'sil')
+if polyglot#init#is_disabled(expand('<sfile>:p'), 'sil', 'syntax/sil.vim')
   finish
 endif
 
@@ -40,6 +40,7 @@ syn keyword silConventions
       \ c
       \ method
       \ objc_method
+      \ sil_differentiability_witness
       \ thick
       \ thin
       \ witness_method

@@ -1,4 +1,4 @@
-if has_key(g:polyglot_is_disabled, 'elixir')
+if polyglot#init#is_disabled(expand('<sfile>:p'), 'elixir', 'ftplugin/elixir.vim')
   finish
 endif
 
@@ -32,7 +32,7 @@ let &l:path =
       \   &g:path
       \ ], ',')
 setlocal includeexpr=elixir#util#get_filename(v:fname)
-setlocal suffixesadd=.ex,.exs,.eex,.leex,.erl,.xrl,.yrl,.hrl
+setlocal suffixesadd=.ex,.exs,.eex,.leex,.sface,.erl,.xrl,.yrl,.hrl
 
 let &l:define = 'def\(macro\|guard\|delegate\)\=p\='
 

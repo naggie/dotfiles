@@ -1,4 +1,4 @@
-if has_key(g:polyglot_is_disabled, 'graphql')
+if polyglot#init#is_disabled(expand('<sfile>:p'), 'graphql', 'after/syntax/typescript/graphql.vim')
   finish
 endif
 
@@ -29,7 +29,11 @@ if exists('b:current_syntax')
   let s:current_syntax = b:current_syntax
   unlet b:current_syntax
 endif
+
+let b:graphql_nested_syntax = 1
 syn include @GraphQLSyntax syntax/graphql.vim
+unlet b:graphql_nested_syntax
+
 if exists('s:current_syntax')
   let b:current_syntax = s:current_syntax
 endif

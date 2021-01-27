@@ -1,11 +1,11 @@
-if has_key(g:polyglot_is_disabled, 'abap')
+if polyglot#init#is_disabled(expand('<sfile>:p'), 'abap', 'syntax/abap.vim')
   finish
 endif
 
 " Vim ABAP syntax file
 "    Language: SAP - ABAP/R4
 "  Maintainer: Marius Piedallu van Wyk <lailoken@gmail.com>
-" Last Change: 2018 Dec 12
+" Last Change: 2021 Jan 02
 "     Comment: Thanks to EPI-USE Labs for all your assistance. :)
 
 " Quit when a syntax file was already loaded

@@ -109,8 +109,8 @@ type Terminal struct {
 	sort         bool
 	toggleSort   bool
 	delimiter    Delimiter
-	expect       map[int]string
-	keymap       map[int][]action
+	expect       map[tui.Event]string
+	keymap       map[tui.Event][]action
 	pressed      string
 	printQuery   bool
 	history      *History
@@ -125,6 +125,7 @@ type Terminal struct {
 	unicode      bool
 	borderShape  tui.BorderShape
 	cleanExit    bool
+	paused       bool
 	border       tui.Window
 	window       tui.Window
 	pborder      tui.Window
@@ -150,6 +151,7 @@ type Terminal struct {
 	initFunc     func()
 	prevLines    []itemLine
 	suppress     bool
+	sigstop      bool
 	startChan    chan bool
 	killChan     chan int
 	slab         *util.Slab
@@ -233,6 +235,7 @@ const (
 	actSelectAll
 	actDeselectAll
 	actToggle
+	actToggleSearch
 	actToggleAll
 	actToggleDown
 	actToggleUp
@@ -253,6 +256,8 @@ const (
 	actTogglePreview
 	actTogglePreviewWrap
 	actPreview
+	actPreviewTop
+	actPreviewBottom
 	actPreviewUp
 	actPreviewDown
 	actPreviewPageUp
@@ -265,8 +270,11 @@ const (
 	actExecuteSilent
 	actExecuteMulti // Deprecated
 	actSigStop
-	actTop
+	actFirst
+	actLast
 	actReload
+	actDisableSearch
+	actEnableSearch
 )
 
 type placeholderFlags struct {
@@ -303,62 +311,68 @@ func toActions(types ...actionType) []action {
 	return actions
 }
 
-func defaultKeymap() map[int][]action {
-	keymap := make(map[int][]action)
-	keymap[tui.Invalid] = toActions(actInvalid)
-	keymap[tui.Resize] = toActions(actClearScreen)
-	keymap[tui.CtrlA] = toActions(actBeginningOfLine)
-	keymap[tui.CtrlB] = toActions(actBackwardChar)
-	keymap[tui.CtrlC] = toActions(actAbort)
-	keymap[tui.CtrlG] = toActions(actAbort)
-	keymap[tui.CtrlQ] = toActions(actAbort)
-	keymap[tui.ESC] = toActions(actAbort)
-	keymap[tui.CtrlD] = toActions(actDeleteCharEOF)
-	keymap[tui.CtrlE] = toActions(actEndOfLine)
-	keymap[tui.CtrlF] = toActions(actForwardChar)
-	keymap[tui.CtrlH] = toActions(actBackwardDeleteChar)
-	keymap[tui.BSpace] = toActions(actBackwardDeleteChar)
-	keymap[tui.Tab] = toActions(actToggleDown)
-	keymap[tui.BTab] = toActions(actToggleUp)
-	keymap[tui.CtrlJ] = toActions(actDown)
-	keymap[tui.CtrlK] = toActions(actUp)
-	keymap[tui.CtrlL] = toActions(actClearScreen)
-	keymap[tui.CtrlM] = toActions(actAccept)
-	keymap[tui.CtrlN] = toActions(actDown)
-	keymap[tui.CtrlP] = toActions(actUp)
-	keymap[tui.CtrlU] = toActions(actUnixLineDiscard)
-	keymap[tui.CtrlW] = toActions(actUnixWordRubout)
-	keymap[tui.CtrlY] = toActions(actYank)
-	if !util.IsWindows() {
-		keymap[tui.CtrlZ] = toActions(actSigStop)
+func defaultKeymap() map[tui.Event][]action {
+	keymap := make(map[tui.Event][]action)
+	add := func(e tui.EventType, a actionType) {
+		keymap[e.AsEvent()] = toActions(a)
+	}
+	addEvent := func(e tui.Event, a actionType) {
+		keymap[e] = toActions(a)
 	}
 
-	keymap[tui.AltB] = toActions(actBackwardWord)
-	keymap[tui.SLeft] = toActions(actBackwardWord)
-	keymap[tui.AltF] = toActions(actForwardWord)
-	keymap[tui.SRight] = toActions(actForwardWord)
-	keymap[tui.AltD] = toActions(actKillWord)
-	keymap[tui.AltBS] = toActions(actBackwardKillWord)
+	add(tui.Invalid, actInvalid)
+	add(tui.Resize, actClearScreen)
+	add(tui.CtrlA, actBeginningOfLine)
+	add(tui.CtrlB, actBackwardChar)
+	add(tui.CtrlC, actAbort)
+	add(tui.CtrlG, actAbort)
+	add(tui.CtrlQ, actAbort)
+	add(tui.ESC, actAbort)
+	add(tui.CtrlD, actDeleteCharEOF)
+	add(tui.CtrlE, actEndOfLine)
+	add(tui.CtrlF, actForwardChar)
+	add(tui.CtrlH, actBackwardDeleteChar)
+	add(tui.BSpace, actBackwardDeleteChar)
+	add(tui.Tab, actToggleDown)
+	add(tui.BTab, actToggleUp)
+	add(tui.CtrlJ, actDown)
+	add(tui.CtrlK, actUp)
+	add(tui.CtrlL, actClearScreen)
+	add(tui.CtrlM, actAccept)
+	add(tui.CtrlN, actDown)
+	add(tui.CtrlP, actUp)
+	add(tui.CtrlU, actUnixLineDiscard)
+	add(tui.CtrlW, actUnixWordRubout)
+	add(tui.CtrlY, actYank)
+	if !util.IsWindows() {
+		add(tui.CtrlZ, actSigStop)
+	}
 
-	keymap[tui.Up] = toActions(actUp)
-	keymap[tui.Down] = toActions(actDown)
-	keymap[tui.Left] = toActions(actBackwardChar)
-	keymap[tui.Right] = toActions(actForwardChar)
+	addEvent(tui.AltKey('b'), actBackwardWord)
+	add(tui.SLeft, actBackwardWord)
+	addEvent(tui.AltKey('f'), actForwardWord)
+	add(tui.SRight, actForwardWord)
+	addEvent(tui.AltKey('d'), actKillWord)
+	add(tui.AltBS, actBackwardKillWord)
 
-	keymap[tui.Home] = toActions(actBeginningOfLine)
-	keymap[tui.End] = toActions(actEndOfLine)
-	keymap[tui.Del] = toActions(actDeleteChar)
-	keymap[tui.PgUp] = toActions(actPageUp)
-	keymap[tui.PgDn] = toActions(actPageDown)
+	add(tui.Up, actUp)
+	add(tui.Down, actDown)
+	add(tui.Left, actBackwardChar)
+	add(tui.Right, actForwardChar)
 
-	keymap[tui.SUp] = toActions(actPreviewUp)
-	keymap[tui.SDown] = toActions(actPreviewDown)
+	add(tui.Home, actBeginningOfLine)
+	add(tui.End, actEndOfLine)
+	add(tui.Del, actDeleteChar)
+	add(tui.PgUp, actPageUp)
+	add(tui.PgDn, actPageDown)
 
-	keymap[tui.Rune] = toActions(actRune)
-	keymap[tui.Mouse] = toActions(actMouse)
-	keymap[tui.DoubleClick] = toActions(actAccept)
-	keymap[tui.LeftClick] = toActions(actIgnore)
-	keymap[tui.RightClick] = toActions(actToggle)
+	add(tui.SUp, actPreviewUp)
+	add(tui.SDown, actPreviewDown)
+
+	add(tui.Mouse, actMouse)
+	add(tui.DoubleClick, actAccept)
+	add(tui.LeftClick, actIgnore)
+	add(tui.RightClick, actToggle)
 	return keymap
 }
 
@@ -479,6 +493,7 @@ func NewTerminal(opts *Options, eventBox *util.EventBox) *Terminal {
 		unicode:     opts.Unicode,
 		borderShape: opts.BorderShape,
 		cleanExit:   opts.ClearOnExit,
+		paused:      opts.Phony,
 		strong:      strongAttr,
 		cycle:       opts.Cycle,
 		header:      header,
@@ -501,6 +516,7 @@ func NewTerminal(opts *Options, eventBox *util.EventBox) *Terminal {
 		eventBox:    eventBox,
 		mutex:       sync.Mutex{},
 		suppress:    true,
+		sigstop:     false,
 		slab:        util.MakeSlab(slab16Size, slab32Size),
 		theme:       opts.Theme,
 		startChan:   make(chan bool, 1),
@@ -554,10 +570,10 @@ func (t *Terminal) noInfoLine() bool {
 }
 
 // Input returns current query string
-func (t *Terminal) Input() []rune {
+func (t *Terminal) Input() (bool, []rune) {
 	t.mutex.Lock()
 	defer t.mutex.Unlock()
-	return copySlice(t.input)
+	return t.paused, copySlice(t.input)
 }
 
 // UpdateCount updates the count information
@@ -916,8 +932,12 @@ func (t *Terminal) printPrompt() {
 	t.prompt()
 
 	before, after := t.updatePromptOffset()
-	t.window.CPrint(tui.ColInput, string(before))
-	t.window.CPrint(tui.ColInput, string(after))
+	color := tui.ColInput
+	if t.paused {
+		color = tui.ColDisabled
+	}
+	t.window.CPrint(color, string(before))
+	t.window.CPrint(color, string(after))
 }
 
 func (t *Terminal) trimMessage(message string, maxWidth int) string {
@@ -1451,10 +1471,9 @@ func (t *Terminal) rubout(pattern string) {
 	t.input = append(t.input[:t.cx], after...)
 }
 
-func keyMatch(key int, event tui.Event) bool {
-	return event.Type == key ||
-		event.Type == tui.Rune && int(event.Char) == key-tui.AltZ ||
-		event.Type == tui.Mouse && key == tui.DoubleClick && event.MouseEvent.Double
+func keyMatch(key tui.Event, event tui.Event) bool {
+	return event.Type == key.Type && event.Char == key.Char ||
+		key.Type == tui.DoubleClick && event.Type == tui.Mouse && event.MouseEvent.Double
 }
 
 func quoteEntryCmd(entry string) string {
@@ -1872,7 +1891,8 @@ func (t *Terminal) Loop() {
 				version++
 				// We don't display preview window if no match
 				if items[0] != nil {
-					command := t.replacePlaceholder(commandTemplate, false, string(t.Input()), items)
+					_, query := t.Input()
+					command := t.replacePlaceholder(commandTemplate, false, string(query), items)
 					initialOffset := 0
 					cmd := util.ExecCommand(command, true)
 					if pwindow != nil {
@@ -2055,7 +2075,7 @@ func (t *Terminal) Loop() {
 					case reqRefresh:
 						t.suppress = false
 					case reqReinit:
-						t.tui.Resume(t.fullscreen, true)
+						t.tui.Resume(t.fullscreen, t.sigstop)
 						t.redraw()
 					case reqRedraw:
 						t.redraw()
@@ -2130,18 +2150,18 @@ func (t *Terminal) Loop() {
 			}
 		}
 		toggle := func() bool {
-			if t.cy < t.merger.Length() && t.toggleItem(t.merger.Get(t.cy).item) {
+			current := t.currentItem()
+			if current != nil && t.toggleItem(current) {
 				req(reqInfo)
 				return true
 			}
 			return false
 		}
-		scrollPreview := func(amount int) {
+		scrollPreviewTo := func(newOffset int) {
 			if !t.previewer.scrollable {
 				return
 			}
 			t.previewer.following = false
-			newOffset := t.previewer.offset + amount
 			numLines := len(t.previewer.lines)
 			if t.previewOpts.cycle {
 				newOffset = (newOffset + numLines) % numLines
@@ -2152,6 +2172,9 @@ func (t *Terminal) Loop() {
 				req(reqPreviewRefresh)
 			}
 		}
+		scrollPreviewBy := func(amount int) {
+			scrollPreviewTo(t.previewer.offset + amount)
+		}
 		for key, ret := range t.expect {
 			if keyMatch(key, event) {
 				t.pressed = ret
@@ -2161,16 +2184,20 @@ func (t *Terminal) Loop() {
 			}
 		}
 
-		var doAction func(action, int) bool
-		doActions := func(actions []action, mapkey int) bool {
+		actionsFor := func(eventType tui.EventType) []action {
+			return t.keymap[eventType.AsEvent()]
+		}
+
+		var doAction func(action) bool
+		doActions := func(actions []action) bool {
 			for _, action := range actions {
-				if !doAction(action, mapkey) {
+				if !doAction(action) {
 					return false
 				}
 			}
 			return true
 		}
-		doAction = func(a action, mapkey int) bool {
+		doAction = func(a action) bool {
 			switch a.t {
 			case actIgnore:
 			case actExecute, actExecuteSilent:
@@ -2200,29 +2227,37 @@ func (t *Terminal) Loop() {
 			case actToggleSort:
 				t.sort = !t.sort
 				changed = true
+			case actPreviewTop:
+				if t.hasPreviewWindow() {
+					scrollPreviewTo(0)
+				}
+			case actPreviewBottom:
+				if t.hasPreviewWindow() {
+					scrollPreviewTo(len(t.previewer.lines) - t.pwindow.Height())
+				}
 			case actPreviewUp:
 				if t.hasPreviewWindow() {
-					scrollPreview(-1)
+					scrollPreviewBy(-1)
 				}
 			case actPreviewDown:
 				if t.hasPreviewWindow() {
-					scrollPreview(1)
+					scrollPreviewBy(1)
 				}
 			case actPreviewPageUp:
 				if t.hasPreviewWindow() {
-					scrollPreview(-t.pwindow.Height())
+					scrollPreviewBy(-t.pwindow.Height())
 				}
 			case actPreviewPageDown:
 				if t.hasPreviewWindow() {
-					scrollPreview(t.pwindow.Height())
+					scrollPreviewBy(t.pwindow.Height())
 				}
 			case actPreviewHalfPageUp:
 				if t.hasPreviewWindow() {
-					scrollPreview(-t.pwindow.Height() / 2)
+					scrollPreviewBy(-t.pwindow.Height() / 2)
 				}
 			case actPreviewHalfPageDown:
 				if t.hasPreviewWindow() {
-					scrollPreview(t.pwindow.Height() / 2)
+					scrollPreviewBy(t.pwindow.Height() / 2)
 				}
 			case actBeginningOfLine:
 				t.cx = 0
@@ -2241,8 +2276,9 @@ func (t *Terminal) Loop() {
 			case actRefreshPreview:
 				refreshPreview(t.previewOpts.command)
 			case actReplaceQuery:
-				if t.cy >= 0 && t.cy < t.merger.Length() {
-					t.input = t.merger.Get(t.cy).item.text.ToRunes()
+				current := t.currentItem()
+				if current != nil {
+					t.input = current.text.ToRunes()
 					t.cx = len(t.input)
 				}
 			case actAbort:
@@ -2323,14 +2359,14 @@ func (t *Terminal) Loop() {
 				}
 			case actToggleIn:
 				if t.layout != layoutDefault {
-					return doAction(action{t: actToggleUp}, mapkey)
+					return doAction(action{t: actToggleUp})
 				}
-				return doAction(action{t: actToggleDown}, mapkey)
+				return doAction(action{t: actToggleDown})
 			case actToggleOut:
 				if t.layout != layoutDefault {
-					return doAction(action{t: actToggleDown}, mapkey)
+					return doAction(action{t: actToggleDown})
 				}
-				return doAction(action{t: actToggleUp}, mapkey)
+				return doAction(action{t: actToggleUp})
 			case actToggleDown:
 				if t.multi > 0 && t.merger.Length() > 0 && toggle() {
 					t.vmove(-1, true)
@@ -2364,8 +2400,11 @@ func (t *Terminal) Loop() {
 					t.version++
 					req(reqList, reqInfo)
 				}
-			case actTop:
+			case actFirst:
 				t.vset(0)
+				req(reqList)
+			case actLast:
+				t.vset(t.merger.Length() - 1)
 				req(reqList)
 			case actUnixLineDiscard:
 				beof = len(t.input) == 0
@@ -2438,9 +2477,21 @@ func (t *Terminal) Loop() {
 					t.input = trimQuery(t.history.next())
 					t.cx = len(t.input)
 				}
+			case actToggleSearch:
+				t.paused = !t.paused
+				changed = !t.paused
+				req(reqPrompt)
+			case actEnableSearch:
+				t.paused = false
+				changed = true
+				req(reqPrompt)
+			case actDisableSearch:
+				t.paused = true
+				req(reqPrompt)
 			case actSigStop:
 				p, err := os.FindProcess(os.Getpid())
 				if err == nil {
+					t.sigstop = true
 					t.tui.Clear()
 					t.tui.Pause(t.fullscreen)
 					notifyStop(p)
@@ -2459,7 +2510,7 @@ func (t *Terminal) Loop() {
 						t.vmove(me.S, true)
 						req(reqList)
 					} else if t.hasPreviewWindow() && t.pwindow.Enclose(my, mx) {
-						scrollPreview(-me.S)
+						scrollPreviewBy(-me.S)
 					}
 				} else if t.window.Enclose(my, mx) {
 					mx -= t.window.Left()
@@ -2484,7 +2535,7 @@ func (t *Terminal) Loop() {
 						// Double-click
 						if my >= min {
 							if t.vset(t.offset+my-min) && t.cy < t.merger.Length() {
-								return doActions(t.keymap[tui.DoubleClick], tui.DoubleClick)
+								return doActions(actionsFor(tui.DoubleClick))
 							}
 						}
 					} else if me.Down {
@@ -2498,9 +2549,9 @@ func (t *Terminal) Loop() {
 							}
 							req(reqList)
 							if me.Left {
-								return doActions(t.keymap[tui.LeftClick], tui.LeftClick)
+								return doActions(actionsFor(tui.LeftClick))
 							}
-							return doActions(t.keymap[tui.RightClick], tui.RightClick)
+							return doActions(actionsFor(tui.RightClick))
 						}
 					}
 				}
@@ -2522,33 +2573,29 @@ func (t *Terminal) Loop() {
 			}
 			return true
 		}
-		mapkey := event.Type
+
 		if t.jumping == jumpDisabled {
-			actions := t.keymap[mapkey]
-			if mapkey == tui.Rune {
-				mapkey = int(event.Char) + int(tui.AltZ)
-				if act, prs := t.keymap[mapkey]; prs {
-					actions = act
-				}
-			}
-			if !doActions(actions, mapkey) {
+			actions := t.keymap[event.Comparable()]
+			if len(actions) == 0 && event.Type == tui.Rune {
+				doAction(action{t: actRune})
+			} else if !doActions(actions) {
 				continue
 			}
 			t.truncateQuery()
 			queryChanged = string(previousInput) != string(t.input)
 			changed = changed || queryChanged
-			if onChanges, prs := t.keymap[tui.Change]; queryChanged && prs {
-				if !doActions(onChanges, tui.Change) {
+			if onChanges, prs := t.keymap[tui.Change.AsEvent()]; queryChanged && prs {
+				if !doActions(onChanges) {
 					continue
 				}
 			}
-			if onEOFs, prs := t.keymap[tui.BackwardEOF]; beof && prs {
-				if !doActions(onEOFs, tui.BackwardEOF) {
+			if onEOFs, prs := t.keymap[tui.BackwardEOF.AsEvent()]; beof && prs {
+				if !doActions(onEOFs) {
 					continue
 				}
 			}
 		} else {
-			if mapkey == tui.Rune {
+			if event.Type == tui.Rune {
 				if idx := strings.IndexRune(t.jumpLabels, event.Char); idx >= 0 && idx < t.maxItems() && idx < t.merger.Length() {
 					t.cy = idx + t.offset
 					if t.jumping == jumpAcceptEnabled {
@@ -2585,18 +2632,16 @@ func (t *Terminal) Loop() {
 }
 
 func (t *Terminal) constrain() {
+	// count of items to display allowed by filtering
 	count := t.merger.Length()
+	// count of lines can be displayed
 	height := t.maxItems()
-	diffpos := t.cy - t.offset
 
 	t.cy = util.Constrain(t.cy, 0, count-1)
-	t.offset = util.Constrain(t.offset, t.cy-height+1, t.cy)
-	// Adjustment
-	if count-t.offset < height {
-		t.offset = util.Max(0, count-height)
-		t.cy = util.Constrain(t.offset+diffpos, 0, count-1)
-	}
-	t.offset = util.Max(0, t.offset)
+
+	minOffset := t.cy - height + 1
+	maxOffset := util.Max(util.Min(count-height, t.cy), 0)
+	t.offset = util.Constrain(t.offset, minOffset, maxOffset)
 }
 
 func (t *Terminal) vmove(o int, allowCycle bool) {
