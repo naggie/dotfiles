@@ -31,6 +31,7 @@ sudo -E apt-get -y install --install-recommends \
     ncdu \
     parallel \
     pass \
+    pass-extension-otp
     pcscd \
     picocom \
     pwgen \

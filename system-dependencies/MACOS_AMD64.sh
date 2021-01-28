@@ -40,6 +40,7 @@ packages=(
     openssh
     parallel
     pass
+    pass-otp
     picocom
     pinentry-mac
     ripgrep
