@@ -31,7 +31,6 @@ sudo -E apt-get -y install --install-recommends \
     ncdu \
     parallel \
     pass \
-    pass-extension-otp
     pcscd \
     picocom \
     pwgen \
@@ -56,9 +55,10 @@ sudo -E apt-get -y install --install-recommends \
 # prevent typos from causing slowdowns
 sudo -E apt-get -y remove command-not-found
 
-# new in 20.04, might not exist if older ubuntu is targeted
+# new in 20.04, might not exist if older ubuntu is targeted (16.04, 18.04)
 sudo -E apt-get -y install zfsutils-linux || true
 sudo -E apt-get -y install wireguard wireguard-tools || true
+sudo -E apt-get -y install pass-extension-otp || true
 
 # docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
