@@ -6,7 +6,7 @@ sudo -E apt-get -y update
 sudo -E apt-get install -y software-properties-common
 sudo -E apt-add-repository --yes multiverse
 sudo -E apt-get -y update
-sudo -E apt-get -y upgrade
+sudo -E apt-get -y --allow-downgrades upgrade
 
 # CLI only
 sudo -E apt-get -y install --install-recommends \
@@ -95,3 +95,7 @@ if [ -d /usr/share/xsessions ] && [ ! -z "$(ls /usr/share/xsessions/)" ]; then
     adhoc_openscad_linux_amd64
     adhoc_cura_linux_amd64
 fi
+
+# clean up stuff
+sudo -E apt-get -y autoremove --purge
+sudo -E apt-get -y clean
