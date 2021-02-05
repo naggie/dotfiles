@@ -2,14 +2,14 @@
 export DEBIAN_FRONTEND=noninteractive
 
 # -E is necessary for DEBIAN_FRONTEND
-sudo -E apt-get -y update
-sudo -E apt-get install -y software-properties-common
+sudo -E apt-get --quiet -y update
+sudo -E apt-get --quiet install -y software-properties-common
 sudo -E apt-add-repository --yes multiverse
-sudo -E apt-get -y update
-sudo -E apt-get -y --allow-downgrades upgrade
+sudo -E apt-get --quiet -y update
+sudo -E apt-get --quiet -y --allow-downgrades upgrade
 
 # CLI only
-sudo -E apt-get -y install --install-recommends \
+sudo -E apt-get --quiet -y install --install-recommends \
     bash-completion \
     curl \
     dconf-cli \
@@ -53,24 +53,24 @@ sudo -E apt-get -y install --install-recommends \
     zsh \
 
 # prevent typos from causing slowdowns
-sudo -E apt-get -y remove command-not-found
+sudo -E apt-get --quiet -y remove command-not-found
 
 # new in 20.04, might not exist if older ubuntu is targeted (16.04, 18.04)
-sudo -E apt-get -y install zfsutils-linux || true
-sudo -E apt-get -y install wireguard wireguard-tools || true
-sudo -E apt-get -y install pass-extension-otp || true
+sudo -E apt-get --quiet -y install zfsutils-linux || true
+sudo -E apt-get --quiet -y install wireguard wireguard-tools || true
+sudo -E apt-get --quiet -y install pass-extension-otp || true
 
 # docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo -E add-apt-repository --yes "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-sudo -E apt-get -y update
-sudo -E apt-get -y install docker-ce docker-ce-cli containerd.io docker-compose || true # currently fails on 20.10,  not available.
+sudo -E apt-get --quiet -y update
+sudo -E apt-get --quiet -y install docker-ce docker-ce-cli containerd.io docker-compose || true # currently fails on 20.10,  not available.
 
 # yarn
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo -E apt-get -y update
-sudo -E apt-get -y install yarn
+sudo -E apt-get --quiet -y update
+sudo -E apt-get --quiet -y install yarn
 
 # adhoc installs
 adhoc_dstask_linux_amd64
@@ -83,12 +83,12 @@ adhoc_ffsend_linux_amd64
 
 # GUI if applicable
 if [ -d /usr/share/xsessions ] && [ ! -z "$(ls /usr/share/xsessions/)" ]; then
-    sudo -E apt-get -y update
-    sudo apt-get -y install firefox powertop kicad
+    sudo -E apt-get --quiet -y update
+    sudo apt-get --quiet -y install firefox powertop kicad
 
     # only available in later versions of ubuntu. Install if available.
-    sudo apt-get -y install yubikey-manager || true
-    sudo apt-get -y install kicad || true
+    sudo apt-get --quiet -y install yubikey-manager || true
+    sudo apt-get --quiet -y install kicad || true
 
     adhoc_alacritty_linux_amd64
     adhoc_browserpass_linux_amd64
@@ -97,5 +97,5 @@ if [ -d /usr/share/xsessions ] && [ ! -z "$(ls /usr/share/xsessions/)" ]; then
 fi
 
 # clean up stuff
-sudo -E apt-get -y autoremove --purge
-sudo -E apt-get -y clean
+sudo -E apt-get --quiet -y autoremove --purge
+sudo -E apt-get --quiet -y clean
