@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-# runs user-configuration.sh and then applies changes that are specific to my
-# identity using only publicly publishable data
-
-source ./user-configuration.sh
+# Applies changes that are specific to my identity using only publicly
+# publishable data. Run ./user-configuration.sh first.
 
 if git remote -v | grep -q https; then
     # git+ssh for push access

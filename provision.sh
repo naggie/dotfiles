@@ -33,12 +33,13 @@ say "System configuration..."
 # shellcheck disable=SC1090
 source system-configuration/"${PLATFORM}".sh
 
-say "User configuration..."
 # user-configuration (run by current user)
+say "User configuration..."
+./user-configuration.sh
+
 if [[ $(whoami) == naggie ]]; then
-    ./user-configuration-naggie.sh
-else
-    ./user-configuration.sh
+    say "Naggie configuration..."
+    ./extras-naggie.sh
 fi
 
 say "Provisioning successful."

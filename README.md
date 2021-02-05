@@ -226,5 +226,5 @@ the install process has been changed to the following:
    assumed.
 1. `user-configuration.sh` -- Installs generic user-specific configuration. No
    root required from now on.
-1. `user-configuration-naggie.sh` -- Patches user configuration with configuration
-   specific to my identity
+1. `extras-naggie.sh` -- Patches user configuration with configuration specific
+   to my identity
