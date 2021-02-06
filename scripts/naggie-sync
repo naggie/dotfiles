@@ -12,7 +12,8 @@ if [ -d ~/dotfiles ]; then
     say "dotfiles"
     pushd ~/dotfiles
         git pull --no-edit --commit origin master
-        ./user-configuration-naggie.sh
+        ./user-configuration.sh
+        ./extras-naggie.sh
     popd
 fi
 
