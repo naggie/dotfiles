@@ -66,12 +66,6 @@ sudo -E add-apt-repository --yes "deb [arch=amd64] https://download.docker.com/l
 sudo -E apt-get --quiet -y update
 sudo -E apt-get --quiet -y install docker-ce docker-ce-cli containerd.io docker-compose || true # currently fails on 20.10,  not available.
 
-# yarn
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo -E apt-get --quiet -y update
-sudo -E apt-get --quiet -y install yarn
-
 # adhoc installs
 adhoc_dstask_linux_amd64
 adhoc_ripgrep_linux_amd64
