@@ -47,8 +47,8 @@ function adhoc_neovim_linux_amd64 {
 function adhoc_golang_linux_amd64 {
     TARGZ="$(
         obtain \
-            https://dl.google.com/go/go1.13.linux-amd64.tar.gz \
-            68a2297eb099d1a76097905a2ce334e3155004ec08cdea85f24527be3c48e856
+            https://golang.org/dl/go1.15.8.linux-amd64.tar.gz \
+            d3379c32a90fdf9382166f8f48034c459a8cc433730bc9476d39d9082c94583b
     )"
     sudo tar -C /usr/local -xzf "$TARGZ"
 }
