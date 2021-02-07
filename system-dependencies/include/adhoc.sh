@@ -45,6 +45,8 @@ function adhoc_neovim_linux_amd64 {
 }
 
 function adhoc_golang_linux_amd64 {
+    # remove "old" golang,  might glash if upgraded
+    sudo rm -rf /usr/local/go
     TARGZ="$(
         obtain \
             https://golang.org/dl/go1.15.8.linux-amd64.tar.gz \
