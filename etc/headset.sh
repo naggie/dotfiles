@@ -15,5 +15,5 @@ pacmd set-default-source "alsa_output.usb-Logitech_G533_Gaming_Headset-00.analog
 
 # volume control (65536 = 100 %, 0 = mute; or a bit more intuitive 0x10000 =
 # 100 %, 0x7500 = 75 %, 0x0 = 0 %)
-pacmd set-sink-volume "alsa_output.usb-Logitech_G533_Gaming_Headset-00.analog-stereo" 0x5000
+pacmd set-sink-volume "alsa_output.usb-Logitech_G533_Gaming_Headset-00.analog-stereo" 0x7000
 pacmd set-source-volume "alsa_output.usb-Logitech_G533_Gaming_Headset-00.analog-stereo.monitor" 0x10000
