@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -e
-
+# brew install blueutil
 sudo killall coreaudiod
-sudo kextunload -b com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport
-sudo kextload -b com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport
+blueutil -p 0 && sleep 1 && blueutil -p 1
