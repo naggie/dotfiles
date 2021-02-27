@@ -7,7 +7,7 @@ fi
 
 # recommended, uses /Applications now.
 brew tap homebrew/cask
-brew install --cask spectacle firefox alacritty mtmr
+brew install --cask spectacle firefox alacritty mtmr openscad
 
 # flux is no longer required -- night shift!
 
