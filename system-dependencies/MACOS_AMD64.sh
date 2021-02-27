@@ -7,7 +7,7 @@ fi
 
 # recommended, uses /Applications now.
 brew tap homebrew/cask
-brew install --cask spectacle firefox alacritty mtmr openscad
+brew install --cask spectacle firefox alacritty mtmr openscad osxfuse
 
 # flux is no longer required -- night shift!
 
@@ -45,6 +45,7 @@ packages=(
     pinentry-mac
     ripgrep
     sox
+    sshfs
     tig
     tmpreaper
     tmux
