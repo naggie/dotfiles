@@ -15,7 +15,6 @@ sudo -E apt-get --quiet -y install --install-recommends \
     dconf-cli \
     entr \
     ffmpeg \
-    gimp \
     git \
     git-crypt \
     gnupg2 \
@@ -48,7 +47,6 @@ sudo -E apt-get --quiet -y install --install-recommends \
     tree \
     upx \
     vim \
-    vlc \
     wget \
     zsh \
 
@@ -78,7 +76,7 @@ adhoc_ffsend_linux_amd64
 # GUI if applicable
 if [ -d /usr/share/xsessions ] && [ ! -z "$(ls /usr/share/xsessions/)" ]; then
     sudo -E apt-get --quiet -y update
-    sudo apt-get --quiet -y install firefox powertop kicad
+    sudo apt-get --quiet -y install firefox powertop kicad vlc gimp
 
     # only available in later versions of ubuntu. Install if available.
     sudo apt-get --quiet -y install yubikey-manager || true

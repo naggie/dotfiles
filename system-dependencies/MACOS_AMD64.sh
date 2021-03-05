@@ -43,6 +43,7 @@ packages=(
     pass-otp
     picocom
     pinentry-mac
+    pwgen
     ripgrep
     sox
     sshfs
