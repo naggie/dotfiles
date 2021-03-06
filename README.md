@@ -25,7 +25,7 @@ Table of Contents
 <!-- vim-markdown-toc GFM -->
 
 * [Installation](#installation)
-  * [Using Homebrew or Linuxbrew](#using-homebrew-or-linuxbrew)
+  * [Using Homebrew](#using-homebrew)
   * [Using git](#using-git)
   * [Using Linux package managers](#using-linux-package-managers)
   * [Windows](#windows)
@@ -84,9 +84,9 @@ stuff.
 
 [bin]: https://github.com/junegunn/fzf/releases
 
-### Using Homebrew or Linuxbrew
+### Using Homebrew
 
-You can use [Homebrew](http://brew.sh/) or [Linuxbrew](http://linuxbrew.sh/)
+You can use [Homebrew](http://brew.sh/) (on macOS or Linux)
 to install fzf.
 
 ```sh
@@ -264,6 +264,13 @@ or `py`.
 - `FZF_DEFAULT_COMMAND`
     - Default command to use when input is tty
     - e.g. `export FZF_DEFAULT_COMMAND='fd --type f'`
+    - > :warning: This variable is not used by shell extensions due to the
+      > slight difference in requirements.
+      >
+      > (e.g. `CTRL-T` runs `$FZF_CTRL_T_COMMAND` instead, `vim **<tab>` runs
+      > `_fzf_compgen_path()`, and `cd **<tab>` runs `_fzf_compgen_dir()`)
+      >
+      > The available options are described later in this document.
 - `FZF_DEFAULT_OPTS`
     - Default options
     - e.g. `export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"`
@@ -404,7 +411,7 @@ unalias **<TAB>
 export FZF_COMPLETION_TRIGGER='~~'
 
 # Options to fzf command
-export FZF_COMPLETION_OPTS='+c -x'
+export FZF_COMPLETION_OPTS='--border --info=inline'
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
@@ -573,7 +580,7 @@ INITIAL_QUERY=""
 RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
 FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
   fzf --bind "change:reload:$RG_PREFIX {q} || true" \
-      --ansi --phony --query "$INITIAL_QUERY" \
+      --ansi --disabled --query "$INITIAL_QUERY" \
       --height=50% --layout=reverse
 ```
 

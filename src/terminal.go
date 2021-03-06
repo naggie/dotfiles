@@ -157,6 +157,7 @@ type Terminal struct {
 	slab         *util.Slab
 	theme        *tui.ColorTheme
 	tui          tui.Renderer
+	executing    *util.AtomicBool
 }
 
 type selectedItem struct {
@@ -221,6 +222,7 @@ const (
 	actClearScreen
 	actClearQuery
 	actClearSelection
+	actClose
 	actDeleteChar
 	actDeleteCharEOF
 	actEndOfLine
@@ -275,6 +277,8 @@ const (
 	actReload
 	actDisableSearch
 	actEnableSearch
+	actSelect
+	actDeselect
 )
 
 type placeholderFlags struct {
@@ -522,7 +526,8 @@ func NewTerminal(opts *Options, eventBox *util.EventBox) *Terminal {
 		startChan:   make(chan bool, 1),
 		killChan:    make(chan int),
 		tui:         renderer,
-		initFunc:    func() { renderer.Init() }}
+		initFunc:    func() { renderer.Init() },
+		executing:   util.NewAtomicBool(false)}
 	t.prompt, t.promptLen = t.parsePrompt(opts.Prompt)
 	t.pointer, t.pointerLen = t.processTabs([]rune(opts.Pointer), 0)
 	t.marker, t.markerLen = t.processTabs([]rune(opts.Marker), 0)
@@ -1710,13 +1715,17 @@ func (t *Terminal) executeCommand(template string, forcePlus bool, background bo
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		t.tui.Pause(true)
+		t.executing.Set(true)
 		cmd.Run()
+		t.executing.Set(false)
 		t.tui.Resume(true, false)
 		t.redraw()
 		t.refresh()
 	} else {
 		t.tui.Pause(false)
+		t.executing.Set(true)
 		cmd.Run()
+		t.executing.Set(false)
 		t.tui.Resume(false, false)
 	}
 	cleanTemporaryFiles()
@@ -1784,9 +1793,24 @@ func (t *Terminal) selectItem(item *Item) bool {
 	return true
 }
 
+func (t *Terminal) selectItemChanged(item *Item) bool {
+	if _, found := t.selected[item.Index()]; found {
+		return false
+	}
+	return t.selectItem(item)
+}
+
 func (t *Terminal) deselectItem(item *Item) {
 	delete(t.selected, item.Index())
 	t.version++
+}
+
+func (t *Terminal) deselectItemChanged(item *Item) bool {
+	if _, found := t.selected[item.Index()]; found {
+		t.deselectItem(item)
+		return true
+	}
+	return false
 }
 
 func (t *Terminal) toggleItem(item *Item) bool {
@@ -1819,8 +1843,12 @@ func (t *Terminal) Loop() {
 		intChan := make(chan os.Signal, 1)
 		signal.Notify(intChan, os.Interrupt, syscall.SIGTERM)
 		go func() {
-			<-intChan
-			t.reqBox.Set(reqQuit, nil)
+			for s := range intChan {
+				// Don't quit by SIGINT while executing because it should be for the executing command and not for fzf itself
+				if !(s == os.Interrupt && t.executing.Get()) {
+					t.reqBox.Set(reqQuit, nil)
+				}
+			}
 		}()
 
 		contChan := make(chan os.Signal, 1)
@@ -2222,6 +2250,8 @@ func (t *Terminal) Loop() {
 			case actTogglePreviewWrap:
 				if t.hasPreviewWindow() {
 					t.previewOpts.wrap = !t.previewOpts.wrap
+					// Reset preview version so that full redraw occurs
+					t.previewed.version = 0
 					req(reqPreviewRefresh)
 				}
 			case actToggleSort:
@@ -2330,6 +2360,22 @@ func (t *Terminal) Loop() {
 					for i := 0; i < t.merger.Length() && len(t.selected) > 0; i++ {
 						t.deselectItem(t.merger.Get(i).item)
 					}
+					req(reqList, reqInfo)
+				}
+			case actClose:
+				if t.isPreviewEnabled() {
+					togglePreview(false)
+				} else {
+					req(reqQuit)
+				}
+			case actSelect:
+				current := t.currentItem()
+				if t.multi > 0 && current != nil && t.selectItemChanged(current) {
+					req(reqList, reqInfo)
+				}
+			case actDeselect:
+				current := t.currentItem()
+				if t.multi > 0 && current != nil && t.deselectItemChanged(current) {
 					req(reqList, reqInfo)
 				}
 			case actToggle:

@@ -839,6 +839,8 @@ func parseKeymap(keymap map[tui.Event][]action, str string) {
 				appendAction(actDeleteChar)
 			case "delete-char/eof":
 				appendAction(actDeleteCharEOF)
+			case "deselect":
+				appendAction(actDeselect)
 			case "end-of-line":
 				appendAction(actEndOfLine)
 			case "cancel":
@@ -879,10 +881,14 @@ func parseKeymap(keymap map[tui.Event][]action, str string) {
 				appendAction(actToggleAll)
 			case "toggle-search":
 				appendAction(actToggleSearch)
+			case "select":
+				appendAction(actSelect)
 			case "select-all":
 				appendAction(actSelectAll)
 			case "deselect-all":
 				appendAction(actDeselectAll)
+			case "close":
+				appendAction(actClose)
 			case "toggle":
 				appendAction(actToggle)
 			case "down":
