@@ -1864,6 +1864,64 @@ class TestGoFZF < TestBase
     tmux.send_keys "#{FZF} --preview 'seq 1000 | nl' --preview-window down:noborder:follow", :Enter
     tmux.until { |lines| assert_equal '1000  1000', lines[-1].strip }
   end
+
+  def test_toggle_preview_wrap
+    tmux.send_keys "#{FZF} --preview 'for i in $(seq $FZF_PREVIEW_COLUMNS); do echo -n .; done; echo wrapped; echo 2nd line' --bind ctrl-w:toggle-preview-wrap", :Enter
+    2.times do
+      tmux.until { |lines| assert_includes lines[2], '2nd line' }
+      tmux.send_keys 'C-w'
+      tmux.until do |lines|
+        assert_includes lines[2], 'wrapped'
+        assert_includes lines[3], '2nd line'
+      end
+      tmux.send_keys 'C-w'
+    end
+  end
+
+  def test_close
+    tmux.send_keys "seq 100 | #{FZF} --preview 'echo foo' --bind ctrl-c:close", :Enter
+    tmux.until { |lines| assert_equal 100, lines.match_count }
+    tmux.until { |lines| assert_includes lines[1], 'foo' }
+    tmux.send_keys 'C-c'
+    tmux.until { |lines| refute_includes lines[1], 'foo' }
+    tmux.send_keys '10'
+    tmux.until { |lines| assert_equal 2, lines.match_count }
+    tmux.send_keys 'C-c'
+    tmux.send_keys 'C-l', 'closed'
+    tmux.until { |lines| assert_includes lines[0], 'closed' }
+  end
+
+  def test_select_deselect
+    tmux.send_keys "seq 3 | #{FZF} --multi --bind up:deselect+up,down:select+down", :Enter
+    tmux.until { |lines| assert_equal 3, lines.match_count }
+    tmux.send_keys :Tab
+    tmux.until { |lines| assert_equal 1, lines.select_count }
+    tmux.send_keys :Up
+    tmux.until { |lines| assert_equal 0, lines.select_count }
+    tmux.send_keys :Down, :Down
+    tmux.until { |lines| assert_equal 2, lines.select_count }
+    tmux.send_keys :Tab
+    tmux.until { |lines| assert_equal 1, lines.select_count }
+    tmux.send_keys :Down, :Down
+    tmux.until { |lines| assert_equal 2, lines.select_count }
+    tmux.send_keys :Up
+    tmux.until { |lines| assert_equal 1, lines.select_count }
+    tmux.send_keys :Down
+    tmux.until { |lines| assert_equal 1, lines.select_count }
+    tmux.send_keys :Down
+    tmux.until { |lines| assert_equal 2, lines.select_count }
+  end
+
+  def test_interrupt_execute
+    tmux.send_keys "seq 100 | #{FZF} --bind 'ctrl-l:execute:echo executing {}; sleep 100'", :Enter
+    tmux.until { |lines| assert_equal 100, lines.item_count }
+    tmux.send_keys 'C-l'
+    tmux.until { |lines| assert lines.any_include?('executing 1') }
+    tmux.send_keys 'C-c'
+    tmux.until { |lines| assert_equal 100, lines.item_count }
+    tmux.send_keys 99
+    tmux.until { |lines| assert_equal 1, lines.match_count }
+  end
 end
 
 module TestShell

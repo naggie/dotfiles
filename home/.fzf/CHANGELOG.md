@@ -1,6 +1,18 @@
 CHANGELOG
 =========
 
+0.25.2
+------
+- Added `select` and `deselect` action for unconditionally selecting or
+  deselecting a single item in `--multi` mode. Complements `toggle` action.
+- Built with Go 1.16
+
+0.25.1
+------
+- Added `close` action
+    - Close preview window if open, abort fzf otherwise
+- Bug fixes and improvements
+
 0.25.0
 ------
 - Text attributes set in `--color` are not reset when fzf sees another
