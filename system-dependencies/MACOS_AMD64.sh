@@ -5,6 +5,9 @@ else
     brew update
 fi
 
+# necessary for some things to work, for instance a lot of go commands
+xcode-select --install
+
 # recommended, uses /Applications now.
 brew tap homebrew/cask
 brew install --cask spectacle firefox alacritty mtmr openscad osxfuse
