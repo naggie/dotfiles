@@ -79,8 +79,8 @@ function adhoc_browserpass_linux_amd64 {
 function adhoc_openscad_linux_amd64 {
     EXE="$(
         obtain \
-            https://files.openscad.org/snapshots/OpenSCAD-2019.11.20.ai3988-eedfcc4-x86_64.AppImage \
-            2f5cfe1224708bdb8c5e434876564b4767a48731c201a86655ec35b76dbe5426
+            https://files.openscad.org/snapshots/OpenSCAD-2021.03.16.ai7613-2021.03.16.ai7613-x86_64.AppImage \
+            509c021bf41af8ddacebe77aaaa78840412bd16a7fd0f3af6013dff8eaea1bac
     )"
     sudo cp "${EXE}" /usr/local/bin/openscad.new
     sudo chmod +x /usr/local/bin/openscad.new
