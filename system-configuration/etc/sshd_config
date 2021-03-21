@@ -34,9 +34,7 @@ ChallengeResponseAuthentication no
 PasswordAuthentication no
 UseDNS no
 
-# Do not enable sftp
-# If you DO enable it, use this line to log which files sftp users read/write
-# Subsystem sftp  /usr/lib/ssh/sftp-server -f AUTHPRIV -l INFO
+Subsystem sftp  /usr/lib/openssh/sftp-server
 
 # This makes ansible faster
 PrintMotd no
