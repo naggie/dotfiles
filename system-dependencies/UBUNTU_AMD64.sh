@@ -66,6 +66,10 @@ sudo -E apt-get --quiet -y update
 sudo -E apt-get --quiet -y install docker-ce docker-ce-cli containerd.io docker-compose || true # currently fails on 20.10,  not available.
 
 # spotify
+curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo -E apt-get --quiet -y update
+sudo -E apt-get --quiet -y install spotify-client
 
 # adhoc installs
 adhoc_dstask_linux_amd64
