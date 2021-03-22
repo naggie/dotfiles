@@ -165,6 +165,9 @@ if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
     # use "piper" to set the lights which are stored in an eeprom.
     dconf write /org/gnome/desktop/peripherals/mouse/accel-profile '"flat"'
     dconf write /org/gnome/desktop/peripherals/mouse/speed 0.0
+
+    # Pop!_OS
+    dconf write /org/gnome/shell/extensions/pop-shell/tile-by-default true
 fi
 
 if [[ $XDG_CURRENT_DESKTOP == Pantheon ]]; then
