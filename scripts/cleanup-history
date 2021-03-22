@@ -49,6 +49,7 @@ ignore = [
     r"^git.+--amend",
     r"reboot",
     r"halt",
+    r"shutoown",
     # mouse esc codes
     r"^0",
     # commands explicitly hidden by user
