@@ -145,6 +145,7 @@ if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
     gsettings set org.gnome.desktop.screensaver lock-delay 10
     gsettings set org.gnome.desktop.screensaver lock-enabled true
 
+    # NOTE: dconf expects JSON encoded values hence the dual quotes.
     # load gnome terminal conf
     # made with dconf dump /org/gnome/terminal/legacy/profiles:/
     # b1dcc9dd-5262-4d8d-a863-c897e6d979b9 is the default profile choice identifier for everyone
@@ -159,6 +160,11 @@ if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
     # disable lock screen notifications which, if present, keep my 5 screens on which use 200W all night...
     dconf write /org/gnome/desktop/notifications/show-in-lock-screen false
 
+    # disable mouse acceleration. It's much more accurate to have a high-DPI
+    # mouse such as a G403 set at 1600DPI on default (non-scaled) speed. Note,
+    # use "piper" to set the lights which are stored in an eeprom.
+    dconf write /org/gnome/desktop/peripherals/mouse/accel-profile '"flat"'
+    dconf write /org/gnome/desktop/peripherals/mouse/speed 0.0
 fi
 
 if [[ $XDG_CURRENT_DESKTOP == Pantheon ]]; then

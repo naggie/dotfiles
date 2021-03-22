@@ -33,6 +33,7 @@ sudo -E apt-get --quiet -y install --install-recommends \
     pcscd \
     picocom \
     pwgen \
+    piper \
     python \
     python3 \
     python3-pip \
@@ -63,6 +64,8 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo -E add-apt-repository --yes "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo -E apt-get --quiet -y update
 sudo -E apt-get --quiet -y install docker-ce docker-ce-cli containerd.io docker-compose || true # currently fails on 20.10,  not available.
+
+# spotify
 
 # adhoc installs
 adhoc_dstask_linux_amd64
