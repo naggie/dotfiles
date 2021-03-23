@@ -33,7 +33,6 @@ sudo -E apt-get --quiet -y install --install-recommends \
     pcscd \
     picocom \
     pwgen \
-    piper \
     python \
     python3 \
     python3-pip \
@@ -83,7 +82,7 @@ adhoc_ffsend_linux_amd64
 # GUI if applicable
 if [ -d /usr/share/xsessions ] && [ ! -z "$(ls /usr/share/xsessions/)" ]; then
     sudo -E apt-get --quiet -y update
-    sudo apt-get --quiet -y install firefox powertop kicad vlc gimp
+    sudo apt-get --quiet -y install firefox powertop kicad vlc gimp piper
 
     # only available in later versions of ubuntu. Install if available.
     sudo apt-get --quiet -y install yubikey-manager || true
