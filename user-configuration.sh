@@ -145,6 +145,13 @@ if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
     gsettings set org.gnome.desktop.screensaver lock-delay 10
     gsettings set org.gnome.desktop.screensaver lock-enabled true
 
+    # I never see my desktop background. Use a solid colour, it's just noise
+    # between windows otherwise.
+    gsettings set org.gnome.desktop.background primary-color '#2f383d'
+    gsettings set org.gnome.desktop.background secondary-color '#2f383d'
+    gsettings set org.gnome.desktop.background color-shading-type 'solid'
+    gsettings set org.gnome.desktop.background picture-uri ""
+
     # NOTE: dconf expects JSON encoded values hence the dual quotes.
     # load gnome terminal conf
     # made with dconf dump /org/gnome/terminal/legacy/profiles:/
