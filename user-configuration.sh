@@ -176,7 +176,7 @@ if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
     # Pop!_OS
     dconf write /org/gnome/shell/extensions/pop-shell/tile-by-default true
     dconf write /org/gnome/shell/extensions/pop-shell/active-hint true
-    dconf write /org/gnome/shell/extensions/pop-shell/hint-color-rgba '"rgb(255,255,255)"'
+    dconf write /org/gnome/shell/extensions/pop-shell/hint-color-rgba '"rgba(255,255,255,0.75)"'
     dconf write /org/gnome/shell/extensions/pop-shell/gap-inner 'uint32 5'
     dconf write /org/gnome/shell/extensions/pop-shell/gap-outer 'uint32 5'
 fi
