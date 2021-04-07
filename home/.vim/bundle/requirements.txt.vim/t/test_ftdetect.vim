@@ -4,12 +4,16 @@ runtime! plugin/requirements.vim
 describe 'enable: Requirements_matched_filename()'
     it 'to enable file type detection: basic filename'
         Expect Requirements_matched_filename('requirements.txt') to_be_true
+        Expect Requirements_matched_filename('requirements-dev.txt') to_be_true
+        Expect Requirements_matched_filename('dev-requirements.txt') to_be_true
         Expect Requirements_matched_filename('requires.txt') to_be_true
         Expect Requirements_matched_filename('constraints.txt') to_be_true
     end
 
     it 'to enable file type detection: pip-tools filename'
         Expect Requirements_matched_filename('requirements.in') to_be_true
+        Expect Requirements_matched_filename('requirements-dev.in') to_be_true
+        Expect Requirements_matched_filename('dev-requirements.in') to_be_true
         Expect Requirements_matched_filename('requires.in') to_be_true
     end
 
@@ -30,6 +34,8 @@ describe 'disable: Requirements_matched_filename()'
 
     it 'to disable: file type detection: directory structure'
         Expect Requirements_matched_filename('require/dev.txt') to_be_false
+        Expect Requirements_matched_filename('requirements-dev/dev.txt') to_be_false
+        Expect Requirements_matched_filename('dev-requirements/dev.txt') to_be_false
     end
 end
 
