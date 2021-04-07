@@ -49,8 +49,8 @@ function adhoc_golang_linux_amd64 {
     sudo rm -rf /usr/local/go
     TARGZ="$(
         obtain \
-            https://golang.org/dl/go1.15.8.linux-amd64.tar.gz \
-            d3379c32a90fdf9382166f8f48034c459a8cc433730bc9476d39d9082c94583b
+            https://golang.org/dl/go1.16.3.linux-amd64.tar.gz \
+            951a3c7c6ce4e56ad883f97d9db74d3d6d80d5fec77455c6ada6c1f7ac4776d2
     )"
     sudo tar -C /usr/local -xzf "$TARGZ"
 }
