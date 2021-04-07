@@ -20,6 +20,7 @@ Table of Contents
     * [Manually](#manually)
 * [File detection](#file-detection)
     * [Customize](#customize)
+    * [Support for make](#support-for-make)
 * [License](#license)
 
 Installation
@@ -87,6 +88,15 @@ $ pip freeze > my-freeze.txt
 # You can edit it as a 'Requirements File Format'
 $ vim my-freeze.txt
 ```
+
+### Support for make
+
+When the `pip-compile` command is detected, make will behave more intelligently while editing the `requirements.in` file.
+
+You can get support with the following commands:
+
+* `:make`
+* `:make -U`
 
 License
 -------

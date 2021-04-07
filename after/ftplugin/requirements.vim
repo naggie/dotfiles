@@ -23,39 +23,14 @@
 " LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 " OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 " SOFTWARE.
-if !exists('g:requirements#detect_filename_pattern')
-    let g:requirements#detect_filename_pattern = ''
+if executable('pip-compile')
+    let s:filename = expand("%:p")
+    if fnamemodify(s:filename, ":t") ==# 'requirements.in'
+        " this is the default filename for pip-compile
+        setlocal makeprg=pip-compile
+    elseif fnamemodify(s:filename, ":e") ==# 'in'
+        \ && Requirements_matched_filename(s:filename)
+        setlocal makeprg=pip-compile\ %
+    endif
 endif
-
-function! s:isRequirementsFile()
-    let l:filename = expand("%:p")
-
-    return Requirements_matched_filename(l:filename)
-endfunction
-
-function! Requirements_matched_filename(filename)
-    if fnamemodify(a:filename, ":t") =~# '\vrequire(ment)?s.*\.(txt|in)$'
-        return 1
-    endif
-
-    if fnamemodify(fnamemodify(a:filename, ":h"), ":t") =~# '\v^require(ment)?s$'
-        \ && fnamemodify(a:filename, ":e") =~# '\v^(txt|in)$'
-        return 1
-    endif
-
-    if fnamemodify(a:filename, ":t") =~# '\v^constraints\.(txt|in)$'
-        return 1
-    endif
-
-    if len(g:requirements#detect_filename_pattern)
-        \ && a:filename =~# g:requirements#detect_filename_pattern
-        return 1
-    endif
-
-    return 0
-endfunction
-
-au BufNewFile,BufRead *.{txt,in} if s:isRequirementsFile() | set ft=requirements | endif
-au BufNewFile,BufRead *.pip set ft=requirements
-
 " vim: et sw=4 ts=4 sts=4:
