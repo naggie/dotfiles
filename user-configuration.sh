@@ -167,6 +167,9 @@ if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
     # disable lock screen notifications which, if present, keep my 5 screens on which use 200W all night...
     dconf write /org/gnome/desktop/notifications/show-in-lock-screen false
 
+    # use editable location bar (dumbed down interfaces are annoying)
+    dconf write /org/gnome/nautilus/preferences/always-use-location-entry true
+
     # disable mouse acceleration. It's much more accurate to have a high-DPI
     # mouse such as a G403 set at 1600DPI on default (non-scaled) speed. Note,
     # use "piper" to set the lights which are stored in an eeprom.
