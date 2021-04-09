@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+
+if [ -x /usr/bin/open ]; then
+    # OS X
+    /usr/bin/open "$@"
+else if [ -x /usr/bin/xdg-open]; then
+    # Ubuntu etc
+    /usr/bin/xdg-open "$@"
+fi
