@@ -82,11 +82,12 @@ adhoc_ffsend_linux_amd64
 # GUI if applicable
 if [ -d /usr/share/xsessions ] && [ ! -z "$(ls /usr/share/xsessions/)" ]; then
     sudo -E apt-get --quiet -y update
-    sudo apt-get --quiet -y install firefox powertop kicad vlc gimp piper
+    sudo apt-get --quiet -y install firefox powertop vlc gimp
 
     # only available in later versions of ubuntu. Install if available.
     sudo apt-get --quiet -y install yubikey-manager || true
     sudo apt-get --quiet -y install kicad || true
+    sudo apt-get --quiet -y install piper || true
 
     adhoc_alacritty_linux_amd64
     adhoc_browserpass_linux_amd64
