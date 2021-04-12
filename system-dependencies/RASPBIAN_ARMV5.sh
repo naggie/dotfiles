@@ -10,6 +10,7 @@ sudo apt-get -y upgrade
 sudo -E apt-get -y install \
     bash-completion \
     curl \
+    direnv \
     git \
     git-crypt \
     gnupg2 \

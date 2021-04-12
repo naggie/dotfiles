@@ -24,6 +24,7 @@ packages=(
     brightness
     coreutils
     dstask
+    direnv
     entr
     ffmpeg
     fzf

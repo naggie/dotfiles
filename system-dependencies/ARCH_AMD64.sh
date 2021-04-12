@@ -1,6 +1,7 @@
 sudo pacman --noconfirm -Syu \
     bash-completion \
     curl \
+    direnv \
     ffmpeg \
     fzf \
     git \

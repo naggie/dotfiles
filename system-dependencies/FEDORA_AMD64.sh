@@ -4,6 +4,7 @@ sudo dnf install -y \
     bash-completion \
     curl \
     dnf \
+    direnv \
     fzf \
     git \
     git-crypt \

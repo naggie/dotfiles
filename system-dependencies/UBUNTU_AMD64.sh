@@ -13,6 +13,7 @@ sudo -E apt-get --quiet -y install --install-recommends \
     bash-completion \
     curl \
     dconf-cli \
+    direnv \
     entr \
     ffmpeg \
     git \

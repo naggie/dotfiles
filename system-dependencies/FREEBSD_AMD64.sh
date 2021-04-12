@@ -1,6 +1,7 @@
 sudo pkg install -y \
     bash-completion \
     curl \
+    direnv \
     fzf \
     git \
     git-crypt \

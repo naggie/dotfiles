@@ -30,6 +30,7 @@ use them regularly.
 | Terminal               | [Alacritty][18]                     | GPU accelerated and minimal. I also use `uxterm.`                                                                                                      |
 | Terminal Font          | [Hack][38]                          | Switched from Adobe Source Code Pro as 0 and 8 were too similar                                                                                        |
 | Window management      | [i3wm][19]                          | Much faster than Unity, Gnome 3 etc as there are no animations. See openbox if you don't like tiling window managers.                                  |
+| Environment management | [direnv][53]                        | To set environment variables based on current directory tree                                                                                           |
 
 [1]: https://neovim.io/
 [2]: http://passwordstore.org/
@@ -50,6 +51,7 @@ use them regularly.
 [34]: https://github.com/naggie/dotfiles/blob/master/etc/yubikey.md
 [38]: https://sourcefoundry.org/hack/
 [40]: https://github.com/browserpass/browserpass
+[53]: https://direnv.net/
 
 # Specific tools
 
@@ -63,7 +65,7 @@ use them regularly.
 | System backup                  | [restic][26]                               |                                                                                                                       |
 | Cloud backup                   | [rclone][38]                               |                                                                                                                       |
 | CAD                            | [OpenSCAD][45]                             | Limited but powerful if you plan ahead                                                                                |
-| CAD                            | [CadQuery][52]                             | B-REP kernel instead of just CSG. More powerful, currently learning.            |
+| CAD                            | [CadQuery][52]                             | B-REP kernel instead of just CSG. More powerful, currently learning.                                                  |
 | Diagramming                    | [draw.io][27]                              | Diagram creation software. See also dia, graphviz, tikz.                                                              |
 | SVG optimisation               | [svgo][28]                                 | Useful for inlining SVGs in a web page                                                                                |
 | Audio/video conversion         | [sox][29] + [ffmpeg][30] + [gstreamer][31] |                                                                                                                       |
@@ -76,6 +78,7 @@ use them regularly.
 | CLI Benchmarking               | [hyperfine][44]                            |                                                                                                                       |
 | Secure file sending            | [ffsend][46]                               | Terminal client for [Firefox send][47]                                                                                |
 | File watching                  | [entr][51]                                 | Simpler than inotify-tools                                                                                            |
+| ISO boot drive                 | [ventoy][54]                               | Allow booting of thousands of common ISOs from a flash drive. BIOS/uEFI, linux and windows                            |
 
 [19]: https://i3wm.org/
 [20]: https://www.mozilla.org/en-GB/firefox/
@@ -105,6 +108,7 @@ use them regularly.
 [48]: https://github.com/naggie/dsnet
 [51]: https://github.com/eradman/entr/
 [52]: https://github.com/CadQuery/cadquery
+[54]: https://www.ventoy.net/en/
 
 # Notable features
 * Workflows and application configuration profiled for speed. See section on
