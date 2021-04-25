@@ -116,4 +116,6 @@ source ~/.bash-preexec.sh
 
 _tmux_window_name_read
 
+eval "$(direnv hook bash)"
+
 trap "~/.local/bin/cleanup-history ~/.history" EXIT

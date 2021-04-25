@@ -111,4 +111,6 @@ fc -R # reload history
 
 _tmux_window_name_read
 
+eval "$(direnv hook zsh)"
+
 trap "~/.local/bin/cleanup-history ~/.history" EXIT
