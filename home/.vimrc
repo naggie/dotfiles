@@ -48,6 +48,7 @@ au BufNewFile,BufRead Jenkinsfile          set filetype=groovy
 au BufNewFile,BufRead /etc/nginx/sites-*/* set filetype=nginx
 au BufNewFile,BufRead /etc/nginx/conf.d/*  set filetype=nginx
 au BufNewFile,BufRead *nginx*.conf         set filetype=nginx
+au BufNewFile,BufRead .envrc               set filetype=bash
 " Arduino
 au BufNewFile,BufRead platform{,.local}.txt    set filetype=dosini
 au BufNewFile,BufRead boards{,.local}.txt      set filetype=dosini
