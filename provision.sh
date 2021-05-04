@@ -33,8 +33,13 @@ say "System configuration..."
 # shellcheck disable=SC1090
 source system-configuration/"${PLATFORM}".sh
 
+# Invasive, sure, but if you're provisioning in the first place you're
+# presumably OK with affecting the whole system...
+say "User configuration for root..."
+sudo ./user-configuration.sh
+
 # user-configuration (run by current user)
-say "User configuration..."
+say "User configuration for $USER..."
 ./user-configuration.sh
 
 if [[ $(whoami) == naggie ]]; then
