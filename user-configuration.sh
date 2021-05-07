@@ -182,6 +182,27 @@ if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
     dconf write /org/gnome/shell/extensions/pop-shell/hint-color-rgba '"rgba(255,255,255,0.75)"'
     dconf write /org/gnome/shell/extensions/pop-shell/gap-inner 'uint32 5'
     dconf write /org/gnome/shell/extensions/pop-shell/gap-outer 'uint32 5'
+
+    # Ubuntu, nicer font and font rendering (no horrible subpixel rendering)
+    # discovered with gnome-tweak-tool and dconf dump diff
+    dconf write /org/gnome/settings-daemon/plugins/xsettings/antialiasing '"grayscale"'
+    dconf write /org/gnome/settings-daemon/plugins/xsettings/hinting '"slight"'
+    dconf write /org/gnome/desktop/interface/font-name '"Hack 9"'
+    dconf write /org/gnome/desktop/interface/monospace-font-name '"Hack 8"'
+    dconf write /org/gnome/desktop/interface/clock-show-weekday true
+    dconf write /org/gnome/desktop/interface/clock-show-seconds true
+    dconf write /org/gnome/desktop/wm/preferences/focus-mode '"sloppy"'
+    dconf write /org/gnome/mutter/workspaces-only-on-primary true
+
+    # turning off animations reduces unnecessary latency and makes the system
+    # feel more responsive as a result. Note that some animation are useful if
+    # used sparingly and to convey context or what happened.
+    dconf write /org/gnome/desktop/interface/enable-animations false
+
+    if hostnamectl | grep -q "Ubuntu"; then
+        dconf write /org/gnome/desktop/interface/gtk-theme '"Yaru-dark"'
+    fi
+
 fi
 
 if [[ $XDG_CURRENT_DESKTOP == Pantheon ]]; then
