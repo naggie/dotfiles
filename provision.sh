@@ -35,8 +35,9 @@ source system-configuration/"${PLATFORM}".sh
 
 # Invasive, sure, but if you're provisioning in the first place you're
 # presumably OK with affecting the whole system...
+# See also: comment in user-configuration.sh concerning sudo $HOME
 say "User configuration for root..."
-sudo ./user-configuration.sh
+sudo --set-home ./user-configuration.sh
 
 # user-configuration (run by current user)
 say "User configuration for $USER..."

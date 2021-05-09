@@ -2,6 +2,12 @@
 # This script configures the user account by copying dotfiles and running
 # commands that result in persistent configuration changes.
 
+# problem befor Ubuntu 19.10, as Ubuntu used a patched version of sudo that set
+# $HOME to the calling user's home directory. AS you can imagine, this caused a
+# lot of issues.
+# https://askubuntu.com/a/1187000
+# This script is run by ./bootstrap.sh as root using sudo, and now has a
+# --set-home flag to fix this on older versions of ubuntu.
 if [ $SUDO_USER ] && [ $HOME != /etc/skel ] && [ $HOME != /root ]; then
     >&2 echo "This script must not be run via sudo (to avoid home directory file permission issues)"
     exit 1
