@@ -77,7 +77,7 @@ adhoc_ripgrep_linux_amd64
 adhoc_fzf_linux_amd64
 adhoc_neovim_linux_amd64
 adhoc_golang_linux_amd64
-adhoc_hugo_linux_amd64
+#adhoc_hugo_linux_amd64
 adhoc_ffsend_linux_amd64
 
 # GUI if applicable
