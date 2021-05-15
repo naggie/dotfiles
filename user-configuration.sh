@@ -197,7 +197,6 @@ if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
     dconf write /org/gnome/desktop/interface/monospace-font-name '"Hack 8"'
     dconf write /org/gnome/desktop/interface/clock-show-weekday true
     dconf write /org/gnome/desktop/interface/clock-show-seconds true
-    dconf write /org/gnome/desktop/wm/preferences/focus-mode '"sloppy"'
     dconf write /org/gnome/mutter/workspaces-only-on-primary true
 
     # turning off animations reduces unnecessary latency and makes the system
