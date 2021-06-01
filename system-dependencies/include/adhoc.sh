@@ -150,3 +150,12 @@ function adhoc_ffsend_linux_amd64 {
     sudo mv -f /usr/local/bin/{ffsend.new,ffsend}
 }
 
+function adhoc_typos_linux_amd64 {
+    TARGZ="$(
+        obtain \
+            https://github.com/crate-ci/typos/releases/download/v1.0.4/typos-v1.0.4-x86_64-unknown-linux-gnu.tar.gz \
+            d50f8a0793d200e6e3222f2ec9eb27e04c89628c026e9e3495a191a48de27aee
+    )"
+    [ -f /usr/local/bin/typos ] && sudo rm -f /usr/local/bin/typos
+    sudo tar -C /usr/local/bin/ -xzf "$TARGZ"
+}
