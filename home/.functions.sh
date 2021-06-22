@@ -64,7 +64,9 @@ function _disable_flow_control {
 function _update_agents {
     # take over SSH keychain (with gpg-agent soon) but only on local machine, not remote ssh machine
     # keychain used in a non-invasive way where it's up to you to add your keys to the agent.
-    if [ ! "$SSH_CONNECTION" ] && which gpg-connect-agent &>/dev/null; then
+    # Do not run when current user is root because SSH_CONNECTION is never set if using sudo -i without -e
+    # In addition, if you're doing stuff as root you probably don't want to use GPG
+    if [ "$EUID" -ne 0 ] && [ ! "$SSH_CONNECTION" ] && which gpg-connect-agent &>/dev/null; then
 		export SSH_AUTH_SOCK=$(gpgconf --list-dirs | grep agent-ssh-socket | cut -f 2 -d :)
         # start GPG agent, and update TTY. For the former only, omit updatestartuptty
         # ssh-agent protocol can't tell gpg-agent/pinentry what tty to use, so tell it
