@@ -59,7 +59,7 @@ use them regularly.
 | ------------------------------ | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
 | VPN                            | [wireguard][21] managed with [dsnet][48]   | Wireguard is simple, fast and reliable. It will become the standard VPN.                                              |
 | Web browser                    | [firefox][20]                              | Fast since Quantum. Animations disabled for speed.                                                                    |
-| Disk space reclaim             | [ncdu][22] + [tmpreaper][23]               | Tools for clearing up disk space. I run the latter against /tmp/ with cron.                                           |
+| Disk space reclaim             | [ncdu][22] + [tmpreaper][23]               | Tools for clearing up disk space. I run the latter against `~/Downloads/` with a systemd user timer.                  |
 | Server configuration           | [ansible][24]                              | Idempotent, agentless configuration management. Used with git.                                                        |
 | HTTP Client                    | [httpie][25]                               | curl alternative with better UX. Sometimes used with jq.                                                              |
 | System backup                  | [restic][26]                               |                                                                                                                       |
